@@ -10,7 +10,7 @@ pipeline {
 	stages {
 		stage('Cloning Github') {
 			steps {
-				git branch: 'master', credentialsId: 'dcdb5b87-007c-448d-809c-6bcfa14ea2af', url: 'http://3.34.126.192:8080/scm/git/paas-ta-container-platform-webadmin-html'
+				git branch: 'dev', url: 'https://github.com/PaaS-TA/paas-ta-container-platform-webadmin'
 			}
 		}
 		stage('Environment') {
