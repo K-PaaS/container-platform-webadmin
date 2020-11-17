@@ -11,6 +11,7 @@ build/**
 bin/**
 out/**
 gradle/**
+WebContent/.svn
 
 # Compiled class file
 *.class
