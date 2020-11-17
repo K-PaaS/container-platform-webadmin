@@ -1,0 +1,32 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE'
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+repositories {
+    mavenLocal()
+    maven {
+        url = 'http://repo.maven.apache.org/maven2'
+    }
+}
+
+project.webAppDirName = 'WebContent'  //Default값은 src/main/webapp임.
+
+group = 'paas-ta-container-platform-webadmin'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+war {
+	archivesBaseName = 'paas-ta-container-platform-webadmin'
+	from 'webapp'
+}
