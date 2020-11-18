@@ -145,49 +145,6 @@ const func = {
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
-<<<<<<< .mine
-||||||| .r604
-	// 데이터 저장 - saveData(method, url, data)
-	// (전송타입, url, 데이터)
-	/////////////////////////////////////////////////////////////////////////////////////
-	saveData(method, url, data, bull){
-		var request = new XMLHttpRequest();
-		request.open(method, url);
-		request.setRequestHeader('Content-type', 'application/json');
-		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
-
-		request.onreadystatechange = () => {
-			if (request.readyState === XMLHttpRequest.DONE){
-				if(request.status === 200 && request.responseText != ''){
-					console.log(JSON.parse(request));
-					if(method == 'POST'){
-						fnComm.alertPopup('COMPLETE', '저장되었습니다.', true, '확인', createNamespaces.saveComplete);
-					} else if(method == 'PATCH'){
-						fnComm.alertPopup('PATCH', 'COMPLETE', fnComm.winReload);
-					} else if(method == 'PUT'){
-						if(bull != 'false'){
-							fnComm.alertPopup('PUT', 'COMPLETE', fnComm.winReload);
-						};
-					} else if(method == 'DELETE'){
-						fnComm.alertPopup('DELETE', 'COMPLETE', fnComm.winReload);
-					};
-				} else {
-					/*
-					if(method == 'DELETE'){
-						fnComm.alertPopup('DELETE', 'DELETE FAILED', fnComm.winReload);
-					} else {
-						fnComm.alertPopup('SAVE', 'SAVE FAILED', fnComm.winReload);
-					};
-					*/
-				};
-			};
-		};
-
-		request.send(data);
-	},
-
-	/////////////////////////////////////////////////////////////////////////////////////
-=======
 	// 데이터 저장 - saveData(method, url, data, bull, callFunc)
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -227,7 +184,6 @@ const func = {
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
->>>>>>> .r619
 	// 공통 경고 팝업 - alertPopup(title, text, bull, name, fn)
 	// (제목, 문구, 버튼유무, 버튼이름, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////

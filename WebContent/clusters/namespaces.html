@@ -178,7 +178,7 @@
 					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
 
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};
@@ -214,9 +214,9 @@
 					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'namespacesDetail.html';
 						}, true);
 					};
 				},
