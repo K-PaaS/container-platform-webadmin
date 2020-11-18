@@ -202,9 +202,8 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 
 /* base */
 .base {background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%); padding:60px 70px 200px 70px;}
-.base > div:first-child {background-color:#ffffff; padding:50px 40px 30px 40px; box-shadow: -3px 2px 5px -5px rgba(204, 204, 204, 0.5);}
+.base > div:first-child {background-color:#ffffff; padding:50px 40px 30px 40px; position:relative; box-shadow: -3px 2px 5px -5px rgba(204, 204, 204, 0.5);}
 
-<<<<<<< .mine
 /* tab-menu */
 .notice ul {overflow:hidden; font-family: 'Apple SD Gothic Neo B', sans-serif; margin-top:9px; width:94%;}
 .notice ul li {float:left; padding-left:15px; margin-left:15px; position:relative;}
@@ -213,23 +212,9 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .notice ul li:first-child:before {content:""; display:none;}
 .notice ul li > a {color:#afb5bb; font-size:18px;}
 .notice ul li.on > a {color:#47494d; pointer-events: none;}
-||||||| .r604
-/* tab-menu */
-.notice ul {overflow:hidden; font-family: 'Apple SD Gothic Neo B', sans-serif; margin-top:9px; width:94%;}
-.notice ul li {float:left; padding-left:15px; margin-left:15px; position:relative;}
-.notice ul li:first-child {padding-left:0; margin-left:0;}
-.notice ul li:before {content:""; width:2px; height:12px; background-color:#d9d9d9; position:absolute; top:4px; left:0px;}
-.notice ul li:first-child:before {content:""; display:none;}
-.notice ul li > a {color:#afb5bb; font-size:26px; line-height:30px;}
-.notice ul li.on > a {color:#47494d; pointer-events: none;}
-=======
-/* title */
-.notice > h3 {font-family: 'Apple SD Gothic Neo B', sans-serif; padding-top:9px; color:#47494d; font-size:26px; line-height:30px;}
->>>>>>> .r619
 .notice > div {margin-top:19px; background-color:#fff; padding-bottom:20px;}
 
 /* table */
-<<<<<<< .mine
 .table_style01 table > thead tr th {text-align:center; background-color:#f7f7f7; padding:12px 11px 10px 11px; border-left:1px solid #ebebeb; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500;}
 .table_style01 table > thead tr th:first-child {border-left:0;}
 .table_style01 table > tbody tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 30px 16px 30px; color:#818894; font-size:16px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing:-0.2px;}
@@ -237,49 +222,6 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .table_style01 table > tbody tr td:last-child {border-right:0;}
 .table_style01 table > tbody tr td.active {color:#0ca583;}
 .table_style01 table > tbody tr td.terminating {color:#ffc53e;}
-||||||| .r604
-.table_style01 {margin-top:6px; margin-bottom:57px; border-top:2px solid #333333;}
-.notice h4 {text-align:left; font-size:22px; line-height:30px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500;}
-.table_style01 table {background-color:#fff; padding-bottom:20px;}
-.table_style01 table tr th {text-align:center; background-color:#f7f7f7; padding:12px 11px 10px 11px; border-bottom:1px solid #ebebeb; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500; border-left:1px solid #ebebeb;}
-.table_style01 table tr th:first-child {border-left:0;}
-.table_style01 table tr th.left {text-align:left;}
-.table_style01 table tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 11px 16px 11px; color:#818894; font-size:16px; white-space: initial; letter-spacing:-0.2px;}
-.table_style01 table tr td:last-child {border-right:0;}
-.table_style01 table tr td.active {color:#0ca583;}
-.table_style01 table tr td.terminating {color:#ffc53e;}
-.table_style01 table tr td.ellips {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:50px;}
-.table_style01 table tr td.ellips div {display:none; position:absolute; top:223px; right:41px; width:876px; height:100px; padding:10px 11px; overflow-y:auto; background-color:#f4f7fb; white-space: initial; border:1px solid #ebebeb;}
-.table_style01 table tr td.ellips:hover div {display:block;}
-.table_style01 table tr td.left {text-align:left;}
-.table_style01 table tr td a {color:#1c77ff; text-decoration:underline;}
-
-.table_style01.limitTable tr th:first-child,
-.table_style01.limitTable tr td:first-child {display:none;}
-
-=======
-.table_style01 {margin-bottom:57px; border-top:2px solid #333333;}
-.notice h4 {text-align:left; font-size:22px; line-height:30px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500; margin-bottom:6px;}
-.table_style01 table {background-color:#fff; padding-bottom:20px;}
-.table_style01 table tr th {text-align:center; background-color:#f7f7f7; padding:12px 11px 10px 11px; border-bottom:1px solid #ebebeb; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500; border-left:1px solid #ebebeb;}
-.table_style01 table tr th:first-child {border-left:0;}
-.table_style01 table tr th.left {text-align:left;}
-.table_style01 table tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 11px 16px 11px; color:#818894; font-size:16px; white-space: initial; letter-spacing:-0.2px;}
-.table_style01 table tr td:last-child {border-right:0;}
-.table_style01 table tr td.active {color:#0ca583;}
-.table_style01 table tr td.terminating {color:#ffc53e;}
-
-.table_style01 table tr td {position:relative;}
-.table_style01 table tr td.ellips span {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:50px; display:block;}
-.table_style01 table tr td.ellips div {display:none; position:absolute; bottom:-70px; left:0px; width:70%; min-width: 400px; height:70px; padding:10px 11px; overflow-y:auto; background-color:#333333; color:#ffffff; white-space: initial; border:1px solid #ebebeb; z-index:3; text-align:left; font-size:13px;}
-.table_style01 table tr td.ellips:hover div {display:block;}
-.table_style01 table tr td.left {text-align:left;}
-.table_style01 table tr td a {color:#1c77ff; text-decoration:underline;}
-
-.table_style01.limitTable tr th:first-child,
-.table_style01.limitTable tr td:first-child {display:none;}
-
->>>>>>> .r619
 /* more btn */
 .more {position:relative; display:block; width:58px; height:30px; line-height:30px; margin:0 auto; color:#47494d; font-size:17px; padding-right:15px; margin-top:20px; opacity:.3; cursor:default;}
 .more:after {content:""; width:6.5px; height:6.5px; border-left:2px solid #6e6f72; border-bottom:2px solid #6e6f72; transform: rotate(-45deg); position:absolute; top:9px; right:7px;}
@@ -348,23 +290,6 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .creat > div > div dl dd { padding:15px 24px 9px 24px; float:left; max-width:90%; text-overflow:ellipsis; overflow:hidden; white-space: nowrap; color:#8f8f90;}
 .creat > div > div dl dd a {color:#1c77ff; text-decoration: underline;}
 
-<<<<<<< .mine
-||||||| .r604
-/*------------------------ Clusters namespacesDetail -------------------------*/
-.detail .notice div:first-child {margin-top:0;}
-.detail .notice div:last-child {margin-bottom:30px;}
-.detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td.ellips {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:50px;}
-
-=======
-/*------------------------ Clusters namespacesDetail -------------------------*/
-.detail .notice > div:first-child {margin-top:0;}
-.detail .notice > div:last-child {margin-bottom:30px;}
-.detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
-
->>>>>>> .r619
 /*------------------------ Member -------------------------*/
 .member {background-color:#f4f6f9; width:100%; padding-top:130px; padding-bottom:320px;}
 .member h1 {text-align:center; margin-bottom:92px;}

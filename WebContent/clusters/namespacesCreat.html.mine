@@ -42,36 +42,36 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
-								<li><a href="../clusters/nodes.html">Nodes</a></li>
+								<li><a href="clusters/namespaces.html">Namespaces</a></li>
+								<li><a href="javascript:;">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Workloads</a>
 							<ul class="sub">
-								<li><a href="../workloads/deployments.html">Deployments</a></li>
-								<li><a href="../workloads/pods.html">Pods</a></li>
-								<li><a href="../workloads/replicaSets.html">Replica Sets</a></li>
+								<li><a href="javascript:;">Deployments</a></li>
+								<li><a href="javascript:;">Pods</a></li>
+								<li><a href="javascript:;">Replica Sets</a></li>
 							</ul>
 						</li>
 						<li>
-							<a href="../services/services.html" class="dep01">Services</a>
+							<a href="javascript:;" class="dep01">Services</a>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
-								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
+								<li><a href="javascript:;">Persistsnt Volumes</a></li>
+								<li><a href="javascript:;">Persistsnt Volume Claims</a></li>
+								<li><a href="javascript:;">Storage Classes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="../managements/users.html">Users</a></li>
-								<li><a href="../managements/roles.html">Roles</a></li>
-								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
-								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
+								<li><a href="javascript:;">Users</a></li>
+								<li><a href="javascript:;">Roles</a></li>
+								<li><a href="javascript:;">Resource Quotas</a></li>
+								<li><a href="javascript:;">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -94,7 +94,7 @@
 				</article>
 				<article class="base">
 					<div class="creat">
-						<h3>Namespaces <span>수정</span></h3>
+						<h3>Namespaces <span>생성</span></h3>
 						<div>
 							<dl>
 								<dt><label for="name">Name</label></dt>
@@ -113,11 +113,11 @@
 							</dl>
 							<div class="check-quotas">
 								<p>Resource Quotas</p>
-								<a href="javascript:;" class="resAdd">선택</a>
+								<a href="javascript:;" class="resAdd">생성</a>
 							</div>
 							<div class="table_style01">
 								<table>
-									<caption class="blind">Resource Quotas</caption>
+									<caption></caption>
 									<colgroup >
 										<col width="30%" />
 										<col width="70%" />
@@ -136,13 +136,12 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="check-quotas">
+							<div>
 								<p>Limit Quotas</p>
-								<a href="javascript:;" class="limAdd">선택</a>
+								<a href="javascript:;" class="limAdd">생성</a>
 							</div>
 							<div class="table_style01">
 								<table>
-									<caption class="blind">Limit Quotas</caption>
 									<colgroup >
 										<col width="25%" />
 										<col width="25%" />
@@ -171,9 +170,10 @@
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button>수정</button>
+						<button>삭제</button>
 						<div>
 							<a href="javascript:;">이전</a>
+							<button type="submit" id="save">저장</button>
 						</div>
 					</div>
 				</article>
@@ -182,7 +182,6 @@
 		</div>
 		<!-- // container -->
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/d3-5.4.0.min.js"></script>
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
@@ -297,6 +296,6 @@
 
 			createNamespaces.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>

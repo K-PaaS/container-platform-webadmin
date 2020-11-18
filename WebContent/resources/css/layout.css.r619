@@ -1,8 +1,6 @@
 @charset "utf-8";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap');
 
 @font-face{font-family: 'Apple SD Gothic Neo'; src:url('../../resources/font/Apple+산돌고딕+Neo/AppleSDGothicNeoM.ttf')}
 @font-face{font-family: 'Apple SD Gothic Neo B'; src:url('../../resources/font/Apple+산돌고딕+Neo/AppleSDGothicNeoB.ttf')}
@@ -151,11 +149,6 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .view div dl dt {color:rgba(255, 255, 255, 0.589); font-size:23px; line-height:25px; margin-top:8px;  font-weight:400; font-family: 'Apple SD Gothic Neo L', sans-serif;}
 .view div dl dd {color:#ffffff; font-size:68px; line-height:60px; font-weight:600; letter-spacing: 0.7px;}
 
-
-/*------------------------ table -------------------------*/
-.table_style01 {border-top:1px solid #333333;}
-
-
 /*------------------------ chart -------------------------*/
 .chart {background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%); padding:67px 68px 93px 68px;}
 .chart h4 {color:#818894; font-size:22px; line-height:30px; font-weight:400;}
@@ -204,60 +197,21 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .base {background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%); padding:60px 70px 200px 70px;}
 .base > div:first-child {background-color:#ffffff; padding:50px 40px 30px 40px; box-shadow: -3px 2px 5px -5px rgba(204, 204, 204, 0.5);}
 
-<<<<<<< .mine
-/* tab-menu */
-.notice ul {overflow:hidden; font-family: 'Apple SD Gothic Neo B', sans-serif; margin-top:9px; width:94%;}
-.notice ul li {float:left; padding-left:15px; margin-left:15px; position:relative;}
-.notice ul li:first-child {padding-left:0; margin-left:0;}
-.notice ul li:before {content:""; width:2px; height:12px; background-color:#d9d9d9; position:absolute; top:4px; left:0px;}
-.notice ul li:first-child:before {content:""; display:none;}
-.notice ul li > a {color:#afb5bb; font-size:18px;}
-.notice ul li.on > a {color:#47494d; pointer-events: none;}
-||||||| .r604
-/* tab-menu */
-.notice ul {overflow:hidden; font-family: 'Apple SD Gothic Neo B', sans-serif; margin-top:9px; width:94%;}
-.notice ul li {float:left; padding-left:15px; margin-left:15px; position:relative;}
-.notice ul li:first-child {padding-left:0; margin-left:0;}
-.notice ul li:before {content:""; width:2px; height:12px; background-color:#d9d9d9; position:absolute; top:4px; left:0px;}
-.notice ul li:first-child:before {content:""; display:none;}
-.notice ul li > a {color:#afb5bb; font-size:26px; line-height:30px;}
-.notice ul li.on > a {color:#47494d; pointer-events: none;}
-=======
 /* title */
 .notice > h3 {font-family: 'Apple SD Gothic Neo B', sans-serif; padding-top:9px; color:#47494d; font-size:26px; line-height:30px;}
->>>>>>> .r619
-.notice > div {margin-top:19px; background-color:#fff; padding-bottom:20px;}
+
+/*selectbox*/
+.selectbox {width:500px;}
+.selectbox > a {border:1px solid #ebebeb; display:block; height:50px; line-height:50px;padding:0 18px; color:#47494d; width:500px; position:relative; font-size:18px;}
+.selectbox > a:after {content:""; width:10px; height:10px; border-bottom:2px solid #666666; border-left:2px solid #666666; transform: rotate(-45deg); position:absolute; top:19px; right:22px;}
+.selectbox ul {display:none; border:1px solid #ebebeb; margin-left:1px; position:absolute; top:49px; left:-1px; width:500px; background-color: #ffffff; z-index:10;}
+.selectbox:hover ul {display:block;}
+.selectbox ul li {cursor: pointer; background-color: #ffffff; height:50px; line-height:50px;  font-size:18px; color:#47494d;}
+.selectbox ul li:hover {background-color:#fff7f2;}
+.selectbox ul li a {display:block;padding:0 18px;}
+.selectbox ul li a:focus {background-color:#ff7a0f; color:#ffffff;}
 
 /* table */
-<<<<<<< .mine
-.table_style01 table > thead tr th {text-align:center; background-color:#f7f7f7; padding:12px 11px 10px 11px; border-left:1px solid #ebebeb; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500;}
-.table_style01 table > thead tr th:first-child {border-left:0;}
-.table_style01 table > tbody tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 30px 16px 30px; color:#818894; font-size:16px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing:-0.2px;}
-.table_style01 table > tbody tr td:first-child {text-align:left;}
-.table_style01 table > tbody tr td:last-child {border-right:0;}
-.table_style01 table > tbody tr td.active {color:#0ca583;}
-.table_style01 table > tbody tr td.terminating {color:#ffc53e;}
-||||||| .r604
-.table_style01 {margin-top:6px; margin-bottom:57px; border-top:2px solid #333333;}
-.notice h4 {text-align:left; font-size:22px; line-height:30px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500;}
-.table_style01 table {background-color:#fff; padding-bottom:20px;}
-.table_style01 table tr th {text-align:center; background-color:#f7f7f7; padding:12px 11px 10px 11px; border-bottom:1px solid #ebebeb; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500; border-left:1px solid #ebebeb;}
-.table_style01 table tr th:first-child {border-left:0;}
-.table_style01 table tr th.left {text-align:left;}
-.table_style01 table tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 11px 16px 11px; color:#818894; font-size:16px; white-space: initial; letter-spacing:-0.2px;}
-.table_style01 table tr td:last-child {border-right:0;}
-.table_style01 table tr td.active {color:#0ca583;}
-.table_style01 table tr td.terminating {color:#ffc53e;}
-.table_style01 table tr td.ellips {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:50px;}
-.table_style01 table tr td.ellips div {display:none; position:absolute; top:223px; right:41px; width:876px; height:100px; padding:10px 11px; overflow-y:auto; background-color:#f4f7fb; white-space: initial; border:1px solid #ebebeb;}
-.table_style01 table tr td.ellips:hover div {display:block;}
-.table_style01 table tr td.left {text-align:left;}
-.table_style01 table tr td a {color:#1c77ff; text-decoration:underline;}
-
-.table_style01.limitTable tr th:first-child,
-.table_style01.limitTable tr td:first-child {display:none;}
-
-=======
 .table_style01 {margin-bottom:57px; border-top:2px solid #333333;}
 .notice h4 {text-align:left; font-size:22px; line-height:30px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:500; margin-bottom:6px;}
 .table_style01 table {background-color:#fff; padding-bottom:20px;}
@@ -279,7 +233,6 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .table_style01.limitTable tr th:first-child,
 .table_style01.limitTable tr td:first-child {display:none;}
 
->>>>>>> .r619
 /* more btn */
 .more {position:relative; display:block; width:58px; height:30px; line-height:30px; margin:0 auto; color:#47494d; font-size:17px; padding-right:15px; margin-top:20px; opacity:.3; cursor:default;}
 .more:after {content:""; width:6.5px; height:6.5px; border-left:2px solid #6e6f72; border-bottom:2px solid #6e6f72; transform: rotate(-45deg); position:absolute; top:9px; right:7px;}
@@ -298,7 +251,9 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .btn02 > button {color:#fff; background-color:#bdbfc4; float:left; width:120px; line-height:55px; height:52px; font-size:16px; border-radius:2px;}
 .btn02 div {float:right; overflow:hidden;}
 .btn02 div a {width :120px; float:left; background-color:#0950bf; color:#fff; line-height:55px; height:52px; font-size:16px; font-weight:300; border-radius:2px;}
-.btn02 div button {width :120px; float:left; background-color:#0950bf; color:#fff; line-height:55px; height:52px; font-size:16px; font-weight:300; margin-left:8px;border-radius:2px; font-family: 'Apple SD Gothic Neo L', sans-serif;}
+.btn02 div button {width :120px; float:left; background-color:#0950bf; color:#fff; line-height:55px; height:52px; font-size:16px; font-weight:300; border-radius:2px; font-family: 'Apple SD Gothic Neo L', sans-serif;}
+.btn02 div a:first-child {margin-right:6px;}
+.btn02 div button:first-child {margin-right:6px;}
 
 /* modal */
 .modal-wrap {display:flex; position:fixed; top:0; left:0; align-items: center; justify-content: center; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.11); z-index:2;}
@@ -319,28 +274,18 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .base div.creat {padding:47px 39px 60px 39px;}
 .creat > div > dl:first-child {margin-top:0;}
 .creat > div > dl {margin-top:30px;}
-.creat > div > dl dt {font-size:16px; color:#818894; margin-bottom:7px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:400;}
+.creat > div > dl dt {font-size:16px; color:#47494d; margin-bottom:7px; font-family: 'Apple SD Gothic Neo B', sans-serif; font-weight:400;}
 .creat > div > dl dd {position:relative;}
 .creat > div > dl dd input {width:100%; border:1px solid #ebebeb; height:50px; line-height:48px; padding-left:18px; margin-left:1px; font-size:18px;}
 .creat > div > dl dd input:disabled::placeholder {color:#a6a6a6;}
 .creat > div > dl dd input:disabled {background-color: #fafafa;}
-
-/*selectbox*/
-.selectbox {width:500px;}
-.selectbox > a {border:1px solid #ebebeb; display:block; height:50px; line-height:50px;padding:0 18px; color:#47494d; width:500px; position:relative; font-size:18px;}
-.selectbox > a:after {content:""; width:10px; height:10px; border-bottom:2px solid #666666; border-left:2px solid #666666; transform: rotate(-45deg); position:absolute; top:19px; right:22px;}
-.selectbox ul {display:none; border:1px solid #ebebeb; margin-left:1px; position:absolute; top:49px; left:-1px; width:500px; background-color: #ffffff; z-index:10;}
-.selectbox:hover ul {display:block;}
-.selectbox ul li {cursor: pointer; background-color: #ffffff; height:50px; line-height:50px;  font-size:18px; color:#47494d;}
-.selectbox ul li:hover {background-color:#fff7f2;}
-.selectbox ul li a {display:block;padding:0 18px;}
-.selectbox ul li a:focus {background-color:#ff7a0f; color:#ffffff;}
-/*//selectbox*/
-
-.creat > div > div {overflow:hidden; margin-top:30px;}
-.creat div .check-quotas {margin-top:40px;}
-.creat > div > div p {float:left; margin-left:9px; line-height:22px; font-weight:600; letter-spacing: 0.5px;}
-
+.creat > div > dl dd fieldset {position:relative; display:inline-block; margin-left:1px; width:100%;}
+.creat > div > dl dd fieldset:after {content:""; width:10px; height:10px; border-bottom:2px solid #666666; border-left:2px solid #666666; transform: rotate(-45deg); position:absolute; top:19px; right:22px;cursor: pointer;}
+.creat > div > dl dd fieldset select {height:50px; line-height:50px; width:100%; padding-left:18px; font-size:18px; color:#47494d; cursor: pointer;}
+.creat > div > div {overflow:hidden; margin-top:8px;}
+.creat div .check-quotas {margin-top:35px;}
+.creat div .check-quotas a {padding:3px 7px 3px 6px; background:linear-gradient( to bottom, #ffffff, #ffffff, #fafafa); border:1px solid #cccccc; border-radius:2px; font-size:14px; line-height:30px; margin-left:10px;}
+.creat > div > div p {float:left; margin-left:9px; font-weight:600; letter-spacing: 0.5px; line-height:30px;}
 .creat div .quotas-list {margin-top:10px; padding-bottom:8px;}
 .creat > div > div dl {border-bottom:1px solid #ebebeb; overflow:hidden;}
 .creat > div > div dl:first-child {border-top:1px solid #333333;}
@@ -348,23 +293,12 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .creat > div > div dl dd { padding:15px 24px 9px 24px; float:left; max-width:90%; text-overflow:ellipsis; overflow:hidden; white-space: nowrap; color:#8f8f90;}
 .creat > div > div dl dd a {color:#1c77ff; text-decoration: underline;}
 
-<<<<<<< .mine
-||||||| .r604
-/*------------------------ Clusters namespacesDetail -------------------------*/
-.detail .notice div:first-child {margin-top:0;}
-.detail .notice div:last-child {margin-bottom:30px;}
-.detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td.ellips {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; padding-right:50px;}
-
-=======
 /*------------------------ Clusters namespacesDetail -------------------------*/
 .detail .notice > div:first-child {margin-top:0;}
 .detail .notice > div:last-child {margin-bottom:30px;}
 .detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
 .detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
 
->>>>>>> .r619
 /*------------------------ Member -------------------------*/
 .member {background-color:#f4f6f9; width:100%; padding-top:130px; padding-bottom:320px;}
 .member h1 {text-align:center; margin-bottom:92px;}

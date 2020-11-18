@@ -113,7 +113,7 @@
 							</dl>
 							<div class="check-quotas">
 								<p>Resource Quotas</p>
-								<a href="javascript:;" class="resAdd">생성</a>
+								<a href="javascript:;" class="resAdd">선택</a>
 							</div>
 							<div class="table_style01 limitTable">
 								<table>
@@ -138,9 +138,9 @@
 									</tbody>
 								</table>
 							</div>
-							<div>
+							<div class="check-quotas">
 								<p>Limit Ranges</p>
-								<a href="javascript:;" class="limAdd">생성</a>
+								<a href="javascript:;" class="limAdd">선택</a>
 							</div>
 							<div class="table_style01 limitTable">
 								<table>
@@ -183,10 +183,9 @@
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button>삭제</button>
+						<button type="submit" id="save">저장</button>
 						<div>
 							<a href="javascript:;">이전</a>
-							<button type="submit" id="save">저장</button>
 						</div>
 					</div>
 				</article>
@@ -243,15 +242,10 @@
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
-						console.log('save');
-							
 						var resourceName = document.querySelector('.resourceQuotas').querySelectorAll('input');
 						var limitName = document.querySelector('.limitQuotas').querySelectorAll('input');
 
-						var createName = `{
-							"name": "${document.getElementById('name').value}",
-							"nsAdminUserId": "${document.getElementById('user').value}",
-							"resourceQuotasList": [`;
+						var createName = `{"name": "${document.getElementById('name').value}","nsAdminUserId": "${document.getElementById('user').value}","resourceQuotasList": [`;
 
 						for(var i=0; i<=resourceName.length-1; i++){
 							if(i > 0) createName += ',';
@@ -273,6 +267,10 @@
 
 						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.parse(createName));
 					}, false);
+				},
+
+				saveComplete(){
+					document.location.href = 'namespaces.html';
 				},
 
 				resource(data){

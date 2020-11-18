@@ -42,7 +42,7 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="clusters/namespaces.html">Namespaces</a></li>
+								<li><a href="namespaces.html">Namespaces</a></li>
 								<li><a href="javascript:;">Nodes</a></li>
 							</ul>
 						</li>
@@ -220,7 +220,7 @@
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button type="submit">삭제</button>
+						<button type="submit" id="delete">삭제</button>
 						<div>
 							<a href="namespacesUpdate.html">수정</a>
 							<a href="namespaces.html">이전</a>
@@ -249,7 +249,8 @@
 			func.init(0, 0);
 
 			const nameDetail = {
-				init(){
+				init(data){
+					func.nameLoad = nameDetail.init;
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, nameDetail.draw);
@@ -265,11 +266,11 @@
 					
 					// users 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/namespace`, nameDetail.users);
+
+					nameDetail.event();
 				},
 
 				draw(data){
-					console.log('Detail');
-					console.log(data);
 					/*
 					annotations: null
 					creationTimestamp: "2020-11-17 15:48:24"
@@ -289,23 +290,19 @@
 					document.getElementById('annot').innerText = data.annot;
 					document.getElementById('status').innerText = data.namespaceStatus;
 					document.getElementById('time').innerText = data.creationTimestamp;
+				},
 
-					/*
-					for(var i=0; i<=data.usersInfo.length-1; i++){
-						var html = `<option value="${data.usersInfo[i].userId}">${data.usersInfo[i].userId}</option>`;
-						
-						func.appendHtml(document.getElementById('user'), html, 'select');
-					};
-					
-					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
+				event(){
+					document.getElementById('delete').addEventListener('click', (e) => {
+						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`,'' , true, nameDetail.returnPage);
+					}, false);
+				},
 
-					createNamespaces.event();
-					*/
+				returnPage(){
+					document.location.href = 'namespaces.html';
 				},
 
 				resource(data){
-					console.log('resource');
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -336,50 +333,25 @@
 				},
 
 				limit(data){
-					console.log('limit');
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData:
-					allItemCount: 3
-					remainingItemCount: 0
-					items: Array(3)
-						0:
-						checkYn: "Y"
-						creationTimestamp: "2020-11-05 13:27:59"
-						limits: [{…}]
-							0:
-							defaultLimit: {memory: "3Gi", cpu: "900m"}
-							defaultRequest: "0"
-							max: "0"
-							min: "0"
-							resource: "cpu, memory"
-							type: "Container"
-						name: "paas-ta-container-platform-high-limit-range"
-						__proto__: Object
-						1: {name: "paas-ta-container-platform-medium-limit-range", limits: Array(1), checkYn: "N", creationTimestamp: "2020-11-05 13:27:24"}
+					itemMetaData: null
+					items: Array(8)
+						0: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "cpu", min: "0", max: "0", …}
+						1: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "memory", min: "0", max: "0", …}
 					metadata: null
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 					
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = '<tr>';
-						
-						for(var j=0; j<=data.items[i].limits.length-1; j++){
-							if(j == 0 && data.items[i].limits.length > 1){
-								html += `<td rowspan="${data.items[i].limits.length}" class="left">${data.items[i].name}</td>`;
-							} else if(j == 0){
-								html += `<td class="left">${data.items[i].name}</td>`;
-							}
-
-							html += `<td>${data.items[i].limits[j].type}</td>
-									<td>${data.items[i].limits[j].defaultLimit.memory}</td>
-									<td>${data.items[i].limits[j].defaultRequest}</td>`;
-						};
-
-						html += '</tr>';
+						var html = `<tr>
+										<td class="left">${data.items[i].name}</td>
+										<td>${data.items[i].type}</td>
+										<td>${data.items[i].defaultLimit}</td>
+										<td>${data.items[i].defaultRequest}</td>
+									</tr>`;
 
 						func.appendHtml(document.querySelector('.limitList'), html, 'tbody');
 					}
@@ -387,18 +359,26 @@
 				},
 
 				events(data){
-					console.log('events');
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					items: Array(0)
+					items: Array(5)
+						0:
+						count: 1624
+						filePath: "spec.containers{kjh-pod-20201112}"
+						firstTimestamp: "2020-11-12T06:56:05Z"
+						lastTimestamp: "2020-11-18T02:03:16Z"
+						message: "Pulling image "slokang/hello-kubernetes:v3""
+						source: {component: "kubelet", host: "paasta-cp-k8s-worker-003"}
+						1: {message: "Back-off pulling image "slokang/hello-kubernetes:v3"", source: {…}, filePath: "spec.containers{kjh-pod-20201112}", count: 36751, firstTimestamp: "2020-11-12T06:56:07Z", …}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left">${data.items[i].message}</td><td class="left">${JSON.stringify(data.items[i].source)}</td><td class="left">${data.items[i].filePath}</td><td>${data.items[i].count}</td><td>${data.items[i].firstTimestamp}</td><td>${data.items[i].lastTimestamp}</td></tr>`;
+
 							func.appendHtml(document.querySelector('.eventsList'), html, 'tbody');
 						};
 					} else {
@@ -409,8 +389,6 @@
 				},
 
 				users(data){
-					console.log('users');
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
