@@ -6,7 +6,7 @@ const func = {
 
 	init(depth1, depth2){
 		// Namespaces 목록조회
-		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, func.namespaces);
+		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, 'application/json', func.namespaces);
 
 		// navigation 초기 선택 설정
 		if(depth1 >= 0){
@@ -32,10 +32,10 @@ const func = {
 			navSub[i].style.height = (childSum*35+30)+((childSum-1)*10)+'px';
 		};
 		
-		func.evnt();
+		func.event();
 	},
 
-	evnt(){
+	event(){
 		// navigation event
 		var nav = document.querySelector('nav').querySelectorAll('.dep01');
 		
@@ -67,8 +67,6 @@ const func = {
 			items: Array(34)
 				0: "1020-namespace"
 				1: "1029-2-namespace"
-				2: "1029-3-namespace"
-				3: "1029-namespace"
 			length: 34
 			__proto__: Array(0)
 			resultCode: "SUCCESS"
@@ -82,14 +80,49 @@ const func = {
 
 		var name = document.querySelector('.nameSpace').querySelectorAll('a');
 
+		if(sessionStorage.getItem('nameSpace') == null){
+
+		} else {
+			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+			document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
+		};
+
 		for(var i=0 ; i<name.length; i++){
 			name[i].addEventListener('click', (e) => {
 				sessionStorage.setItem('nameSpace' , e.target.innerText);
-				document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('namespaces');
+				document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
 
-				func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('namespaces')}/overview`, func.nameLoad);
+				func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 			}, false);
 		};
+	},
+
+	create(title, url, name){
+		var html = `<div class="modal-wrap" id="modal">
+			<div class="modal wide">
+				<h5>${title}</h5>
+				<textarea></textarea>
+				<a class="confirm" href="javascript:;">${name}</a>
+				<a class="close" href="javascript:;">닫기</a>
+			</div>
+		</div>`;
+
+		func.appendHtml(document.getElementById('wrap'), html, 'div');
+
+		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
+			document.getElementById('wrap').removeChild(document.getElementById('modal'));
+		}, false);
+
+		
+		document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
+			var input = document.getElementById('modal').querySelector('textarea');
+
+			console.log(input.value);
+
+			document.getElementById('wrap').removeChild(document.getElementById('modal'));
+			
+			func.saveData('POST', url, input.valuem, true, 'application/json', '');
+		}, false);
 	},
 	
 	// 로그인 체크 ////////////////////////////////////////////////////////////////
@@ -120,14 +153,14 @@ const func = {
 	// 데이터 로드 - loadData(method, url, callbackFunction)
 	// (전송타입, url, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
-	loadData(method, url, callbackFunction, list){
+	loadData(method, url, header, callbackFunction, list){
 		if(sessionStorage.getItem('token') == null){
 			document.location.href = '/member/login.html';
 		}
 
 		var request = new XMLHttpRequest();
 		request.open(method, url);
-		request.setRequestHeader('Content-type', 'application/json');
+		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
 
 		request.onreadystatechange = () => {
@@ -148,10 +181,10 @@ const func = {
 	// 데이터 저장 - saveData(method, url, data, bull, callFunc)
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
-	saveData(method, url, data, bull, callFunc){
+	saveData(method, url, data, bull, header, callFunc){
 		var request = new XMLHttpRequest();
 		request.open(method, url);
-		request.setRequestHeader('Content-type', 'application/json');
+		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
 
 		request.onreadystatechange = () => {

@@ -284,7 +284,7 @@
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
 				},
 
 				draw(data){
@@ -312,7 +312,7 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, createNamespaces.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', createNamespaces.resource);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {

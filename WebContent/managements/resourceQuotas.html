@@ -154,7 +154,7 @@
 					//func.nameLoad = nameSpace.draw;
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 
 					nameSpace.event();
 				},
@@ -200,7 +200,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
 							nameSpace.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {

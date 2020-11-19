@@ -207,13 +207,13 @@
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/adminCheck`, 'application/json', modifyNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/adminCheck`, modifyNamespaces.draw);
 
 					// resource 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', modifyNamespaces.resource);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, modifyNamespaces.resource);
 					
 					// limit 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, 'application/json', modifyNamespaces.limit);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, modifyNamespaces.limit);
 				},
 
 				draw(data){
@@ -243,15 +243,15 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', modifyNamespaces.resourceSelect);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, modifyNamespaces.resourceSelect);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', modifyNamespaces.limitSelect);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, modifyNamespaces.limitSelect);
 					}, false);
 					
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`,'' , true, 'application/json', modifyNamespaces.returnPage);
+						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`,'' , true, modifyNamespaces.returnPage);
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
@@ -279,13 +279,7 @@
 						console.log(createName);
 						console.log(sessionStorage.getItem('nameSpace'));
 
-<<<<<<< .mine
 						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, JSON.stringify(createName), true, func.historyBack);
-||||||| .r634
-						func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, JSON.stringify(createName), true, modifyNamespaces.returnPage);
-=======
-						func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, JSON.stringify(createName), true, 'application/json', modifyNamespaces.returnPage);
->>>>>>> .r640
 					}, false);
 				},
 

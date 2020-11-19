@@ -82,9 +82,9 @@
 			<div id="content" class="sub-page clusters">
 				<article class="location">
 					<ul>
-						<li><a href="javascript:;">Overview</a></li>
-						<li><a href="javascript:;">Clusters</a></li>
-						<li>Namespaces</li>
+						<li><a href="../index.html">Overview</a></li>
+						<li><a href="namespaces.html">Clusters</a></li>
+						<li><a href="nodes.html">Nodes</a></li>
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
@@ -97,9 +97,10 @@
 						<h4>Details</h4>
 						<div class="table_style01">
 							<table>
+								<caption>details</caption>
 								<colgroup >
-									<col width="18%" />
-									<col width="82%" />
+									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
@@ -112,17 +113,13 @@
 									</tr>
 									<tr>
 										<th scope="row">Labels</th>
-										<td class="ellips">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2
-											<div>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">Annotations</th>
 										<td><a href="javascript:;">kubectl.kubernetes.io/last-applied-configuration</a></td>
-									</tr>
-									<tr>
-										<th scope="row">Status</th>
-										<td>Active</td>
 									</tr>
 									<tr>
 										<th scope="row">Created time</th>
@@ -131,66 +128,120 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Resource Quotas</h4>
+						<h4>Resource Info</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Resource Info</caption>
 								<colgroup >
 									<col width="20%" />
-									<col width="60%" />
-									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Name</th>
-										<th scope="col">Status</th>
-										<th scope="col">Created Time</th>
-									</tr>
-								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Pods CIDR</th>
+										<td>10.244.3.0/24</td>
 									</tr>
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Address</th>
+										<td>InternalIP: 10.0.0.83<br />Hostname: paasta-cp-k8s-worker-003</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<h4>Limit Ranges</h4>
+						<h4>System Info</h4>
 						<div class="table_style01">
 							<table>
+								<caption>System Info</caption>
+								<colgroup >
+									<col width="20%" />
+									<col width="80%" />
+								</colgroup>
+								<tbody class="listTable">
+									<tr>
+										<th scope="row">Machine ID</th>
+										<td>ec2d299760ea2429e07c1dd3f92d4cba</td>
+									</tr>
+									<tr>
+										<th scope="row">System UUID</th>
+										<td>ec2d299760ea2429e07c1dd3f92d4cba</td>
+									</tr>
+									<tr>
+										<th scope="row">Boot ID</th>
+										<td>7b15b05d-29a3-4914-92ce-b1d1244fabdd</td>
+									</tr>
+									<tr>
+										<th scope="row">Kernel version</th>
+										<td>5.3.0-1023-aws</td>
+									</tr>
+									<tr>
+										<th scope="row">OS image</th>
+										<td>Ubuntu 18.04.4 LTS</td>
+									</tr>
+									<tr>
+										<th scope="row">Container runtime version</th>
+										<td>docker://19.3.6</td>
+									</tr>
+									<tr>
+										<th scope="row">Kubelet version</th>
+										<td>v1.17.1</td>
+									</tr>
+									<tr>
+										<th scope="row">Kube-proxy version</th>
+										<td>v1.17.1</td>
+									</tr>
+									<tr>
+										<th scope="row">Operation system</th>
+										<td>Linux</td>
+									</tr>
+									<tr>
+										<th scope="row">Architecture</th>
+										<td>amd64</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h4>Pods</h4>
+						<div class="table_style01">
+							<table>
+								<caption>Pods</caption>
 								<colgroup >
 									<col width="25%" />
 									<col width="25%" />
-									<col width="25%" />
-									<col width="25%" />
+									<col width="16%" />
+									<col width="8%" />
+									<col width="8%" />
+									<col width="18%" />
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col">Resource Name</th>
-										<th scope="col">Resource Type</th>
-										<th scope="col">Default Limit</th>
-										<th scope="col">Default Request</th>
+										<th scope="col">Name</th>
+										<th scope="col">Namespaces</th>
+										<th scope="col">Labels</th>
+										<th scope="col">Status</th>
+										<th scope="col">Restarts</th>
+										<th scope="col">Created time</th>
 									</tr>
 								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>memory</td>
-										<td>Container</td>
-										<td>512Mi</td>
-										<td>256Mi</td>
+										<td><a href="javascript:;">deployments-867ffc4857-lxpq8</a></td>
+										<td><a href="javascript:;">kubelet paasta-cp-k8s-worker-001</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 									<tr>
-										<td>cpu</td>
-										<td>Container</td>
-										<td>4</td>
-										<td>2</td>
+										<td><a href="javascript:;">nginx-56689dc4b8-tfqgm</a></td>
+										<td><a href="javascript:;">kubelet paasta-cp-k8s-worker-001</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
 							</table>
@@ -198,6 +249,7 @@
 						<h4>Events</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Events</caption>
 								<colgroup >
 									<col width="20%" />
 									<col width="20%" />
@@ -221,7 +273,7 @@
 										<td>Pulling image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
@@ -229,47 +281,8 @@
 										<td>Successfully pulled image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table_style01">
-							<table>
-								<caption>Users</caption>
-								<colgroup >
-									<col width="10%" />
-									<col width="30%" />
-									<col width="30%" />
-									<col width="30%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Admin</th>
-										<th scope="col">User ID</th>
-										<th scope="col">Services Account</th>
-										<th scope="col">Created time</th>
-									</tr>
-								</thead>
-								<tbody class="listTable">
-									<tr>
-										<td>Y</td>
-										<td><a href="javascript:;">test-user-03</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-02</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-01</a></td>
-										<td>test-user-03</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
@@ -278,10 +291,8 @@
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button type="submit">삭제</button>
 						<div>
-							<a href="namespacesUpdate.html">수정</a>
-							<a href="namespaces.html">이전</a>
+							<a href="nodes.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -311,7 +322,7 @@
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, createNamespaces.draw);
 				},
 
 				draw(data){
@@ -339,7 +350,7 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', createNamespaces.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, createNamespaces.resource);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {

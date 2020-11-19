@@ -19,12 +19,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace scroll02">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -53,9 +50,9 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Workloads</a>
 							<ul class="sub">
-								<li><a href="../workloads/deployments.html">Deployments</a></li>
-								<li><a href="../workloads/pods.html">Pods</a></li>
-								<li><a href="../workloads/replicaSets.html">Replica Sets</a></li>
+								<li><a href="deployments.html">Deployments</a></li>
+								<li><a href="pods.html">Pods</a></li>
+								<li><a href="replicaSets.html">Replica Sets</a></li>
 							</ul>
 						</li>
 						<li>
@@ -105,11 +102,11 @@
 							<table>
 								<caption>Deployments List</caption>
 								<colgroup >
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
+									<col width="25%" />
+									<col width="25%" />
+									<col width="10%" />
+									<col width="23%" />
+									<col width="17%" />
 								</colgroup>
 								<thead>
 									<tr>
@@ -142,78 +139,94 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(1, 0);
 
-			const nameSpace = {
+			const workLoad = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.nameLoad = workLoad.load;
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
+					// nameSpace session 초기화
+					sessionStorage.setItem('nameSpace', 'all');
+					
+					workLoad.load();
+				},
 
-					nameSpace.event();
+				load(){
+					// deployments 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${workLoad.limit}&offset=${workLoad.offset}`, 'application/json', workLoad.draw);
+
+					workLoad.event();
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 52, remainingItemCount: 42}
+					items: Array(10)
+						0:
+						creationTimestamp: "2020-11-18 18:18:24"
+						images: "nginx:1.14.2"
+						name: "nginx-deployment-kmskmskms"
+						namespace: "cp-namespace"
+						runningPods: 0
+						totalPods: 0
+						1: {name: "nginx-deployment-kmskmskms", namespace: "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas", runningPods: 1, totalPods: 1, images: "nginx:1.14.2", …}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(workLoad.offset == 0) workLoad.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						};
+					} else {
+						var html = '<tr><td colspan="5">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < workLoad.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
-
-					//
-					nameSpace.listEvent();
+					workLoad.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
-							nameSpace.offset++;
+						if(document.querySelector('.listTable').querySelectorAll('tr').length < workLoad.allItemCount){
+							workLoad.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${workLoad.limit}&offset=${workLoad.offset}`, 'application/json', workLoad.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						func.create('Create', `${func.url}/clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments`, '저장');
 					}, false);
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
+					for(var i=workLoad.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							workLoad.listMove(e.target.getAttribute('data-name'));
 
 							document.location.href = 'login.html';
 						}, true);
@@ -221,7 +234,7 @@
 				},
 			}
 
-			nameSpace.init();
+			workLoad.init();
 		}
 	</script>-->s
 </body>

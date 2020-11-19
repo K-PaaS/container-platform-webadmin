@@ -151,7 +151,7 @@
 					func.nameLoad = overview.draw;
 
 					// overview 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/overview`, overview.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/overview`, 'application/json', overview.draw);
 
 					//overview.namespaces();
 				},

@@ -206,7 +206,7 @@
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
 				},
 
 				draw(data){
@@ -234,11 +234,11 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, createNamespaces.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', createNamespaces.resource);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, createNamespaces.limit);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', createNamespaces.limit);
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
@@ -265,7 +265,7 @@
 
 						console.log(createName);
 
-						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.stringify(createName), func.historyBack);
+						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.stringify(createName), true, 'application/json', func.historyBack);
 					}, false);
 				},
 
@@ -414,7 +414,7 @@
 
 						func.appendHtml(document.getElementById('wrap'), html, 'div');
 
-						document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {			
+						document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
 							document.getElementById('wrap').removeChild(document.getElementById('modal'));
 						}, false);
 

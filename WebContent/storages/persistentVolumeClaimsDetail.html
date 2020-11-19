@@ -12,7 +12,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -24,7 +24,7 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -311,7 +311,7 @@
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
 				},
 
 				draw(data){
@@ -339,7 +339,7 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, createNamespaces.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', createNamespaces.resource);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {

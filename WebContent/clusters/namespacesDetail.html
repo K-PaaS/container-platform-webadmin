@@ -252,20 +252,22 @@
 				init(data){
 					func.nameLoad = nameDetail.init;
 
+					console.log(sessionStorage.getItem('nameSpace'));
+
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, nameDetail.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, 'application/json', nameDetail.draw);
 					
 					// resource 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, nameDetail.resource);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', nameDetail.resource);
 					
 					// limit 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, nameDetail.limit);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, 'application/json', nameDetail.limit);
 					
 					// events 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/events`, nameDetail.events);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/events`, 'application/json', nameDetail.events);
 					
 					// users 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/namespace`, nameDetail.users);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/namespace`, 'application/json', nameDetail.users);
 
 					nameDetail.event();
 				},
@@ -294,7 +296,7 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`,'' , true, nameDetail.returnPage);
+						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`,'' , true, 'application/json', nameDetail.returnPage);
 					}, false);
 				},
 

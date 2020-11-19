@@ -148,12 +148,24 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
+<<<<<<< .mine
 					//func.nameLoad = nameSpace.draw;
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
 
 					nameSpace.event();
+||||||| .r634
+				// node 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${node.limit}&offset=${node.offset}`, node.draw);
+					
+					node.event();
+=======
+				// node 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${node.limit}&offset=${node.offset}`, 'application/json', node.draw);
+					
+					node.event();
+>>>>>>> .r640
 				},
 
 				draw(data){
@@ -197,7 +209,13 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
 							nameSpace.offset++;
 
+<<<<<<< .mine
 							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
+||||||| .r634
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, node.draw);
+=======
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', node.draw);
+>>>>>>> .r640
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {
@@ -211,7 +229,13 @@
 					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
+<<<<<<< .mine
 							nameSpace.listMove(e.target.getAttribute('data-name'));
+||||||| .r634
+							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-name'));
+=======
+							sessionStorage.setItem('nodeName', e.target.getAttribute('data-name'));
+>>>>>>> .r640
 
 							document.location.href = 'login.html';
 						}, true);
