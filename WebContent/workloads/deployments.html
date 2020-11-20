@@ -80,7 +80,7 @@
 			</aside>
 			<!-- // aside -->
 			<!-- Content -->
-			<div id="content" class="sub-page clusters">
+			<div id="content" class="sub-page">
 				<article class="location">
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
@@ -132,34 +132,35 @@
 		</div>
 		<!-- // container -->
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/d3-5.4.0.min.js"></script>
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
 
+			console.log(sessionStorage.getItem('token'));
+
 			func.init(1, 0);
 
-			const workLoad = {
+			const depoly = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
+				searchName : '',
 
 				init(){
-					func.nameLoad = workLoad.load;
+					func.nameLoad = depoly.load;
 
 					// nameSpace session 초기화
-					sessionStorage.setItem('nameSpace', 'all');
+					sessionStorage.setItem('nameSpace', 'ALL');
 					
-					workLoad.load();
+					depoly.load();
 				},
 
 				load(){
-					// deployments 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${workLoad.limit}&offset=${workLoad.offset}`, 'application/json', workLoad.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}&searchName=${depoly.searchName}`, 'application/json', depoly.draw);
 
-					workLoad.event();
+					depoly.event();
 				},
 
 				draw(data){
@@ -182,11 +183,13 @@
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(workLoad.offset == 0) workLoad.allItemCount = data.itemMetaData.allItemCount;
+					if(depoly.offset == 0) depoly.allItemCount = data.itemMetaData.allItemCount;
+					
+					func.removeHtml(document.querySelector('.listTable'));
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
@@ -197,45 +200,48 @@
 					};
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < workLoad.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < depoly.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
-					workLoad.listEvent();
+					depoly.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < workLoad.allItemCount){
-							workLoad.offset++;
+						if(document.querySelector('.listTable').querySelectorAll('tr').length < depoly.allItemCount){
+							depoly.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${workLoad.limit}&offset=${workLoad.offset}`, 'application/json', workLoad.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}`, 'application/json', depoly.draw);
 						};
 					}, false);
 
 					document.querySelector('.create').addEventListener('click', (e) => {
-						func.create('Create', `${func.url}/clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments`, '저장');
+						sessionStorage.setItem('commonName', '');
+
+						func.create('Create', 'deployments', '저장');
 					}, false);
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=workLoad.offset*10; i<=listAll.length-1; i++){
+					for(var i=depoly.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-							workLoad.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-id'));
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'deploymentsDetail.html';
 						}, true);
 					};
 				},
 			}
 
-			workLoad.init();
+			depoly.init();
 		}
-	</script>-->s
+	</script>
 </body>
 </html>

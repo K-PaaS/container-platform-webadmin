@@ -79,50 +79,45 @@
 			</aside>
 			<!-- // aside -->
 			<!-- Content -->
-			<div id="content" class="sub-page clusters">
+			<div id="content" class="sub-page">
 				<article class="location">
 					<ul>
-						<li><a href="javascript:;">Overview</a></li>
-						<li><a href="javascript:;">Clusters</a></li>
-						<li>Namespaces</li>
+						<li><a href="../index.html">Overview</a></li>
+						<li><a href="services.html">Services</a></li>
 					</ul>
-					<!-- Click event class="on" -->
-					<fieldset>
-						<input type="text" name="keyword" autocomplete="off" placeholder="검색어를 입력해주세요" />
-						<button type="submit">검색</button>
-					</fieldset>
 				</article>
 				<article class="base detail">
 					<div class="notice">
 						<h4>Details</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Details</caption>
 								<colgroup >
-									<col width="18%" />
-									<col width="82%" />
+									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
 										<th scope="row">Name</th>
-										<td>test-namespace</td>
+										<td>test-pod-01</td>
 									</tr>
 									<tr>
 										<th scope="row">UID</th>
 										<td>a47ef60c-cbde-4b57-a866-ba7c2f2692fe</td>
 									</tr>
 									<tr>
+										<th scope="row">Namespaces</th>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace</a></td>
+									</tr>
+									<tr>
 										<th scope="row">Labels</th>
-										<td class="ellips">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2
-											<div>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">Annotations</th>
 										<td><a href="javascript:;">kubectl.kubernetes.io/last-applied-configuration</a></td>
-									</tr>
-									<tr>
-										<th scope="row">Status</th>
-										<td>Active</td>
 									</tr>
 									<tr>
 										<th scope="row">Created time</th>
@@ -131,40 +126,38 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Resource Quotas</h4>
+						<h4>Resource Info</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Resource Info</caption>
 								<colgroup >
 									<col width="20%" />
-									<col width="60%" />
-									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Name</th>
-										<th scope="col">Status</th>
-										<th scope="col">Created Time</th>
-									</tr>
-								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Type</th>
+										<td>NodesPort</td>
 									</tr>
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Clusters IP</th>
+										<td>10.107.128.69</td>
+									</tr>
+									<tr>
+										<th scope="row">Session Affinity</th>
+										<td>None</td>
+									</tr>
+									<tr>
+										<th scope="row">Selector</th>
+										<td>app: nginx</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<h4>Limit Ranges</h4>
+						<h4>End Points</h4>
 						<div class="table_style01">
 							<table>
+								<caption>End Points</caption>
 								<colgroup >
 									<col width="25%" />
 									<col width="25%" />
@@ -173,24 +166,70 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col">Resource Name</th>
-										<th scope="col">Resource Type</th>
-										<th scope="col">Default Limit</th>
-										<th scope="col">Default Request</th>
+										<th scope="col">Host</th>
+										<th scope="col">Ports (Name, Port, Protocol)</th>
+										<th scope="col">Nodes</th>
+										<th scope="col">Ready</th>
 									</tr>
 								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>memory</td>
-										<td>Container</td>
-										<td>512Mi</td>
-										<td>256Mi</td>
+										<td>10.244.3.1</td>
+										<td>&lt;설정 취소&gt;,8443,TCP</td>
+										<td><a href="../clusters/nodesDetail.html">test-worker-01</a></td>
+										<td>True</td>
 									</tr>
 									<tr>
-										<td>cpu</td>
-										<td>Container</td>
-										<td>4</td>
-										<td>2</td>
+										<td>10.244.3.1</td>
+										<td>&lt;설정 취소&gt;,8443,TCP</td>
+										<td><a href="../clusters/nodesDetail.html">test-worker-01</a></td>
+										<td>True</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<h4>Pods</h4>
+						<div class="table_style01">
+							<table>
+								<caption>Pods</caption>
+								<colgroup >
+									<col width="20%" />
+									<col width="20%" />
+									<col width="16%" />
+									<col width="8%" />
+									<col width="18%" />
+									<col width="18%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">Name</th>
+										<th scope="col">Namespaces</th>
+										<th scope="col">Labels</th>
+										<th scope="col">Status</th>
+										<th scope="col">Restarts</th>
+										<th scope="col">Created time</th>
+									</tr>
+								</thead>
+								<tbody class="listTable">
+									<tr>
+										<td><a href="podsDetail.html">deployments-867ffc4857-lxpq8</a></td>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace-01</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
+									</tr>
+									<tr>
+										<td><a href="podsDetail.html">deployments-867ffc4857-lxpq8</a></td>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace-01</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
 							</table>
@@ -198,6 +237,7 @@
 						<h4>Events</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Events</caption>
 								<colgroup >
 									<col width="20%" />
 									<col width="20%" />
@@ -221,7 +261,7 @@
 										<td>Pulling image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
@@ -229,47 +269,8 @@
 										<td>Successfully pulled image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table_style01">
-							<table>
-								<caption>Users</caption>
-								<colgroup >
-									<col width="10%" />
-									<col width="30%" />
-									<col width="30%" />
-									<col width="30%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Admin</th>
-										<th scope="col">User ID</th>
-										<th scope="col">Services Account</th>
-										<th scope="col">Created time</th>
-									</tr>
-								</thead>
-								<tbody class="listTable">
-									<tr>
-										<td>Y</td>
-										<td><a href="javascript:;">test-user-03</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-02</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-01</a></td>
-										<td>test-user-03</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
@@ -280,8 +281,8 @@
 					<div class="btn02">
 						<button type="submit">삭제</button>
 						<div>
-							<a href="namespacesUpdate.html">수정</a>
-							<a href="namespaces.html">이전</a>
+							<a href="../clusters/namespacesUpdate.html">수정</a>
+							<a href="services.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -299,7 +300,6 @@
 			</div>
 		</div>
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
@@ -413,6 +413,6 @@
 
 			createNamespaces.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>

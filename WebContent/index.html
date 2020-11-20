@@ -115,7 +115,7 @@
 							<a href="javascript:;">more</a>
 						</li>
 						<li id="podChart">
-							<h5>Pod</h5>
+							<h5>Pods</h5>
 							<div class="pie">
 							</div>
 							<ul class="legend">
@@ -157,6 +157,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 						deploymentsCount: 50
 						deploymentsUsage: {running: "96%", failed: "4%"}
@@ -196,7 +197,7 @@
 
 					for(var i=0; i<=Object.getOwnPropertyNames(data.deploymentsUsage).length-1; i++){
 						// chart legend append
-						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.deploymentsUsage)[i]}</dt><dd>${data.deploymentsUsage[Object.keys(data.deploymentsUsage)[i]]}</dd></dl></li>`;
+						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.deploymentsUsage)[i]}</dt><dd>${data.deploymentsUsage[Object.keys(data.deploymentsUsage)[i]]} %</dd></dl></li>`;
 
 						func.appendHtml(document.getElementById('deployChart').querySelector('.legend'), html, 'li');
 
@@ -215,7 +216,7 @@
 					var deploy = [];
 					for(var i=0; i<=Object.getOwnPropertyNames(data.podsUsage).length-1; i++){
 						// chart legend append
-						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.deploymentsUsage)[i]}</dt><dd>${data.podsUsage[Object.keys(data.podsUsage)[i]]}</dd></dl></li>`;
+						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.deploymentsUsage)[i]}</dt><dd>${data.podsUsage[Object.keys(data.podsUsage)[i]]} %</dd></dl></li>`;
 
 						func.appendHtml(document.getElementById('podChart').querySelector('.legend'), html, 'li');
 
@@ -233,7 +234,7 @@
 					var deploy = [];
 					for(var i=0; i<=Object.getOwnPropertyNames(data.replicaSetsUsage).length-1; i++){
 						// chart legend append
-						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.replicaSetsUsage)[i]}</dt><dd>${data.replicaSetsUsage[Object.keys(data.podsUsage)[i]]}</dd></dl></li>`;
+						var html = `<li><dl><dt>${Object.getOwnPropertyNames(data.replicaSetsUsage)[i]}</dt><dd>${data.replicaSetsUsage[Object.keys(data.podsUsage)[i]]} %</dd></dl></li>`;
 
 						func.appendHtml(document.getElementById('servicesChart').querySelector('.legend'), html, 'li');
 

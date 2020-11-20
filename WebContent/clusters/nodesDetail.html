@@ -12,7 +12,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -42,8 +42,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
-								<li><a href="../clusters/nodes.html">Nodes</a></li>
+								<li><a href="namespaces.html">Namespaces</a></li>
+								<li><a href="nodes.html">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
@@ -86,11 +86,6 @@
 						<li><a href="namespaces.html">Clusters</a></li>
 						<li><a href="nodes.html">Nodes</a></li>
 					</ul>
-					<!-- Click event class="on" -->
-					<fieldset>
-						<input type="text" name="keyword" autocomplete="off" placeholder="검색어를 입력해주세요" />
-						<button type="submit">검색</button>
-					</fieldset>
 				</article>
 				<article class="base detail">
 					<div class="notice">
@@ -274,7 +269,6 @@
 			</div>
 		</div>
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
@@ -282,16 +276,9 @@
 
 			func.init(0, 1);
 
-			const createNamespaces = {
+			const nodeDetail = {
 				init(){
 
-<<<<<<< .mine
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, createNamespaces.draw);
-||||||| .r634
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes/`, nodeDetail.draw);
-=======
 					// node 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes/${sessionStorage.getItem('nodeName')}`, 'application/json', nodeDetail.draw);
 					
@@ -300,7 +287,6 @@
 					
 					// events 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/events/resources/${sessionStorage.getItem('nodeName')}?type=node`, 'application/json', nodeDetail.eventsList);
->>>>>>> .r640
 				},
 
 				draw(data){
@@ -423,22 +409,10 @@
 						func.appendHtml(document.querySelector('.eventTable'), html, 'tbody');
 					}
 				},
-
-				limit(data){
-
-				},
-
-				resourceSelect(){
-					console.log('call');
-				},
-
-				limitSelect(){
-
-				},
 			}
 
-			createNamespaces.init();
+			nodeDetail.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>

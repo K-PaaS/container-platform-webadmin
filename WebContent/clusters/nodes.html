@@ -13,7 +13,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -46,8 +46,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
-								<li><a href="../clusters/nodes.html">Nodes</a></li>
+								<li><a href="namespaces.html">Namespaces</a></li>
+								<li><a href="nodes.html">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
@@ -105,10 +105,10 @@
 							<table>
 								<caption>Nodes List</caption>
 								<colgroup >
-									<col width="30%" />
+									<col width="25%" />
+									<col width="45%" />
+									<col width="10%" />
 									<col width="20%" />
-									<col width="20%" />
-									<col width="30%" />
 								</colgroup>
 								<thead>
 									<tr>
@@ -124,8 +124,6 @@
 							<!-- more btn -->
 							<a class="more" href="javascript:;">more</a>
 						</div>
-						<!-- btn -->
-						<a href="javascript:;" class="create">생성</a>
 					</div>
 				</article>
 			</div>
@@ -133,74 +131,67 @@
 		</div>
 		<!-- // container -->
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/d3-5.4.0.min.js"></script>
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(0, 1);
 
-			const nameSpace = {
+			const node = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-<<<<<<< .mine
-					//func.nameLoad = nameSpace.draw;
-
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
-
-					nameSpace.event();
-||||||| .r634
-				// node 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${node.limit}&offset=${node.offset}`, node.draw);
-					
-					node.event();
-=======
 				// node 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${node.limit}&offset=${node.offset}`, 'application/json', node.draw);
 					
 					node.event();
->>>>>>> .r640
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 4, remainingItemCount: 0}
+					items: Array(4)
+						0:
+						creationTimestamp: "2020-07-24 13:29:59"
+						labels: {beta.kubernetes.io/arch: "amd64", beta.kubernetes.io/os: "linux", kubernetes.io/arch: "amd64", kubernetes.io/hostname: "paasta-cp-k8s-worker-003", kubernetes.io/os: "linux"}
+						name: "paasta-cp-k8s-worker-003"
+						ready: "True"
+						__proto__: Object
+						1: {name: "paasta-cp-k8s-worker-002", labels: {…}, ready: "True", creationTimestamp: "2020-07-24 13:25:59"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
-
+					
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(node.offset == 0) node.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(node.allItemCount > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td class="left">${JSON.stringify(data.items[i].labels)}</td><td class="${data.items[i].ready.toLowerCase()}">${data.items[i].ready}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						};
+					} else {
+						var html = '<tr><td colspan="4">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < node.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
-
-					//
-					nameSpace.listEvent();
+					
+					node.listEvent();
 				},
 
 				event(){
@@ -209,42 +200,27 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
 							nameSpace.offset++;
 
-<<<<<<< .mine
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, nameSpace.draw);
-||||||| .r634
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, node.draw);
-=======
 							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', node.draw);
->>>>>>> .r640
 						};
-					}, false);
-					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
 					}, false);
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
+					for(var i=node.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-<<<<<<< .mine
-							nameSpace.listMove(e.target.getAttribute('data-name'));
-||||||| .r634
-							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-name'));
-=======
 							sessionStorage.setItem('nodeName', e.target.getAttribute('data-name'));
->>>>>>> .r640
 
-							document.location.href = 'login.html';
+							document.location.href = 'nodesDetail.html';
 						}, true);
 					};
 				},
 			}
 
-			nameSpace.init();
+			node.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>
