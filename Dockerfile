@@ -1,7 +1,8 @@
 FROM tomcat:9-jre8-alpine
-COPY server.xml /usr/local/tomcat/conf
-RUN rm -rf /usr/local/tomcat/webapps/*
+WORKDIR /usr/local/tomcat
+COPY server.xml ./conf
+RUN rm -rf ./webapps/*
 ARG JAR_FILE=build/libs/*.war
-COPY ${JAR_FILE} /usr/local/tomcat/webapps/paas-ta-container-platform-webadmin.war
+COPY ${JAR_FILE} ./webapps/paas-ta-container-platform-webadmin.war
 
 EXPOSE 8080
