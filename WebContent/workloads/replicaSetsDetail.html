@@ -42,36 +42,36 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="clusters/namespaces.html">Namespaces</a></li>
-								<li><a href="javascript:;">Nodes</a></li>
+								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
+								<li><a href="../clusters/nodes.html">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Workloads</a>
 							<ul class="sub">
-								<li><a href="javascript:;">Deployments</a></li>
-								<li><a href="javascript:;">Pods</a></li>
-								<li><a href="javascript:;">Replica Sets</a></li>
+								<li><a href="../workloads/deployments.html">Deployments</a></li>
+								<li><a href="../workloads/pods.html">Pods</a></li>
+								<li><a href="../workloads/replicaSets.html">Replica Sets</a></li>
 							</ul>
 						</li>
 						<li>
-							<a href="javascript:;" class="dep01">Services</a>
+							<a href="../services/services.html" class="dep01">Services</a>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="javascript:;">Persistsnt Volumes</a></li>
-								<li><a href="javascript:;">Persistsnt Volume Claims</a></li>
-								<li><a href="javascript:;">Storage Classes</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="javascript:;">Users</a></li>
-								<li><a href="javascript:;">Roles</a></li>
-								<li><a href="javascript:;">Resource Quotas</a></li>
-								<li><a href="javascript:;">Limit Ranges</a></li>
+								<li><a href="../managements/users.html">Users</a></li>
+								<li><a href="../managements/roles.html">Roles</a></li>
+								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
+								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -79,50 +79,46 @@
 			</aside>
 			<!-- // aside -->
 			<!-- Content -->
-			<div id="content" class="sub-page clusters">
+			<div id="content" class="sub-page">
 				<article class="location">
 					<ul>
-						<li><a href="javascript:;">Overview</a></li>
-						<li><a href="javascript:;">Clusters</a></li>
-						<li>Namespaces</li>
+						<li><a href="../index.html">Overview</a></li>
+						<li><a href="deployments.html">Workloads</a></li>
+						<li><a href="replicaSets.html">Replica Sets</a></li>
 					</ul>
-					<!-- Click event class="on" -->
-					<fieldset>
-						<input type="text" name="keyword" autocomplete="off" placeholder="검색어를 입력해주세요" />
-						<button type="submit">검색</button>
-					</fieldset>
 				</article>
 				<article class="base detail">
 					<div class="notice">
 						<h4>Details</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Details</caption>
 								<colgroup >
-									<col width="18%" />
-									<col width="82%" />
+									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
 										<th scope="row">Name</th>
-										<td>test-namespace</td>
+										<td>test-pod-01</td>
 									</tr>
 									<tr>
 										<th scope="row">UID</th>
 										<td>a47ef60c-cbde-4b57-a866-ba7c2f2692fe</td>
 									</tr>
 									<tr>
+										<th scope="row">Namespaces</th>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace</a></td>
+									</tr>
+									<tr>
 										<th scope="row">Labels</th>
-										<td class="ellips">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2
-											<div>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">Annotations</th>
 										<td><a href="javascript:;">kubectl.kubernetes.io/last-applied-configuration</a></td>
-									</tr>
-									<tr>
-										<th scope="row">Status</th>
-										<td>Active</td>
 									</tr>
 									<tr>
 										<th scope="row">Created time</th>
@@ -131,66 +127,68 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Resource Quotas</h4>
+						<h4>Resource Info</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Resource Info</caption>
 								<colgroup >
 									<col width="20%" />
-									<col width="60%" />
-									<col width="20%" />
+									<col width="80%" />
 								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Name</th>
-										<th scope="col">Status</th>
-										<th scope="col">Created Time</th>
-									</tr>
-								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Selector</th>
+										<td>app: test-deployment<br />pods-template-hash: 867ffc4857</td>
 									</tr>
 									<tr>
-										<td>Pods-high</td>
-										<td>{ "cpu": { "used": "0", "hard": "15" }, "memory": { "used": "0", "hard": "30Gi" }, "Pods": { "used": "0", "hard": "10" } }
-										</td>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row">Image</th>
+										<td>test/hello-kubernetes:v2</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<h4>Limit Ranges</h4>
+						<h4>Pods</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Pods</caption>
 								<colgroup >
-									<col width="25%" />
-									<col width="25%" />
-									<col width="25%" />
-									<col width="25%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="16%" />
+									<col width="8%" />
+									<col width="18%" />
+									<col width="18%" />
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col">Resource Name</th>
-										<th scope="col">Resource Type</th>
-										<th scope="col">Default Limit</th>
-										<th scope="col">Default Request</th>
+										<th scope="col">Name</th>
+										<th scope="col">Namespaces</th>
+										<th scope="col">Labels</th>
+										<th scope="col">Status</th>
+										<th scope="col">Restarts</th>
+										<th scope="col">Created time</th>
 									</tr>
 								</thead>
 								<tbody class="listTable">
 									<tr>
-										<td>memory</td>
-										<td>Container</td>
-										<td>512Mi</td>
-										<td>256Mi</td>
+										<td><a href="podsDetail.html">deployments-867ffc4857-lxpq8</a></td>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace-01</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 									<tr>
-										<td>cpu</td>
-										<td>Container</td>
-										<td>4</td>
-										<td>2</td>
+										<td><a href="podsDetail.html">deployments-867ffc4857-lxpq8</a></td>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace-01</a></td>
+										<td class="ellips"><span>label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2</span>
+											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
+										</td>
+										<td>Running</td>
+										<td>0</td>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
 							</table>
@@ -198,6 +196,7 @@
 						<h4>Events</h4>
 						<div class="table_style01">
 							<table>
+								<caption>Events</caption>
 								<colgroup >
 									<col width="20%" />
 									<col width="20%" />
@@ -221,7 +220,7 @@
 										<td>Pulling image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
@@ -229,47 +228,8 @@
 										<td>Successfully pulled image "busybox"</td>
 										<td>kubelet paasta-cp-k8s-worker-001</td>
 										<td>spec.containers</td>
-										<td>3</td>
+										<td>0</td>
 										<td>2020-07-31 16:20:30</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="table_style01">
-							<table>
-								<caption>Users</caption>
-								<colgroup >
-									<col width="10%" />
-									<col width="30%" />
-									<col width="30%" />
-									<col width="30%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">Admin</th>
-										<th scope="col">User ID</th>
-										<th scope="col">Services Account</th>
-										<th scope="col">Created time</th>
-									</tr>
-								</thead>
-								<tbody class="listTable">
-									<tr>
-										<td>Y</td>
-										<td><a href="javascript:;">test-user-03</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-02</a></td>
-										<td>test-user-03</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>N</td>
-										<td><a href="javascript:;">test-user-01</a></td>
-										<td>test-user-03</td>
 										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
@@ -280,8 +240,8 @@
 					<div class="btn02">
 						<button type="submit">삭제</button>
 						<div>
-							<a href="namespacesUpdate.html">수정</a>
-							<a href="namespaces.html">이전</a>
+							<a href="../clusters/namespacesUpdate.html">수정</a>
+							<a href="replicaSets.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -299,7 +259,6 @@
 			</div>
 		</div>
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
@@ -413,6 +372,6 @@
 
 			createNamespaces.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>

@@ -3,8 +3,12 @@ const func = {
 
 	url : 'http://15.164.214.190:30333/',
 	nameLoad : new function(){},
+	nameData : new Object(),
+	createIm : '',
 
 	init(depth1, depth2){
+		console.log(sessionStorage);
+
 		// Namespaces 목록조회
 		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, 'application/json', func.namespaces);
 
@@ -61,19 +65,22 @@ const func = {
 	},
 
 	namespaces(data){
+		func.nameData = data;
 		/*
 			detailMessage: "정상적으로 처리 되었습니다."
 			httpStatusCode: 200
 			items: Array(34)
 				0: "1020-namespace"
 				1: "1029-2-namespace"
-			length: 34
-			__proto__: Array(0)
 			resultCode: "SUCCESS"
 			resultMessage: "정상적으로 처리 되었습니다."
 		*/
 		for(var i=0; i<=data.items.length-1; i++){
-			var html = `<li><a href="javascript:;">${data.items[i]}</a></li>`
+			if(i == 0){
+				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i].toUpperCase()}</a></li>`;
+			} else {
+				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i]}</a></li>`;
+			}
 			
 			func.appendHtml(document.querySelector('.nameSpace'), html, 'li');
 		};
@@ -84,13 +91,13 @@ const func = {
 
 		} else {
 			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
-			document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
+			//document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
 		};
 
 		for(var i=0 ; i<name.length; i++){
 			name[i].addEventListener('click', (e) => {
-				sessionStorage.setItem('nameSpace' , e.target.innerText);
-				document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+				sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
+				document.querySelector('.nameTop').innerHTML = e.target.innerText;
 
 				func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 			}, false);
@@ -99,15 +106,37 @@ const func = {
 
 	create(title, url, name){
 		var html = `<div class="modal-wrap" id="modal">
-			<div class="modal wide">
+			<div class="modal midium">
 				<h5>${title}</h5>
-				<textarea></textarea>
+				<dl>
+					<dt>Namespace</dt>
+					<dd>
+						<fieldset>
+							<select id="createName">
+							</select>
+						</fieldset>
+					</dd>
+				</dl>
+				<dl>
+					<dt>YAML</dt>
+					<dd>
+						<textarea></textarea>
+					</dd>
+				</dl>
 				<a class="confirm" href="javascript:;">${name}</a>
 				<a class="close" href="javascript:;">닫기</a>
 			</div>
 		</div>`;
 
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
+
+		for(var i=0; i<=func.nameData.items.length-1; i++){
+			var html = `<option value="${func.nameData.items[i]}">${func.nameData.items[i]}</option>`
+			
+			func.appendHtml(document.getElementById('createName'), html, 'select');
+		};
+
+		document.getElementById('createName').value = func.nameData.items[0];
 
 		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));
@@ -117,11 +146,16 @@ const func = {
 		document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
 			var input = document.getElementById('modal').querySelector('textarea');
 
+			sessionStorage.setItem('nameSpace' , document.getElementById('createName').value);
+			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+
 			console.log(input.value);
+			console.log(sessionStorage.getItem('nameSpace'));
+			console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${url}`);
 
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));
 			
-			func.saveData('POST', url, input.valuem, true, 'application/json', '');
+			func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${url}`, input.value, true, 'application/yaml', func.refresh);
 		}, false);
 	},
 	
@@ -155,7 +189,7 @@ const func = {
 	/////////////////////////////////////////////////////////////////////////////////////
 	loadData(method, url, header, callbackFunction, list){
 		if(sessionStorage.getItem('token') == null){
-			document.location.href = '/member/login.html';
+			document.location.href = '../member/login.html';
 		}
 
 		var request = new XMLHttpRequest();
@@ -182,21 +216,24 @@ const func = {
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
 	saveData(method, url, data, bull, header, callFunc){
+		console.log(header);
 		var request = new XMLHttpRequest();
 		request.open(method, url);
 		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
 
 		request.onreadystatechange = () => {
+			console.log(request)
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
+					console.log(request);
 					if(method == 'POST'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PATCH'){
-						//func.alertPopup('PATCH', 'COMPLETE', func.winReload);
+						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PUT'){
-						if(bull != 'false'){
-							//func.alertPopup('PUT', 'COMPLETE', func.winReload);
+						if(bull){
+							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 						};
 					} else if(method == 'DELETE'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
@@ -243,6 +280,10 @@ const func = {
 
 	historyBack(){
 		window.history.back();
+	},
+
+	refresh(){
+		location.href = location.href;
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////

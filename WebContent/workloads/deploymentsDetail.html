@@ -18,12 +18,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace scroll02">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -82,18 +79,13 @@
 			</aside>
 			<!-- // aside -->
 			<!-- Content -->
-			<div id="content" class="sub-page clusters">
+			<div id="content" class="sub-page">
 				<article class="location">
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="deployments.html">Workloads</a></li>
 						<li><a href="deployments.html">Deployments</a></li>
 					</ul>
-					<!-- Click event class="on" -->
-					<fieldset>
-						<input type="text" name="keyword" autocomplete="off" placeholder="검색어를 입력해주세요" />
-						<button type="submit">검색</button>
-					</fieldset>
 				</article>
 				<article class="base detail">
 					<div class="notice">
@@ -107,30 +99,28 @@
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
-										<th scope="row">Name</th>
-										<td>test-namespace</td>
+										<th scope="row" class="left">Name</th>
+										<td class="left" id="name"></td>
 									</tr>
 									<tr>
-										<th scope="row">UID</th>
-										<td>a47ef60c-cbde-4b57-a866-ba7c2f2692fe</td>
+										<th scope="row" class="left">UID</th>
+										<td class="left" id="uid"></td>
 									</tr>
 									<tr>
-										<th scope="row">Namespaces</th>
-										<td><a href="javascript:;">test-namespace</a></td>
+										<th scope="row" class="left">Namespaces</th>
+										<td class="left" id="space"></td>
 									</tr>
 									<tr>
-										<th scope="row">Labels</th>
-										<td class="ellips">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2
-											<div class="scroll02">label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-el-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-2label-1, label-</div>
-										</td>
+										<th scope="row" class="left">Labels</th>
+										<td class="ellips left" id="label"></td>
 									</tr>
 									<tr>
-										<th scope="row">Annotations</th>
-										<td><a href="javascript:;">kubectl.kubernetes.io/last-applied-configuration</a></td>
+										<th scope="row" class="left">Annotations</th>
+										<td class="left" id="annot"></td>
 									</tr>
 									<tr>
-										<th scope="row">Created time</th>
-										<td>2020-07-31 16:20:30</td>
+										<th scope="row" class="left">Created time</th>
+										<td class="left" id="time"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -145,20 +135,20 @@
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
-										<th scope="row">Strategy</th>
-										<td>RollingUpdate</td>
+										<th scope="row" class="left">Strategy</th>
+										<td class="left" id="strategy"></td>
 									</tr>
 									<tr>
-										<th scope="row">Min ready seconds</th>
-										<td>0</td>
+										<th scope="row" class="left">Min ready seconds</th>
+										<td class="left" id="min"></td>
 									</tr>
 									<tr>
-										<th scope="row">Revision history limit</th>
-										<td>10</td>
+										<th scope="row" class="left">Revision history limit</th>
+										<td class="left" id="limit"></td>
 									</tr>
 									<tr>
-										<th scope="row">Selector</th>
-										<td>app: nginx</td>
+										<th scope="row" class="left">Selector</th>
+										<td class="left" id="selector"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -173,12 +163,12 @@
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
-										<th scope="row">Max surge</th>
-										<td>25%</td>
+										<th scope="row" class="left">Max surge</th>
+										<td class="left" id="surge"></td>
 									</tr>
 									<tr>
-										<th scope="row">Max unavailable</th>
-										<td>25%</td>
+										<th scope="row" class="left">Max unavailable</th>
+										<td class="left" id="unavailable"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -193,23 +183,24 @@
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
-										<th scope="row">Updated</th>
-										<td>2</td>
+										<th scope="row" class="left">Updated</th>
+										<td class="left" id="updated"></td>
 									</tr>
 									<tr>
-										<th scope="row">Total</th>
-										<td>2</td>
+										<th scope="row" class="left">Total</th>
+										<td class="left" id="total"></td>
 									</tr>
 									<tr>
-										<th scope="row">Available</th>
-										<td>2</td>
+										<th scope="row" class="left">Available</th>
+										<td class="left" id="available"></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+						<h4>Event List</h4>
 						<div class="table_style01">
 							<table>
-								<caption>Users</caption>
+								<caption>Event List</caption>
 								<colgroup >
 									<col width="18%" />
 									<col width="18%" />
@@ -228,32 +219,16 @@
 										<th scope="col">Last seen</th>
 									</tr>
 								</thead>
-								<tbody class="listTable">
-									<tr>
-										<td>Pulling image "busybox"</td>
-										<td>kubelet paasta-cp-k8s-worker-001</td>
-										<td>spec.containers</td>
-										<td>3</td>
-										<td>2020-07-31 16:20:30</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
-									<tr>
-										<td>Successfully pulled image "busybox"</td>
-										<td>kubelet paasta-cp-k8s-worker-001</td>
-										<td>spec.containers</td>
-										<td>3</td>
-										<td>2020-07-31 16:20:30</td>
-										<td>2020-07-31 16:20:30</td>
-									</tr>
+								<tbody class="eventList">
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button type="submit">삭제</button>
+						<button type="submit" id="delete">삭제</button>
 						<div>
-							<a href="namespacesUpdate.html">수정</a>
+							<a href="javascript:;"  id="modify">수정</a>
 							<a href="deployments.html">이전</a>
 						</div>
 					</div>
@@ -262,29 +237,19 @@
 			<!-- // Content -->
 		</div>
 		<!-- // container -->
-		<!-- modal -->
-		<div class="modal-wrap" style="display:none;">
-			<div class="modal">
-				<h5>삭제확인</h5>
-				<p>리소스를 삭제하시겠습니까?</p>
-				<button class="confirm" type="submit">삭제</button>
-				<a class="close" href="javascript:;">닫기</a>
-			</div>
-		</div>
 	</div>
-	<!--
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(1, 0);
 
-			const createNamespaces = {
+			const depolyDetail = {
 				init(){
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
+					// depolyDetail 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, 'application/json', depolyDetail.draw);
 				},
 
 				draw(data){
@@ -299,93 +264,75 @@
 						1: {userId: "hrjin4", isNsAdmin: "N"}
 					*/
 
-					for(var i=0; i<=data.usersInfo.length-1; i++){
-						var html = `<option value="${data.usersInfo[i].userId}">${data.usersInfo[i].userId}</option>`;
-						
-						func.appendHtml(document.getElementById('user'), html, 'select');
-					};
+					// Details data
+					document.getElementById('name').innerText = data.name;
+					document.getElementById('uid').innerText = data.uid;
+					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
+					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
+					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
+					document.getElementById('time').innerText = data.creationTimestamp;
 					
-					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
+					// Resource Info
+					document.getElementById('strategy').innerText = data.strategy.type;
+					document.getElementById('min').innerText = data.minReadySeconds;
+					document.getElementById('limit').innerText = data.revisionHistoryLimit;
+					document.getElementById('selector').innerText = JSON.stringify(data.selector.matchLabels).replace(/\{/gi, "").replace(/\}/gi, "");
+					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
+					
+					// Rolling update strategy
+					document.getElementById('surge').innerText = data.strategy.rollingUpdate.maxSurge;
+					document.getElementById('unavailable').innerText = data.strategy.rollingUpdate.maxUnavailable;
 
-					createNamespaces.event();
+					// Pods status
+					document.getElementById('updated').innerText = data.updated;
+					document.getElementById('total').innerText = data.total;
+					document.getElementById('available').innerText = data.available;
+
+					// event 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/events/resources/${data.uid}`, 'application/json', depolyDetail.list);
 				},
 
-				event(){
-					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', createNamespaces.resource);
-					}, false);
-					
-					document.querySelector('.limAdd').addEventListener('click', (e) => {
-					}, false);
-					
-					document.getElementById('save').addEventListener('click', (e) => {
-						console.log(document.getElementById('name').value);
-						console.log(document.getElementById('user').value);
-					}, false);
-				},
-
-				resource(data){
-					console.log(data);
+				list(data){
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 3, remainingItemCount: 0}
-					items: Array(3)
-						0: {name: "cp-low-rq", requestCpu: "0", requestMemory: "0", limitCpu: "2", limitMemory: "2Gi", …}
-						1: {name: "cp-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
-					metadata: null
+					items: Array(0)
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
+					
+					func.removeHtml(document.querySelector('.eventList'));
+
 					if(data.items.length > 0){
-						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Resource Quotas</h5>`;
-						
-						html += `<div class="table_style01">
-									<table>
-										<caption>Resource Quotas</caption>
-										<colgroup >
-											<col width="30%" />
-											<col width="70%" />
-										</colgroup>
-										<thead>
-											<tr>
-												<th scope="col">Name</th>
-												<th scope="col">Status</th>
-											</tr>
-										</thead>
-										<tbody class="resourceList">`;
-
+						/*
 						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr><td>${data.items[i].name}</td><td>${data.items[i].status}</td></tr>`;
-						}
+							var html = `<tr><td class="left">${data.items[i].message}</td><td class="left">${JSON.stringify(data.items[i].source)}</td><td>${data.items[i].filePath}</td><td>${data.items[i].count}</td><td>${data.items[i].firstTimestamp}</td><td>${data.items[i].lastTimestamp}</td></tr>`;
 
-						html +=	`			</tbody>
-									</table>
-								</div>`;
-						html += `<a class='confirm' href='javascript:;'>저장</a>`;
-						html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
-
-						func.appendHtml(document.getElementById('wrap'), html, 'div');
+							func.appendHtml(document.querySelector('.eventList'), html, 'tbody');
+						};
+							*/
 					} else {
-						func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
-					}
+						var html = '<tr><td colspan="6">No Data.</td></tr>';
+
+						func.appendHtml(document.querySelector('.eventList'), html, 'tbody');
+					};
+					
+					depolyDetail.event();
 				},
 
-				limit(data){
+				event(){
+					document.getElementById('delete').addEventListener('click', (e) => {
+						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+					}, false);
 
-				},
-
-				resourceSelect(){
-					console.log('call');
-				},
-
-				limitSelect(){
-
+					
+					document.getElementById('modify').addEventListener('click', (e) => {
+					}, false);
 				},
 			}
 
-			createNamespaces.init();
+			depolyDetail.init();
 		}
-	</script>-->
+	</script>
 </body>
 </html>
