@@ -184,8 +184,6 @@
 
 					// 초기 게시물 갯수 저장
 					if(depoly.offset == 0) depoly.allItemCount = data.itemMetaData.allItemCount;
-					
-					func.removeHtml(document.querySelector('.listTable'));
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
@@ -205,6 +203,7 @@
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
+
 					depoly.listEvent();
 				},
 

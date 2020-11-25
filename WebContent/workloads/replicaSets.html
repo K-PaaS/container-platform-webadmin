@@ -19,12 +19,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace scroll02">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -54,7 +51,7 @@
 							<a href="javascript:;" class="dep01">Workloads</a>
 							<ul class="sub">
 								<li><a href="../workloads/deployments.html">Deployments</a></li>
-								<li><a href="../workloads/pods.html">Pods</a></li>
+								<li><a href="../workloads/replica.html">Pods</a></li>
 								<li><a href="../workloads/replicaSets.html">Replica Sets</a></li>
 							</ul>
 						</li>
@@ -105,11 +102,11 @@
 							<table>
 								<caption>Replica List</caption>
 								<colgroup >
-									<col width="22%" />
-									<col width="22%" />
-									<col width="12%" />
-									<col width="22%" />
-									<col width="22%" />
+									<col width="25%" />
+									<col width="25%" />
+									<col width="7%" />
+									<col width="25%" />
+									<col width="18%" />
 								</colgroup>
 								<thead>
 									<tr>
@@ -141,86 +138,107 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(1, 2);
 
-			const nameSpace = {
+			const replica = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
+				searchName : '',
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.nameLoad = replica.load;
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+					// nameSpace session 초기화
+					sessionStorage.setItem('nameSpace', 'ALL');
+					
+					replica.load();
+					
+					replica.event();
+				},
 
-					nameSpace.event();
+				load(){
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets?limit=${replica.limit}&offset=${replica.offset}&searchName=${replica.searchName}`, 'application/json', replica.draw);
 				},
 
 				draw(data){
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 92, remainingItemCount: 82}
+					items: Array(10)
+						0:
+						creationTimestamp: "2020-11-20 14:18:18"
+						image: "nginx:1.10"
+						name: "cp-deployment-857df58577"
+						namespace: "1112-ns"
+						runningPods: 0
+						totalPods: 0
+						1: {name: "cp-deployment-rex-857df58577", namespace: "cp-namespace", runningPods: 1, totalPods: 1, image: "nginx:1.10", …}0
+					metadata: {selfLink: "/apis/apps/v1/replicasets", resourceVersion: "28511555"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(replica.offset == 0) replica.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].totalPods}</td><td>${data.items[i].image}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						};
+					} else {
+						var html = '<tr><td colspan="6">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < replica.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
-					nameSpace.listEvent();
+					replica.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
-							nameSpace.offset++;
+						console.log(document.querySelector('.listTable').querySelectorAll('tr').length +' = '+ replica.allItemCount)
+						if(document.querySelector('.listTable').querySelectorAll('tr').length < replica.allItemCount){
+							replica.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+							replica.load();
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						sessionStorage.setItem('commonName', '');
+
+						func.create('Create', 'replicaSets', '저장');
 					}, false);
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
+					for(var i=replica.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-id'));
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'replicaSetsDetail.html';
 						}, true);
 					};
 				},
 			}
 
-			nameSpace.init();
+			replica.init();
 		}
 	</script>
 </body>

@@ -21,6 +21,10 @@ const func = {
 			nav1d[depth1].parentNode.classList.toggle('on', true);
 			
 			if(depth2 >= 0){
+				if(depth1 >= 3) depth1--;
+
+				var nav2d = nav2b[depth1].querySelectorAll('a');
+
 				nav2d[depth2].classList.toggle('on', true);
 			} else {
 				nav1d[depth1].classList.toggle('on', true);
@@ -149,14 +153,60 @@ const func = {
 			sessionStorage.setItem('nameSpace' , document.getElementById('createName').value);
 			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
 
-			console.log(input.value);
-			console.log(sessionStorage.getItem('nameSpace'));
-			console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${url}`);
-
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));
 			
 			func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${url}`, input.value, true, 'application/yaml', func.refresh);
 		}, false);
+	},
+
+	modify(data){
+		var html = `<div class="modal-wrap" id="modal">
+			<div class="modal midium">
+				<h5>Modify</h5>
+				<dl>
+					<dt>Namespace</dt>
+					<dd>
+						<fieldset>
+							<select id="createName" disabled>
+							</select>
+						</fieldset>
+					</dd>
+				</dl>
+				<dl>
+					<dt>YAML</dt>
+					<dd>
+						<textarea>${data.sourceTypeYaml}</textarea>
+					</dd>
+				</dl>
+				<a class="confirm" href="javascript:;">저장</a>
+				<a class="close" href="javascript:;">닫기</a>
+			</div>
+		</div>`;
+
+		func.appendHtml(document.getElementById('wrap'), html, 'div');
+
+		for(var i=0; i<=func.nameData.items.length-1; i++){
+			var html = `<option value="${func.nameData.items[i]}">${func.nameData.items[i]}</option>`
+			
+			func.appendHtml(document.getElementById('createName'), html, 'select');
+		};
+		
+		document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+
+		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
+			document.getElementById('wrap').removeChild(document.getElementById('modal'));
+		}, false);
+
+		
+		document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
+			var input = document.getElementById('modal').querySelector('textarea');
+
+			document.getElementById('wrap').removeChild(document.getElementById('modal'));
+			
+			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${document.getElementById('modify').getAttribute('data-role')}/${sessionStorage.getItem('commonName')}`, input.value, true, 'application/yaml', func.refresh);
+		}, false);
+
+		//
 	},
 	
 	// 로그인 체크 ////////////////////////////////////////////////////////////////
@@ -216,17 +266,14 @@ const func = {
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
 	saveData(method, url, data, bull, header, callFunc){
-		console.log(header);
 		var request = new XMLHttpRequest();
 		request.open(method, url);
 		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
 
 		request.onreadystatechange = () => {
-			console.log(request)
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
-					console.log(request);
 					if(method == 'POST'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PATCH'){

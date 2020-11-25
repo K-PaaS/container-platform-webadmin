@@ -228,7 +228,7 @@
 					<div class="btn02">
 						<button type="submit" id="delete">삭제</button>
 						<div>
-							<a href="javascript:;"  id="modify">수정</a>
+							<a href="javascript:;"  id="modify" data-role="deployments">수정</a>
 							<a href="deployments.html">이전</a>
 						</div>
 					</div>
@@ -325,8 +325,9 @@
 						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 					}, false);
 
-					
 					document.getElementById('modify').addEventListener('click', (e) => {
+						// Resource yaml 정보 조회
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
 				},
 			}
