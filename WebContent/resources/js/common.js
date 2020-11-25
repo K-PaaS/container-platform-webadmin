@@ -1,7 +1,7 @@
 
 const func = {
 
-	url : 'http://15.164.214.190:30333/',
+	url : 'http://api-deployment.default.svc.cluster.local:3333/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
