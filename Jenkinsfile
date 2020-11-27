@@ -16,7 +16,7 @@ pipeline {
 		stage('sed') {
 		    steps {
 		        sh 'head -5 WebContent/resources/js/common.js'
-		        sh 'sed -i "s/15.164.214.190:30333/api-deployment.default.svc.cluster.local:3333'
+		        sh 'sed -i "s/15.164.214.190:30333/api-deployment.default.svc.cluster.local:3333"'
 		        sh 'head -5 WebContent/resources/js/common.js'
 		    }
 		}
