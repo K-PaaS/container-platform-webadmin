@@ -19,12 +19,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -64,9 +61,9 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
-								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
+								<li><a href="volumeClaims.html">Persistsnt Volumes</a></li>
+								<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
@@ -87,7 +84,7 @@
 				<article class="location">
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
-						<li><a href="persistentVolumes.html">Storages</a></li>
+						<li><a href="volumeClaims.html">Storages</a></li>
 						<li><a href="persistentVolumeClaims.html">persistent Volume Claims</a></li>
 					</ul>
 					<!-- Click event class="on" -->
@@ -105,12 +102,12 @@
 							<table>
 								<caption>Persistent Volume Claims List</caption>
 								<colgroup >
+									<col width="20%" />
+									<col width="18%" />
+									<col width="10%" />
+									<col width="17%" />
 									<col width="18%" />
 									<col width="18%" />
-									<col width="14%" />
-									<col width="18%" />
-									<col width="18%" />
-									<col width="14%" />
 								</colgroup>
 								<thead>
 									<tr>
@@ -129,7 +126,7 @@
 							<a class="more" href="javascript:;">more</a>
 						</div>
 						<!-- btn -->
-						<a href="../clusters/namespacesCreat.html" class="create">생성</a>
+						<a href="javascript:;" class="create">생성</a>
 					</div>
 				</article>
 			</div>
@@ -143,86 +140,102 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(3, 1);
 
-			const nameSpace = {
+			const volumeClaims = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.nameLoad = volumeClaims.load;
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+					// nameSpace session 초기화
+					sessionStorage.setItem('nameSpace', 'ALL');
+					
+					volumeClaims.load();
 
-					nameSpace.event();
+					volumeClaims.event();
+				},
+
+				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					// persistentVolumes 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
 				},
 
 				draw(data){
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 23, remainingItemCount: 13}
+					items: Array(10)
+					0:
+						capacity: {storage: "-"}
+						creationTimestamp: "2020-11-17 20:23:13"
+						name: "test-persistentvolumeclaim"
+						namespace: "cp-namespace"
+						persistentVolumeClaimStatus: "Pending"
+						volume: "-"
+						1: {name: "kjh-persistentvolumeclaim", namespace: "cp-namespace", persistentVolumeClaimStatus: "Pending", volume: "test-volume", capacity: {…}, …}
+					metadata: {selfLink: "/api/v1/persistentvolumeclaims", resourceVersion: "29231792"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(volumeClaims.offset == 0) volumeClaims.allItemCount = data.itemMetaData.allItemCount;
 
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spc="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td class="${data.items[i].persistentVolumeClaimStatus}">${data.items[i].persistentVolumeClaimStatus}</td><td class="left">${data.items[i].volume}</td><td>${JSON.stringify(data.items[i].capacity)}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < volumeClaims.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
 					//
-					nameSpace.listEvent();
+					volumeClaims.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
-							nameSpace.offset++;
+						if(document.querySelector('.listTable').querySelectorAll('tr').length < volumeClaims.allItemCount){
+							volumeClaims.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						sessionStorage.setItem('commonName', '');
+
+						func.create('Create', 'persistentVolumeClaims', '저장');
 					}, false);
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
-
+					for(var i=volumeClaims.offset*10; i<=listAll.length-1; i++){
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-spc'));
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'persistentVolumeClaimsDetail.html';
 						}, true);
 					};
 				},
 			}
 
-			nameSpace.init();
+			volumeClaims.init();
 		}
 	</script>
 </body>

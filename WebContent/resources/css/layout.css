@@ -221,9 +221,15 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .table_style01 table tr td {text-align:center; border:1px solid #ebebeb; border-left:0; padding:18px 11px 16px 11px; color:#818894; font-size:16px; white-space: normal; letter-spacing:-0.2px;}
 .table_style01 table tr td:last-child {border-right:0;}
 .table_style01 table tr td.active,
+.table_style01 table tr td.running,
 .table_style01 table tr td.true {color:#0ca583;}
-.table_style01 table tr td.terminating,
-.table_style01 table tr td.fail {color:#ff7a0f;}
+.table_style01 table tr td.terminating {color:#ffc53e;}
+.table_style01 table tr td.succeeded {color:#844adb;}
+.table_style01 table tr td.failed,
+.table_style01 table tr td.fail {color:#f34111;}
+.table_style01 table tr td.pending {color:#d9d9d9;}
+
+/*.aas {color:#0ca583; color:#ffc53e; color:#f34111; color:#844adb; color:#d9d9d9}*/
 
 .table_style01 table tr td {position:relative;}
 .table_style01 table tr td.ellips span {overflow:hidden; text-overflow: ellipsis; white-space: nowrap; display:block;}
