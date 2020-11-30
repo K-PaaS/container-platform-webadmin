@@ -19,12 +19,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -72,10 +69,10 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="../managements/users.html">Users</a></li>
-								<li><a href="../managements/roles.html">Roles</a></li>
-								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
-								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
+								<li><a href="users.html">Users</a></li>
+								<li><a href="roles.html">Roles</a></li>
+								<li><a href="resourceQuotas.html">Resource Quotas</a></li>
+								<li><a href="limitRanges.html">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -92,8 +89,8 @@
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
-						<input type="text" name="keyword" autocomplete="off" placeholder="검색어를 입력해주세요" />
-						<button type="submit">검색</button>
+						<input type="text" name="keyword" id="searchText" autocomplete="off" placeholder="검색어를 입력해주세요" />
+						<button type="submit" id="search">검색</button>
 					</fieldset>
 				</article>
 				<article class="base">
@@ -128,7 +125,7 @@
 										<th scope="col">Created Time</th>
 									</tr>
 								</thead>
-								<tbody class="listTable">
+								<tbody class="adminList">
 								</tbody>
 							</table>
 							<!-- more btn -->
@@ -155,7 +152,7 @@
 										<th scope="col">Created Time</th>
 									</tr>
 								</thead>
-								<tbody class="listTable">
+								<tbody class="userList">
 								</tbody>
 							</table>
 							<!-- more btn -->
@@ -176,64 +173,68 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(4, 0);
 
-			const nameSpace = {
+			const user = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
+				type : 'administrator',
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.nameLoad = user.draw;
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchParam=limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
 
-					nameSpace.event();
+					user.event();
 				},
 
-				draw(data){
+				adminDraw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 54, remainingItemCount: 44}
+					items: Array(10)
+						0:
+						creationTimestamp: "2020-11-27 10:30:15"
+						labels: "-"
+						name: "hrjin-1127-ns"
+						namespaceStatus: "Active"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(user.offset == 0) user.allItemCount = data.itemMetaData.allItemCount;
 
+					/*
 					for(var i=0; i<=data.items.length-1; i++){
 						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
-						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
 					};
+					*/
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
 					//
-					nameSpace.listEvent();
+					//user.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
-							nameSpace.offset++;
+						if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
+							user.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {
@@ -242,12 +243,12 @@
 				},
 
 				listEvent(){
-					var listAll = document.querySelector('.listTable').querySelectorAll('a');
+					var listAll = document.querySelector('.adminList').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
+					for(var i=user.offset*10; i<=listAll.length-1; i++){
 
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							user.listMove(e.target.getAttribute('data-name'));
 
 							document.location.href = 'login.html';
 						}, true);
@@ -255,7 +256,7 @@
 				},
 			}
 
-			nameSpace.init();
+			user.init();
 		}
 	</script>
 </body>

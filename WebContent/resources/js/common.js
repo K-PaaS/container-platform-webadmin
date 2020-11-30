@@ -16,18 +16,20 @@ const func = {
 		if(depth1 >= 0){
 			var nav1d = document.querySelector('nav').querySelectorAll('.dep01');
 			var nav2b = document.querySelectorAll('.sub');
-			var nav2d = nav2b[depth1].querySelectorAll('a');
 
 			nav1d[depth1].parentNode.classList.toggle('on', true);
 			
 			if(depth2 >= 0){
 				if(depth1 >= 3) depth1--;
-
+				
 				var nav2d = nav2b[depth1].querySelectorAll('a');
 
 				nav2d[depth2].classList.toggle('on', true);
 			} else {
+				var nav2d = nav2b[depth1].querySelectorAll('a');
+
 				nav1d[depth1].classList.toggle('on', true);
+
 			}
 		}
 
@@ -59,6 +61,12 @@ const func = {
 				e.target.parentNode.classList.toggle('on', true);
 			}, false);
 		};
+
+		// search event
+		document.getElementById('search').addEventListener('click', (e) => {
+			console.log('s');
+			e.target.parentNode.classList.toggle('on', true);
+		}, false);
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
