@@ -94,32 +94,33 @@
 							<dl>
 								<dt><label for="userId">User ID</label></dt>
 								<dd>
-									<input id="userId" type="text" placeholder="test-user-id"/>
+									<input id="userId" type="text" placeholder="소문자와 영숫자 “-” 또는 “.” 만 포함, 시작과 끝은 영숫자
+									"/>
 								</dd>
 							</dl>
 							<dl>
 								<dt><label for="pass">Password</label></dt>
 								<dd>
-									<input id="pass" type="password"/>
+									<input id="pass" type="password" placeholder="4~40자, 최소 하나 이상의 영숫자와 특수 문자 혼합, 영문 시작"/>
 								</dd>
 							</dl>
 							<dl>
 								<dt><label for="passConfirm">Password Confirm</label></dt>
 								<dd>
-									<input id="passConfirm" type="password"/>
+									<input id="passConfirm" type="password" placeholder="4~40자, 최소 하나 이상의 영숫자와 특수 문자 혼합, 영문 시작"/>
 								</dd>
 							</dl>
 							<dl>
 								<dt><label for="email">Email</label></dt>
 								<dd>
-									<input id="email" type="email"/>
+									<input id="email" type="email" placeholder="email@email.kr"/>
 								</dd>
 							</dl>
 							<div class="check-quotas">
 								<p>Namespaces &frasl; Roles</p>
 								<a href="javascript:;" class="resAdd">선택</a>
 							</div>
-							<div class="table_style01">
+							<div class="table_style01 limitTable">
 								<table>
 									<caption>Namespaces &frasl; Roles</caption>
 									<colgroup >
@@ -128,23 +129,12 @@
 									</colgroup>
 									<thead>
 										<tr>
+											<th scope="col"></th>
 											<th scope="col">Namespaces</th>
 											<th scope="col">Roles</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>-</td>
-											<td>-</td>
-										</tr>
-										<tr>
-											<td>-</td>
-											<td>-</td>
-										</tr>
-										<tr>
-											<td>-</td>
-											<td>-</td>
-										</tr>
+									<tbody class="resourceQuotas">
 									</tbody>
 								</table>
 							</div>
@@ -178,13 +168,13 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(4, 0);
 
-			const createNamespaces = {
+			const createUser = {
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createUser.draw);
 				},
 
 				draw(data){
@@ -199,6 +189,7 @@
 						1: {userId: "hrjin4", isNsAdmin: "N"}
 					*/
 
+					/*
 					for(var i=0; i<=data.usersInfo.length-1; i++){
 						var html = `<option value="${data.usersInfo[i].userId}">${data.usersInfo[i].userId}</option>`;
 						
@@ -206,81 +197,77 @@
 					};
 					
 					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
-
-					createNamespaces.event();
+*/
+					createUser.event();
 				},
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', createNamespaces.resource);
-					}, false);
-					
-					document.querySelector('.limAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', createNamespaces.limit);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/users/all/namespacesRolesList`, 'application/json', createUser.resource);
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
 						var resourceName = document.querySelector('.resourceQuotas').querySelectorAll('input');
-						var limitName = document.querySelector('.limitQuotas').querySelectorAll('input');
 
 						var resourceQuotasList = [];
-						var  limitRangesList = [];
 
 						for(var i=0; i<=resourceName.length-1; i++){
-							resourceQuotasList.push(resourceName[i].getAttribute('data-name'));
+							resourceQuotasList.push({"namespace":resourceName[i].getAttribute('data-name'),"role":resourceName[i].getAttribute('data-stat')});
 						};
 
-						for(var j=0; j<=limitName.length-1; j++){
-							limitRangesList.push(limitName[j].getAttribute('data-name'));
-						};
+						console.log(resourceQuotasList);
 
 						var createName = {
-							"name": document.getElementById('name').value,
-							"nsAdminUserId": document.getElementById('user').value,
-							"resourceQuotasList": resourceQuotasList,
-							"limitRangesList": limitRangesList,
+							"userId": document.getElementById('userId').value,
+							"password": document.getElementById('pass').value,
+							"email": document.getElementById('email').value,
+							"selectValues": resourceQuotasList,
 						};
 
 						console.log(createName);
 
-						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.stringify(createName), true, 'application/json', func.historyBack);
+						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users`, JSON.stringify(createName), true, 'application/json', func.historyBack);
 					}, false);
 				},
 
 				resource(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 3, remainingItemCount: 0}
-					items: Array(3)
-						0: {name: "cp-low-rq", requestCpu: "0", requestMemory: "0", limitCpu: "2", limitMemory: "2Gi", …}
-						1: {name: "cp-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
-					metadata: null
+					itemMetaData: {allItemCount: 74, remainingItemCount: 0}
+					items: Array(74)
+						0:
+						checkYn: "N"
+						name: "paas-ta-container-platform-admin-role"
+						namespace: "hrjin-1127-ns"
+						userType: "NOT_ASSIGNED_ROLE"
+					metadata: {selfLink: "/apis/rbac.authorization.k8s.io/v1/roles", resourceVersion: "30926854"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 					if(data.items.length > 0){
-						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Resource Quotas</h5>`;
+						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Namespaces ⁄ Roles</h5>`;
 						
 						html += `<div class="table_style01">
 									<table>
-										<caption>Resource Quotas</caption>
+										<caption>Namespaces ⁄ Roles</caption>
 										<colgroup >
 											<col width="7%" />
-											<col width="27%" />
-											<col width="66%" />
+											<col width="46%" />
+											<col width="47%" />
 										</colgroup>
 										<thead>
 											<tr>
 												<th scope="col"></th>
-												<th scope="col">Name</th>
-												<th scope="col">Status</th>
+												<th scope="col">Namespaces</th>
+												<th scope="col">Roles</th>
 											</tr>
 										</thead>
 										<tbody class="resourceList">`;
 
 						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].name}" data-stat='${data.items[i].status}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td></tr>`;
+							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].namespace}</td><td class="left">${data.items[i].name}</td></tr>`;
 						}
 
 						html +=	`			</tbody>
@@ -295,10 +282,17 @@
 							document.getElementById('wrap').removeChild(document.getElementById('modal'));
 						}, false);
 
-						document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
-							
-							var input = document.getElementById('modal').querySelectorAll('input[type=checkbox]');
+						//체크박스 중복선택 체크
+						var input = document.getElementById('modal').querySelectorAll('input[type=checkbox]');
 
+						for(var i=0; i<=input.length-1; i++){
+							input[i].addEventListener('click', (e) => {
+								if(e.target.checked) createUser.overlap(e.target, e.target.getAttribute('data-name'));
+							}, false);
+						};
+
+						// 리스트 선택 완료
+						document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
 							func.removeHtml(document.querySelector('.resourceQuotas'));
 
 							for(var i=0; i<=input.length-1; i++){
@@ -321,107 +315,24 @@
 					};
 				},
 
-				limit(data){
-					console.log(data);
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: null
-					items: Array(6)
-						0:
-							checkYn: "N"
-							creationTimestamp: "2020-11-05 13:26:24"
-							defaultLimit: "100m"
-							defaultRequest: "0"
-							max: "0"
-							min: "0"
-							name: "paas-ta-container-platform-low-limit-range"
-							resource: "cpu"
-							type: "Container"
-						1: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "memory", min: "0", max: "0", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-					if(data.items.length > 0){
-						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Limit Quotas</h5>`;
-						
-						html += `<div class="table_style01">
-									<table>
-										<caption>Limit Quotas</caption>
-										<colgroup >
-											<col width="7%" />
-											<col width="25%" />
-											<col width="12%" />
-											<col width="15%" />
-											<col width="8%" />
-											<col width="8%" />
-											<col width="13%" />
-											<col width="12%" />
-										</colgroup>
-										<thead>
-											<tr>
-												<th scope="col"></th>
-												<th scope="col">Name</th>
-												<th scope="col">Type</th>
-												<th scope="col">Resource</th>
-												<th scope="col">Min</th>
-												<th scope="col">Max</th>
-												<th scope="col">Default Request</th>
-												<th scope="col">Default Limit</th>
-											</tr>
-										</thead>
-										<tbody class="limitList">`;
+				overlap(obj, name){
+					var input = document.getElementById('modal').querySelectorAll('input[type=checkbox]:checked');
+					var cnt = 0;
 
-						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr>
-									<td><input type="checkbox" id="limitChk${i}" data-name="${data.items[i].name}"><label for="limitChk${i}"></td>
-									<td class="left">${data.items[i].name}</td>
-									<td>${data.items[i].type}</td>
-									<td>${data.items[i].resource}</td>
-									<td>${data.items[i].min}</td>
-									<td>${data.items[i].max}</td>
-									<td>${data.items[i].defaultRequest}</td>
-									<td>${data.items[i].defaultLimit}</td>
-								</tr>`;
-						};
+					for(var i=0; i<=input.length-1; i++){
+						if(name == input[i].getAttribute('data-name')){
+							cnt++;
+							if(cnt > 1){
+								obj.checked = false;
 
-						html +=	`</tbody></table></div>`;
-						html += `<a class='confirm' href='javascript:;'>선택 완료</a>`;
-						html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
-
-						func.appendHtml(document.getElementById('wrap'), html, 'div');
-
-						document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {			
-							document.getElementById('wrap').removeChild(document.getElementById('modal'));
-						}, false);
-
-						document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
-							var input = document.getElementById('modal').querySelectorAll('input[type=checkbox]');
-
-							func.removeHtml(document.querySelector('.limitQuotas'));
-
-							for(var i=0; i<=input.length-1; i++){
-								if(input[i].checked == false){
-									document.getElementById('modal').querySelector('.limitList').removeChild(input[i].parentNode.parentNode);
-								} else {
-									input[i].setAttribute('id','');
-								};
+								window.alert('같은 Namespaces는 선택하실 수 없습니다.');
 							};
-
-							var html = document.getElementById('modal').querySelector('.limitList').innerHTML;
-
-							func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
-
-							document.getElementById('wrap').removeChild(document.getElementById('modal'));
-						}, false);
-					} else {
-						func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
+						};
 					};
 				},
 			}
 
-			createNamespaces.init();
+			createUser.init();
 		}
 	</script>
 </body>
