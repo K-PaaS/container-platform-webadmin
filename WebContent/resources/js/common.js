@@ -62,11 +62,18 @@ const func = {
 			}, false);
 		};
 
-		// search event
-		document.getElementById('search').addEventListener('click', (e) => {
-			console.log('s');
-			e.target.parentNode.classList.toggle('on', true);
-		}, false);
+		if(document.getElementById('search') != null){
+			// search event
+			document.getElementById('search').addEventListener('click', (e) => {
+				e.target.parentNode.classList.toggle('on', true);
+			}, false);
+			
+			document.getElementById('searchText').onkeydown = function(e) {
+				if(e.keyCode === 13){
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+				};
+			};
+		};
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
@@ -283,7 +290,8 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
 					if(method == 'POST'){
-						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+						console.log(request.responseText)
+						//func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PATCH'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PUT'){
@@ -321,7 +329,8 @@ const func = {
 
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
 
-		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {			
+		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
+			console.log('c');
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));
 		}, false);
 

@@ -96,12 +96,12 @@
 				<article class="base">
 					<div class="notice">
 						<!-- tab menu -->
-						<ul>
+						<ul id="tabParent">
 							<li class="on">
-								<a href="javascript:;">Administrator</a>
+								<a href="javascript:;" class="tabBtn">Administrator</a>
 							</li>
 							<li>
-								<a href="javascript:;">User</a>
+								<a href="javascript:;" class="tabBtn">User</a>
 							</li>
 						</ul>
 						<!-------------------- Administrator Tab -------------------->
@@ -131,33 +131,6 @@
 							<!-- more btn -->
 							<a class="more" href="javascript:;">more</a>
 						</div>
-						<!-------------------- User Tab -------------------->
-						<div class="table_style01">
-							<!-- board -->
-							<table>
-								<caption>Users List</caption>
-								<colgroup >
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">User ID</th>
-										<th scope="col">Services Account</th>
-										<th scope="col">Namespaces</th>
-										<th scope="col">Roles</th>
-										<th scope="col">Created Time</th>
-									</tr>
-								</thead>
-								<tbody class="userList">
-								</tbody>
-							</table>
-							<!-- more btn -->
-							<a class="more" href="javascript:;">more</a>
-						</div>
 						<!-- btn -->
 						<a href="userCreat.html" class="create">생성</a>
 					</div>
@@ -182,26 +155,31 @@
 				type : 'administrator',
 
 				init(){
-					func.nameLoad = user.draw;
+					func.nameLoad = user.load;
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchParam=limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
+					user.load();
 
 					user.event();
 				},
 
+				load(){
+					// nameSpace 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
+				},
+
 				adminDraw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 54, remainingItemCount: 44}
-					items: Array(10)
+					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
+					items: Array(8)
 						0:
-						creationTimestamp: "2020-11-27 10:30:15"
-						labels: "-"
-						name: "hrjin-1127-ns"
-						namespaceStatus: "Active"
+						cpNamespace: "testuser-namespace"
+						created: "2020-11-11 20:32:39"
+						roleSetCode: "cluster-admin"
+						serviceAccountName: "testuser"
+						userId: "testuser"
+						userType: "CLUSTER_ADMIN"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
@@ -209,13 +187,19 @@
 					// 초기 게시물 갯수 저장
 					if(user.offset == 0) user.allItemCount = data.itemMetaData.allItemCount;
 
-					/*
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(user.allItemCount > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td>${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td>${data.items[i].roleSetCode}</td><td>${data.items[i].created}</td></tr>`;
+
+							func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
+						};
+					} else {
+						var html = `<tr><td colspan="5">No Data.</td></tr>`;
+
+						func.removeHtml(document.querySelector('.adminList'));
 
 						func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
-					};
-					*/
+					}
 
 					// more 버튼 활성, 비활성
 					if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
@@ -225,7 +209,7 @@
 					};
 
 					//
-					//user.listEvent();
+					user.listEvent();
 				},
 
 				event(){
@@ -234,23 +218,45 @@
 						if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
 							user.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						document.location.href = 'userCreat.html';
 					}, false);
+
+					var tabBtn = document.querySelectorAll('.tabBtn');
+					var tabBtn = document.querySelectorAll('.tabBtn');
+					
+					for(var i=0; i<=tabBtn.length-1; i++){
+						tabBtn[i].addEventListener('click', (e) => {
+							if(e.target.parentNode.classList != 'on'){
+								var tab = document.getElementById('tabParent').children;
+								
+								for(var j=0; j<=tab.length-1; j++){
+									tab[j].classList.toggle('on', false);
+								};
+								
+								e.target.parentNode.classList.toggle('on', true);
+
+								user.type = e.target.innerText;
+
+								func.removeHtml(document.querySelector('.adminList'));
+								
+								user.load();
+							};
+						}, false);
+					};
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.adminList').querySelectorAll('a');
 					
 					for(var i=user.offset*10; i<=listAll.length-1; i++){
-
 						listAll[i].addEventListener('click', (e) => {
-							user.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'usersDetail.html';
 						}, true);
 					};
 				},

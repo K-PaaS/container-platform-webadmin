@@ -281,6 +281,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .modal dl dd fieldset:after {content:""; width:10px; height:10px; border-bottom:2px solid #666666; border-left:2px solid #666666; transform: rotate(-45deg); position:absolute; top:19px; right:22px;cursor: pointer;}
 .modal dl dd fieldset select {height:50px; line-height:50px; width:100%; padding-left:18px; font-size:18px; color:#47494d; cursor: pointer;}
 .modal dl dd textarea {width:100%; height:250px; overflow-y:scroll; padding:10px; font-size:16px; line-height:25px; letter-spacing: -0.8px; border:1px solid #d1d1d1;}
+.modal .table_style01 {overflow-y:auto; max-height:500px;}
 .modal .confirm {display:block; width:100%; background-color:#0950bf; color:#fff; text-align:center; line-height:54px; height:50px; margin-top:33px; font-size:17px; font-family: 'Apple SD Gothic Neo L', sans-serif;}
 .modal.wide .confirm {width:250px; margin:33px auto 0;}
 .modal .close {width:30px; height:30px; position:absolute; top:21px; right:21px; text-indent:-9999px;}
@@ -326,7 +327,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .users .notice ul li:before {content:""; width:2px; height:15px; background-color:#d9d9d9; position:absolute; top:10px; left:0px;}
 .users .notice ul li:first-child:before {content:""; display:none;}
 .users .notice ul li > a {color:#afb5bb; font-size:26px; line-height:40px;}
-.users .notice ul li.on > a {color:#47494d; pointer-events: none;}
+.users .notice ul li.on > a {color:#47494d; pointer-events:none;}
 .users .notice > div {display:none; border-top:2px solid #333333; background-color:#fff; padding-bottom:20px;}
 .users .notice > div.on {display:block;}
 

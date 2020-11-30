@@ -68,10 +68,10 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="../managements/users.html">Users</a></li>
-								<li><a href="../managements/roles.html">Roles</a></li>
-								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
-								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
+								<li><a href="users.html">Users</a></li>
+								<li><a href="roles.html">Roles</a></li>
+								<li><a href="resourceQuotas.html">Resource Quotas</a></li>
+								<li><a href="limitRanges.html">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -177,25 +177,35 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(4, 0);
 
-			const createNamespaces = {
+			const createUser = {
 				init(){
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, 'application/json', createUser.draw);
 				},
 
 				draw(data){
+					console.log(data);
 					/*
+					clusterApiUrl: "https://15.164.214.190:6443"
+					clusterName: "cp-cluster"
+					clusterToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6IktNWmgxVXB3ajgwS0NxZjFWaVZJVGVvTXJoWnZ5dG0tMGExdzNGZjBKX00ifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJwYWFzLWYxMGU3ZTg4LTQ4YTUtNGUyYy04Yjk5LTZhYmIzY2ZjN2Y2Zi1jYWFzIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InN1cGVyLWFkbWluLXRva2VuLWtzbXo1Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6InN1cGVyLWFkbWluIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiMjMwZWQ1OGQtNzc0MC00MDI4LTk0MTEtYTM1MzVhMWM0NjU4Iiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50OnBhYXMtZjEwZTdlODgtNDhhNS00ZTJjLThiOTktNmFiYjNjZmM3ZjZmLWNhYXM6c3VwZXItYWRtaW4ifQ.nxnIJCOH_XVMK71s0gF8bgzSxA7g6_y7hGdboLvSqIAGf9J9AgG1DouP29uShK19fMsl9IdbGODPvtuiBz4QyGLPARZldmlzEyFG3k08UMNay1xX_oK-Fe7atMlYgvoGzyM_5-Zp5dyvnxE2skk524htMGHqW1ZwnHLVxtBg8AuGfMwLW1xahmktsNZDG7pRMasPsj73E85lfavMobBlcs4hwVcZU82gAg0SK1QVe7-Uc2ip_9doNo6_9rGW3FwHdVgUNAeCvPRGV0W1dKJv0IX5e_7fIPIznj2xXcZoHf3BnKfDayDIKJOCdsEsy_2NGi1tiD3UvzDDzZpz02T2sg"
+					created: "2020-11-05 14:23:29"
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					namespace: "all"
+					itemMetaData: {allItemCount: 2, remainingItemCount: 0}
+					items: Array(2)
+						0:
+						cpNamespace: "twkim-ns"
+						roleSetCode: "ns-admin-role"
+						secrets: {saSecret: "twkim-token-fqc8m", secretLabels: "-", secretType: "kubernetes.io/service-account-token"}
+						serviceAccountUid: "dbeb68ac-8cc3-46cc-bc58-1b8da1b3ae92"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
-					usersInfo: Array(66)
-						0: {userId: "opdcminsu", isNsAdmin: "N"}
-						1: {userId: "hrjin4", isNsAdmin: "N"}
+					serviceAccountName: "twkim"
+					userId: "twkim"
 					*/
 
 					for(var i=0; i<=data.usersInfo.length-1; i++){
@@ -206,16 +216,16 @@
 					
 					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
 
-					createNamespaces.event();
+					createUser.event();
 				},
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', createNamespaces.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', createUser.resource);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', createNamespaces.limit);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', createUser.limit);
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
@@ -420,7 +430,7 @@
 				},
 			}
 
-			createNamespaces.init();
+			createUser.init();
 		}
 	</script>
 </body>
