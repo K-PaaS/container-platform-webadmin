@@ -163,11 +163,14 @@
 				},
 
 				load(){
+					func.loading();
+
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 				},
 
-				adminDraw(data){
+				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -187,9 +190,26 @@
 					// 초기 게시물 갯수 저장
 					if(user.offset == 0) user.allItemCount = data.itemMetaData.allItemCount;
 
+					var trID, trSum = 0;
+
 					if(user.allItemCount > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td>${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td>${data.items[i].roleSetCode}</td><td>${data.items[i].created}</td></tr>`;
+							if(trID != data.items[i].userId){
+								trID = data.items[i].userId;
+								trSum = 1;
+
+								var html = `<tr><td class="${data.items[i].userId} left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="${data.items[i].userId} left">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="${data.items[i].userId}">${data.items[i].created}</td></tr>`;
+							} else {
+								trSum++;
+
+								var html = `<tr><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
+
+								var trRow = document.querySelectorAll(`.${data.items[i].userId}`);
+								
+								for(var j=0; j<=trRow.length-1; j++){
+									trRow[j].setAttribute('rowspan', trSum);
+								};
+							}
 
 							func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
 						};
@@ -208,7 +228,8 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+
 					user.listEvent();
 				},
 
@@ -218,7 +239,7 @@
 						if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
 							user.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.adminDraw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {

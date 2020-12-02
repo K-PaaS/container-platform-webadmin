@@ -234,10 +234,15 @@ const func = {
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200){
-					sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
-					sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).token);
+					console.log(request.status)
+					if(JSON.parse(request.responseText).httpStatusCode != 401){
+						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
+						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).token);
 
-					document.location.href = '../index.html';
+						document.location.href = '../index.html';
+					} else {
+						func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기', func.refresh);
+					}
 				} else {
 					func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기');
 				};
@@ -281,6 +286,8 @@ const func = {
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
 	saveData(method, url, data, bull, header, callFunc){
+		func.loading();
+
 		var request = new XMLHttpRequest();
 		request.open(method, url);
 		request.setRequestHeader('Content-type', header);
@@ -289,15 +296,25 @@ const func = {
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
+					
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+
+					console.log(JSON.parse(request.responseText));
+
 					if(method == 'POST'){
-						console.log(request.responseText)
-						//func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+						if(JSON.parse(request.responseText).httpStatusCode == 200){
+							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+						} else {
+							func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', func.refresh);
+						}
 					} else if(method == 'PATCH'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					} else if(method == 'PUT'){
-						if(bull){
+						if(JSON.parse(request.responseText).httpStatusCode != 400){
 							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
-						};
+						} else {
+							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', func.refresh);
+						}
 					} else if(method == 'DELETE'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 					};
@@ -348,6 +365,20 @@ const func = {
 
 	refresh(){
 		location.href = location.href;
+	},
+
+	loading(){
+		console.log('ld');
+		var html = `<div id="loading">
+						<div class="cubeSet">
+							<div class="cube1 cube"></div>
+							<div class="cube2 cube"></div>
+							<div class="cube4 cube"></div>
+							<div class="cube3 cube"></div>
+						</div>
+					</div>`
+
+		func.appendHtml(document.getElementById('wrap'), html, 'div');
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
