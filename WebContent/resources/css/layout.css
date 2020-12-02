@@ -109,7 +109,7 @@ header div div div div a {text-indent:-9999px; display:inline-block; width:25px;
 /*------------------------ // Header -------------------------*/
 
 /*------------------------ Main Container -------------------------*/
-#container {overflow:hidden; min-width:1600px; width:1600px; margin:0 auto;}
+#container {overflow:hidden; width:1600px; margin:0 auto;}
 
 /*------------------------ Aside -------------------------*/
 aside {float:left; width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
