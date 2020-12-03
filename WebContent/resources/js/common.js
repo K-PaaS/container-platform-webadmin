@@ -368,7 +368,6 @@ const func = {
 	},
 
 	loading(){
-		console.log('ld');
 		var html = `<div id="loading">
 						<div class="cubeSet">
 							<div class="cube1 cube"></div>

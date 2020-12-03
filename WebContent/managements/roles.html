@@ -19,12 +19,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -72,10 +69,10 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="../managements/users.html">Users</a></li>
-								<li><a href="../managements/roles.html">Roles</a></li>
-								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
-								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
+								<li><a href="users.html">Users</a></li>
+								<li><a href="roles.html">Roles</a></li>
+								<li><a href="resourceQuotas.html">Resource Quotas</a></li>
+								<li><a href="limitRanges.html">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -105,9 +102,9 @@
 							<table>
 								<caption>Replica List</caption>
 								<colgroup >
+									<col width="45%" />
 									<col width="35%" />
-									<col width="35%" />
-									<col width="30%" />
+									<col width="20%" />
 								</colgroup>
 								<thead>
 									<tr>
@@ -137,86 +134,129 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(0, 0);
+			func.init(4, 1);
 
-			const nameSpace = {
+			const role = {
 				offset : 0, // 로드 페이지 넘버
 				limit : 10, // 로드 게시물 개수
 				allItemCount : 0, //게시물 촐 개수
+				type : 'administrator',
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.nameLoad = role.load;
+
+					sessionStorage.setItem('nameSpace', 'all');
+
+					role.load();
+
+					//role.event();
+				},
+
+				load(){
+					func.loading();
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
-
-					nameSpace.event();
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles?searchName=${document.getElementById('searchText').value}&limit=${role.limit}&offset=${role.offset}`, 'application/json', role.draw);
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 42, remainingItemCount: 0}
-					items: Array(42)
-						0: {name: "jenkins-namespace", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 18:39:07"}
-						1: {name: "kms-jenkins-test", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 14:21:37"}
-						2: {name: "1112-ns", labels: null, namespaceStatus: "Active", creationTimestamp: "2020-11-12 10:18:30"}
-					length: 42
-					__proto__: Array(0)
+					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
+					items: Array(8)
+						0:
+						creationTimestamp: "2020-11-26 17:49:20"
+						name: "paas-ta-container-platform-admin-role"
+						namespace: "cp-namespace"
+					metadata: {selfLink: "/apis/rbac.authorization.k8s.io/v1/roles", resourceVersion: "31590071"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					// 초기 게시물 갯수 저장
-					if(nameSpace.offset == 0) nameSpace.allItemCount = data.itemMetaData.allItemCount;
+					if(role.offset == 0) role.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${data.items[i].labels}</td><td class="${data.items[i].namespaceStatus.toLowerCase()}">${data.items[i].namespaceStatus}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+					if(role.allItemCount > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spac="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						};
+					} else {
+						var html = `<tr><td colspan="3">No Data.</td></tr>`;
+
+						func.removeHtml(document.querySelector('.listTable'));
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
-					};
+					}
 
 					// more 버튼 활성, 비활성
-					if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
+					if(document.querySelector('.listTable').querySelectorAll('tr').length < role.allItemCount){
 						document.querySelector('.more').classList.toggle('on', true);
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
-					nameSpace.listEvent();
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+
+					role.listEvent();
 				},
 
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
-							nameSpace.offset++;
+						if(document.querySelector('.listTable').querySelectorAll('tr').length < role.allItemCount){
+							role.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${role.type}&searchName=${document.getElementById('searchText').value}&limit=${role.limit}&offset=${role.offset}`, 'application/json', role.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						document.location.href = 'userCreat.html';
 					}, false);
+
+					var tabBtn = document.querySelectorAll('.tabBtn');
+					var tabBtn = document.querySelectorAll('.tabBtn');
+					
+					for(var i=0; i<=tabBtn.length-1; i++){
+						tabBtn[i].addEventListener('click', (e) => {
+							if(e.target.parentNode.classList != 'on'){
+								var tab = document.getElementById('tabParent').children;
+								
+								for(var j=0; j<=tab.length-1; j++){
+									tab[j].classList.toggle('on', false);
+								};
+								
+								e.target.parentNode.classList.toggle('on', true);
+
+								role.type = e.target.innerText;
+
+								func.removeHtml(document.querySelector('.listTable'));
+								
+								role.load();
+							};
+						}, false);
+					};
 				},
 
 				listEvent(){
 					var listAll = document.querySelector('.listTable').querySelectorAll('a');
 					
-					for(var i=nameSpace.offset*10; i<=listAll.length-1; i++){
-
+					for(var i=role.offset*10; i<=listAll.length-1; i++){
 						listAll[i].addEventListener('click', (e) => {
-							nameSpace.listMove(e.target.getAttribute('data-name'));
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'login.html';
+							document.location.href = 'usersDetail.html';
 						}, true);
 					};
 				},
 			}
 
-			nameSpace.init();
+			role.init();
 		}
 	</script>
 </body>

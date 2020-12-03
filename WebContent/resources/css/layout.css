@@ -69,13 +69,13 @@ body {font-family:'Apple SD Gothic Neo',"Noto Sans KR", "맑은 고딕", sans-se
 /* 스타일 미적용 */
 #wrap .nostyle {margin:0; padding:0; font-size:16px; color:#333; line-height:20px; border:0;}
 
-#wrap {width:100%; height:100%; overflow:hidden; overflow-x:auto;}
+#wrap {position:fixed; top:0; left:0; width:100%; height:100%; overflow:auto;}
 
 /* 요소 숨김 */
 .blind {overflow:hidden; position:absolute; z-index:-1; height:0; visibility:hidden;}
 
 /*------------------------ Header -------------------------*/
-header {position:absolute; top:0; left:0; width:100%;}
+header {position:absolute; top:0; left:0; z-index:2; width:100%;}
 header > div {width:1600px; min-width:1600px; height:110px; margin:0 auto; padding-top:43px;}
 /*logo*/
 header > div h1 {float:left; width:310px; padding-top:8px; padding-left:44px;}
@@ -109,10 +109,10 @@ header div div div div a {text-indent:-9999px; display:inline-block; width:25px;
 /*------------------------ // Header -------------------------*/
 
 /*------------------------ Main Container -------------------------*/
-#container {overflow:hidden; width:1600px; margin:0 auto;}
+#container {position:relative; overflow:hidden; display:flex; width:1600px; min-height:100%; margin:0 auto;}
 
 /*------------------------ Aside -------------------------*/
-aside {float:left; width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
+aside {width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
 aside nav > ul > li {font-size:22px; line-height:35px; margin-top:26px; position:relative;}
 aside nav > ul > li:first-child {margin-top:0;}
 aside nav ul li ul {height:0!important; opacity:0;}
@@ -139,7 +139,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 
 
 /*------------------------ Content -------------------------*/
-#container #content {float:left; min-width:1290px; width:1290px;}
+#container #content {flex:1; min-width:1290px; width:1290px; background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%)}
 /*------------------------ view -------------------------*/
 .view {background:linear-gradient( to right, #15181d, #292d37 2.5%); padding:111px 71px 66px 71px;}
 .view h3 {color:#ffffff; font-size:34px; padding-top:77px; line-height:35px; font-family:'Apple SD Gothic Neo B', sans-serif; letter-spacing:-0.5px;}
@@ -194,7 +194,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .location fieldset button {float:left; width:31px; height:40px; background:url("../../resources/img/search_icon.png") no-repeat 0 0; background-position:right 50%; text-indent:-9999px;}
 
 /* base */
-.base {background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%); padding:60px 70px 200px 70px;}
+.base {padding:60px 70px 200px 70px;}
 .base > div:first-child {background-color:#ffffff; padding:50px 40px 30px 40px; box-shadow:-3px 2px 5px -5px rgba(204, 204, 204, 0.5);}
 
 /* title */
