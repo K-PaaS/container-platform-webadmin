@@ -13,13 +13,13 @@ pipeline {
 				git branch: 'dev', url: 'https://github.com/PaaS-TA/paas-ta-container-platform-webadmin'
 			}
 		}
-		//stage('sed') {
-		//    steps {
-		//        sh 'head -5 WebContent/resources/js/common.js'
-		//        sh 'sed -i "s/15.164.214.190:30333/api-deployment.default.svc.cluster.local:3333/g" WebContent/resources/js/common.js'
-		//        sh 'head -5 WebContent/resources/js/common.js'
-		//   }
-		//}
+		stage('sed') {
+		    steps {
+		        sh 'head -5 WebContent/resources/js/common.js'
+		        sh 'sed -i "s/15.164.214.190:30333/\'+window.location.host.substr(0,window.location.host.indexOf(\':\',0)+1)+\'30333/g" WebContent/resources/js/common.js'
+		        sh 'head -5 WebContent/resources/js/common.js'
+		   }
+		}
 		stage('Environment') {
             parallel {
                 stage('wrapper') {
