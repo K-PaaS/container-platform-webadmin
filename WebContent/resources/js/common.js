@@ -1,15 +1,13 @@
 
 const func = {
 
-	url : '',
+	url : 'http://15.164.214.190:30333/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
 
 	init(depth1, depth2){
 		console.log(sessionStorage);
-		var api_url = window.location.host;
-		func.url = 'http://'+api_url.substr(0,api_url.indexOf(':',0)+1)+'30333/';
 
 		// Namespaces 목록조회
 		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, 'application/json', func.namespaces);
