@@ -1,7 +1,7 @@
 
 const func = {
 
-	url : 'http://15.164.214.190:30333/',
+	url : 'http://'+window.location.host.substr(0,window.location.host.indexOf(':',0)+1)+'30333/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
