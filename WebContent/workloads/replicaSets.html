@@ -50,9 +50,9 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Workloads</a>
 							<ul class="sub">
-								<li><a href="../workloads/deployments.html">Deployments</a></li>
-								<li><a href="../workloads/replica.html">Pods</a></li>
-								<li><a href="../workloads/replicaSets.html">Replica Sets</a></li>
+								<li><a href="deployments.html">Deployments</a></li>
+								<li><a href="Pods.html">Pods</a></li>
+								<li><a href="replicaSets.html">Replica Sets</a></li>
 							</ul>
 						</li>
 						<li>
@@ -158,6 +158,8 @@
 				},
 
 				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets?limit=${replica.limit}&offset=${replica.offset}&searchName=${replica.searchName}`, 'application/json', replica.draw);
 				},
 

@@ -138,8 +138,6 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			console.log(sessionStorage.getItem('token'));
-
 			func.init(1, 0);
 
 			const depoly = {
@@ -155,16 +153,17 @@
 					sessionStorage.setItem('nameSpace', 'ALL');
 					
 					depoly.load();
-				},
-
-				load(){
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}&searchName=${depoly.searchName}`, 'application/json', depoly.draw);
 
 					depoly.event();
 				},
 
+				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?searchName=${document.getElementById('searchText').value}&limit=${depoly.limit}&offset=${depoly.offset}`, 'application/json', depoly.draw);
+				},
+
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200

@@ -147,16 +147,25 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					//func.nameLoad = nameSpace.draw;
+					func.loading();
 
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+					func.nameLoad = nameSpace.load;
+					
+					sessionStorage.setItem('nameSpace', 'all');
+
+					nameSpace.load();
 
 					nameSpace.event();
 				},
 
+				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					// nameSpace 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?searchName=${document.getElementById('searchText').value}&limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+				},
+
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -186,6 +195,8 @@
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
+					
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
 
 					//
 					nameSpace.listEvent();
@@ -200,6 +211,7 @@
 							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
 						document.location.href = 'namespacesCreat.html';
 					}, false);

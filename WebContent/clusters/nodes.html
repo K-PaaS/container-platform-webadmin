@@ -145,14 +145,25 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-				// node 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?limit=${node.limit}&offset=${node.offset}`, 'application/json', node.draw);
+					func.loading();
+
+					func.nameLoad = node.load;
+					
+					sessionStorage.setItem('nameSpace', 'all');
+
+					node.load();
 					
 					node.event();
 				},
 
+				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					// node 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?searchName=${document.getElementById('searchText').value}&limit=${node.limit}&offset=${node.offset}`, 'application/json', node.draw);
+				},
+
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -190,6 +201,8 @@
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
+					
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
 					
 					node.listEvent();
 				},

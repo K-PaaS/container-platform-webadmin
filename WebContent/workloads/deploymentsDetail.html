@@ -197,7 +197,7 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Event List</h4>
+						<h4>Event</h4>
 						<div class="table_style01">
 							<table>
 								<caption>Event List</caption>
@@ -253,7 +253,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -323,13 +322,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', depolyDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

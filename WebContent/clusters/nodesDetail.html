@@ -290,7 +290,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					addresses: Array(2)
 						0:
@@ -363,15 +362,27 @@
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: {allItemCount: 0, remainingItemCount: 0}
-					items: Array(0)
-					metadata: {selfLink: "/api/v1/namespaces/paasta-cp-k8s-worker-003/pods", resourceVersion: "28232663"}
+					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
+					items: Array(8)
+						0:
+						creationTimestamp: "2020-12-08 11:18:08"
+						labels: {app: "nginx", pod-template-hash: "56689dc4b8"}
+						name: "nginx-test-56689dc4b8-z92cb"
+						namespace: "jenkins-namespace"
+						nodes: "paasta-cp-k8s-worker-003"
+						podStatus: "Running"
+						restarts: 0
+					metadata: {selfLink: "/api/v1/pods", resourceVersion: "32949941"}
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
 					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<tr><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].namespace}</td><td class="ellips left"><span>${JSON.stringify(data.items[i].labels)}</span><div class="scroll02">${JSON.stringify(data.items[i].labels)}</div></td><td class="${data.items[i].podStatus.toLowerCase()}">${data.items[i].podStatus}</td><td>${data.items[i].restarts}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
+							func.appendHtml(document.querySelector('.podTable'), html, 'tbody');
+						};
 					} else {
 						var html = '<tr><td colspan="6">No Data.</td></tr>';
 
@@ -380,7 +391,6 @@
 				},
 				
 				eventsList(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -407,7 +417,7 @@
 						var html = '<tr><td colspan="6">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.eventTable'), html, 'tbody');
-					}
+					};
 				},
 			}
 

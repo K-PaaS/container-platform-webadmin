@@ -258,7 +258,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					annotations: {nginx.services.targer2: "nginx2", nginx.services.target1: "nginx1"}
 					clusterIP: "10.96.207.254"
@@ -307,10 +306,6 @@
 					};
 
 
-
-					console.log(data.uid);
-					console.log(replicaKey);
-
 					// endpoints 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/endpoints/${data.name}`, 'application/json', services.endpoints);
 					
@@ -322,7 +317,6 @@
 				},
 
 				endpoints(data){
-					console.log(data);
 					/*
 					 "resultCode": "SUCCESS",
 					"resultMessage": "정상적으로 처리 되었습니다.",
@@ -348,10 +342,8 @@
 						}, 
 					]
 					*/
-					console.log(data.httpStatusCode);
 
 					if(data.httpStatusCode == 404){
-						console.log('404');
 							var html = '<tr><td colspan="4">No Data.</td></tr>';
 
 							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
@@ -384,7 +376,6 @@
 				
 
 				podsList(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -455,12 +446,12 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
 				},
 			}

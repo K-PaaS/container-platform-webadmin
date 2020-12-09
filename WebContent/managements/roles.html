@@ -154,6 +154,8 @@
 
 				load(){
 					func.loading();
+					
+					func.removeHtml(document.querySelector('.listTable'));
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles?searchName=${document.getElementById('searchText').value}&limit=${role.limit}&offset=${role.offset}`, 'application/json', role.draw);

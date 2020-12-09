@@ -250,6 +250,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					annotations: {kubernetes.io/limit-ranger: "LimitRanger plugin set: memory request for container nginx; memory limit for container nginx"}
 					containersImage: "nginx:1.10"
@@ -285,8 +286,14 @@
 					document.getElementById('ip').innerText = data.ip;
 					document.getElementById('qos').innerText = data.qosClass;
 					document.getElementById('restarts').innerText = data.restarts;
-					document.getElementById('controllers').innerText = JSON.stringify(data.controllers);
-					document.getElementById('volumes').innerText = data.volumes.name;
+
+					var controllerName = '';
+					for(i=0; i<=data.controllers.length-1; i++){
+						controllerName += data.controllers[i].name + ', ';
+					};
+
+					document.getElementById('controllers').innerText = controllerName;
+					document.getElementById('volumes').innerText = JSON.stringify(data.volumes);
 					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
 					
 					// Rolling update strategy
@@ -333,13 +340,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', podsDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

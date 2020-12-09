@@ -68,8 +68,8 @@ const func = {
 				e.target.parentNode.classList.toggle('on', true);
 			}, false);
 			
-			document.getElementById('searchText').onkeydown = function(e) {
-				if(e.keyCode === 13){
+			document.getElementById('searchText').onkeydown = function(event) {
+				if(event.keyCode === 13){
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 				};
 			};
@@ -77,10 +77,14 @@ const func = {
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
-			sessionStorage.clear();
-
-			document.location.href = 'member/login.html';
+			func.alertPopup('LOGOUT', '로그아웃 되었습니다.', true, '닫기', func.logout);
 		}, false);
+	},
+
+	logout(){
+		sessionStorage.clear();
+
+		document.location.href = 'member/login.html';
 	},
 
 	namespaces(data){
@@ -106,11 +110,9 @@ const func = {
 
 		var name = document.querySelector('.nameSpace').querySelectorAll('a');
 
-		if(sessionStorage.getItem('nameSpace') == null){
-
-		} else {
-			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
-			//document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
+		if(sessionStorage.getItem('nameSpace') != null){
+			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace').toUpperCase();
+			document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
 		};
 
 		for(var i=0 ; i<name.length; i++){
@@ -220,8 +222,6 @@ const func = {
 			
 			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${document.getElementById('modify').getAttribute('data-role')}/${sessionStorage.getItem('commonName')}`, input.value, true, 'application/yaml', func.refresh);
 		}, false);
-
-		//
 	},
 	
 	// 로그인 체크 ////////////////////////////////////////////////////////////////
@@ -353,7 +353,10 @@ const func = {
 
 		if(callback){
 			document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
-				callback();
+				if(callback != 'closed'){
+					callback();
+				};
+
 				document.getElementById('wrap').removeChild(document.getElementById('modal'));
 			}, false);
 		};

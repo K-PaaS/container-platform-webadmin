@@ -165,7 +165,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -213,7 +212,6 @@
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						console.log(document.querySelector('.listTable').querySelectorAll('tr').length +' = '+ pods.allItemCount)
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < limit.allItemCount){
 							limit.offset++;
 

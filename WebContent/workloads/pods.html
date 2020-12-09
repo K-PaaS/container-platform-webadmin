@@ -160,11 +160,12 @@
 				},
 
 				load(){
+					func.removeHtml(document.querySelector('.listTable'));
+					
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods?limit=${pods.limit}&offset=${pods.offset}&searchName=${pods.searchName}`, 'application/json', pods.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -212,7 +213,6 @@
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						console.log(document.querySelector('.listTable').querySelectorAll('tr').length +' = '+ pods.allItemCount)
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < pods.allItemCount){
 							pods.offset++;
 

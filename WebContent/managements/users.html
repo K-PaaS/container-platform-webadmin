@@ -164,6 +164,8 @@
 
 				load(){
 					func.loading();
+					
+					func.removeHtml(document.querySelector('.adminList'));
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);

@@ -32,9 +32,9 @@
 					func.loginCheck(document.getElementById('logid').value, document.getElementById('logps').value);
 				} else {
 					if(document.getElementById('logid').value == ''){
-						func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기');
+						func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기', 'closed');
 					} else {
-						func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기');
+						func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기', 'closed');
 					};
 				};
 			}, false);
@@ -48,9 +48,9 @@
 							func.loginCheck(document.getElementById('logid').value, document.getElementById('logps').value);
 						} else {
 							if(document.getElementById('logid').value == ''){
-								func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기');
+								func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기', 'closed');
 							} else {
-								func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기');
+								func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기', 'closed');
 							};
 						};
 					};
