@@ -79,7 +79,7 @@ pipeline {
 			steps {
 				kubernetesDeploy (
 					configs: "yaml/Deployment.yaml", 
-					kubeconfigId: '18a45b0c-e867-4f3e-9da3-67f65d5b63b4', 
+					kubeconfigId: 'Kubernetes-api-credential-cp-dev', 
 					enableConfigSubstitution: true
 				)
 			}
