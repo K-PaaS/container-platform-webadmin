@@ -226,7 +226,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('nodeName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'nodesDetail.html';
+							document.location.href = `${func.ui}clusters/nodesDetail.html`;
 						}, true);
 					};
 				},

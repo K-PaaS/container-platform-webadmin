@@ -15,38 +15,69 @@
 				<dl>
 					<dt>Kubernetes Cluster</dt>
 					<dd>
-						<input type="text" autocomplete="off" name="keyword" minlength="5" maxlength="12" placeholder="ID" />
-						<input type="text" autocomplete="off" name="keyword" minlength="5" maxlength="100" placeholder="API URL" />
-						<input type="text" autocomplete="off" name="keyword" minlength="5" maxlength="12" placeholder="Token" />
+						<input type="text" id="name" autocomplete="off" name="keyword" placeholder="Name" />
+						<input type="text" id="url" autocomplete="off" name="keyword" placeholder="API URL" />
+						<input type="text" id="token" autocomplete="off" name="keyword" placeholder="Token" />
 					</dd>
 				</dl>
 				<dl>
 					<dt>Namespace</dt>
 					<dd>
-						<input type="text" autocomplete="off" name="keyword" minlength="5" maxlength="12" placeholder="Name" />
+						<input type="text" id="space" autocomplete="off" name="keyword" placeholder="Name" />
 					</dd>
 				</dl>
 				<dl>
 					<dt>User</dt>
 					<dd>
-						<input type="text" autocomplete="off" name="keyword" minlength="5" maxlength="12" placeholder="ID" />
-						<input type="password" autocomplete="off" name="keyword" minlength="9" maxlength="20" placeholder="Password" />
-						<input type="password" autocomplete="off" name="keyword" minlength="9" maxlength="20" placeholder="Check password" />
-						<input type="email" autocomplete="off" name="keyword" minlength="3" maxlength="30" placeholder="E-mail" />
+						<input type="text" id="id" autocomplete="off" name="keyword" placeholder="ID" />
+						<input type="password" id="pass" autocomplete="off" name="keyword" placeholder="Password" />
+						<input type="password" id="psChk" autocomplete="off" name="keyword" placeholder="Check password" />
+						<input type="email" id="mail" autocomplete="off" name="keyword" placeholder="E-mail" />
 					</dd>
 				</dl>
 				<!-- btn -->
 				<div class="btn">
-					<a href="javascript:;">Cancel</a>
-					<button type="submit">Register</button>
+					<a href="login.html">Cancel</a>
+					<button type="submit" id="join">Register</button>
 				</div>
 			</article>
 		</div>
 	</div>
+	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 	<script src="../resources/js/common.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		window.onload = () => {
-		}
+			console.log( ip() );
+
+			const join = {
+
+				init(){
+					document.getElementById('join').addEventListener('click', (e) => {
+						if(document.getElementById('pass').value == document.getElementById('psChk').value){
+							var joinInfo = {
+								"userId": document.getElementById('id').value,
+								"password": document.getElementById('pass').value,
+								"email": document.getElementById('mail').value,
+								"clusterName": document.getElementById('name').value,
+								"clusterApiUrl": document.getElementById('url').value,
+								"clusterToken": document.getElementById('token').value,
+								"cpNamespace": document.getElementById('space').value
+							};
+
+							func.saveData('POST', `${func.url}signUp`, JSON.stringify(joinInfo), true, 'application/json', join.success);
+						} else {
+							func.alertPopup('ERROR', '비밀번호가 일치하지 않습니다.', true, '닫기', 'closed');
+						};
+					}, false);
+				},
+
+				success(){
+					location.href = 'login.html';
+				},
+			};
+
+			join.init();
+		};
 	</script>
 </body>
 </html>

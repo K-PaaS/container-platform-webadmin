@@ -229,7 +229,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'persistentVolumesDetail.html';
+							document.location.href = `${func.ui}storages/persistentVolumesDetail.html`;
 						}, true);
 					};
 				},

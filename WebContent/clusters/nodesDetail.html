@@ -338,7 +338,7 @@
 					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
 					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
-					
+
 					// Resource Info
 					document.getElementById('pods').innerText = data.podsCIDR;
 					document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");

@@ -213,7 +213,7 @@
 					}, false);
 
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'namespacesCreat.html';
+						document.location.href = `${func.ui}clusters/namespacesCreat.html`;
 					}, false);
 				},
 
@@ -225,7 +225,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-name'));
 
-							document.location.href = 'namespacesDetail.html';
+							document.location.href = `${func.ui}clusters/namespacesDetail.html`;
 						}, true);
 					};
 				},

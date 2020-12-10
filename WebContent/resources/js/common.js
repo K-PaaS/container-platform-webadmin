@@ -2,6 +2,7 @@
 const func = {
 
 	url : 'http://15.164.214.190:30333/',
+	ui : 'file:///D:/_Work/PaaS-TA/container/container/admin/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
@@ -30,7 +31,7 @@ const func = {
 
 				nav1d[depth1].classList.toggle('on', true);
 
-			}
+			};
 		}
 
 		// navigation height 설정
@@ -84,7 +85,7 @@ const func = {
 	logout(){
 		sessionStorage.clear();
 
-		document.location.href = 'member/login.html';
+		document.location.href = `${func.ui}member/login.html`;
 	},
 
 	namespaces(data){
@@ -239,7 +240,7 @@ const func = {
 						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
 						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).token);
 
-						document.location.href = '../index.html';
+						document.location.href = `${func.ui}index.html`;
 					} else {
 						func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기', func.refresh);
 					}
@@ -250,7 +251,6 @@ const func = {
 		};
 		
 		request.send(`{"userId":"${user}","password":"${pw}"}`);
-		// 'testuser', 'PaaS-TA@2020'
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +259,7 @@ const func = {
 	/////////////////////////////////////////////////////////////////////////////////////
 	loadData(method, url, header, callbackFunction, list){
 		if(sessionStorage.getItem('token') == null){
-			document.location.href = '../member/login.html';
+			document.location.href = `${func.ui}member/login.html`;
 		}
 
 		var request = new XMLHttpRequest();

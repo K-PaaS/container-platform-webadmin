@@ -245,7 +245,7 @@
 						};
 					}, false);
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = 'userCreat.html';
+						document.location.href = `${func.ui}managements/userCreat.html`;
 					}, false);
 
 					var tabBtn = document.querySelectorAll('.tabBtn');
@@ -278,7 +278,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'usersDetail.html';
+							document.location.href = `${func.ui}managements/usersDetail.html`;
 						}, true);
 					};
 				},

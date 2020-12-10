@@ -222,7 +222,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'storageClassesDetail.html';
+							document.location.href = `${func.ui}storages/storageClassesDetail.html`;
 						}, true);
 					};
 				},

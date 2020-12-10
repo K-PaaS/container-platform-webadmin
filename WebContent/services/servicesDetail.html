@@ -363,7 +363,7 @@
 								nodeLink[i].addEventListener('click', (e) => {
 									sessionStorage.setItem('nodeName', e.target.innerText);
 
-									document.location.href = '../clusters/nodesDetail.html';
+									document.location.href = `${func.ui}clusters/nodesDetail.html`;
 								}, false);
 							}
 						} else {
