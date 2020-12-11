@@ -1,7 +1,7 @@
 pipeline {
 	environment {
-		IMAGE_NAME = "container-platform-webadmin"
-		REGISTRY_HARBOR_CREDENTIAL = 'harbor-credential'
+        IMAGE_NAME = "container-platform-webadmin"
+        REGISTRY_HARBOR_CREDENTIAL = 'harbor-credential'
         REGISTRY_DOCKER_URL = "15.164.129.57:5000"
         REGISTRY_HARBOR_URL = "15.164.129.57:8090"
         PROJECT_NAME = "container-platform"
@@ -17,6 +17,7 @@ pipeline {
 		    steps {
 		        sh 'head -5 WebContent/resources/js/common.js'
 		        sh 'sed -i "s/15.164.214.190:30333/\'+window.location.host.substr(0,window.location.host.indexOf(\':\',0)+1)+\'30333/g" WebContent/resources/js/common.js'
+		        sh 'sed -i "s/file:\/\/\/D:\/_Work\/PaaS-TA\/container\/container\/admin\//http:\/\/52.79.235.113:32080\//g" WebContent/resources/js/common.js'
 		        sh 'head -5 WebContent/resources/js/common.js'
 		   }
 		}
