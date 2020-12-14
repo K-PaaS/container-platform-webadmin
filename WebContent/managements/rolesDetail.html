@@ -18,9 +18,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						<a href="javascript:;" class="nameTop">ALL</a>
-						<ul class="nameSpace">
-						</ul>
+						<p class="nameTop"></p>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -228,13 +226,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', roleDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

@@ -25,7 +25,7 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -143,7 +143,7 @@
 				type : 'administrator',
 
 				init(){
-					func.nameLoad = role.load;
+					func.nameLoad = role.reset;
 
 					sessionStorage.setItem('nameSpace', 'all');
 
@@ -152,10 +152,14 @@
 					role.event();
 				},
 
+				reset(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					role.load();
+				},
+
 				load(){
 					func.loading();
-					
-					func.removeHtml(document.querySelector('.listTable'));
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles?searchName=${document.getElementById('searchText').value}&limit=${role.limit}&offset=${role.offset}`, 'application/json', role.draw);
@@ -210,7 +214,6 @@
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						console.log(document.querySelector('.listTable').querySelectorAll('tr').length +' = '+ pods.allItemCount)
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < role.allItemCount){
 							role.offset++;
 

@@ -99,31 +99,34 @@ const func = {
 			resultCode: "SUCCESS"
 			resultMessage: "정상적으로 처리 되었습니다."
 		*/
-		for(var i=0; i<=data.items.length-1; i++){
-			if(i == 0){
-				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i].toUpperCase()}</a></li>`;
-			} else {
-				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i]}</a></li>`;
-			}
-			
-			func.appendHtml(document.querySelector('.nameSpace'), html, 'li');
-		};
+		if(document.querySelector('.nameSpace')){
+			for(var i=0; i<=data.items.length-1; i++){
+				if(i == 0){
+					var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i].toUpperCase()}</a></li>`;
+				} else {
+					var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i]}</a></li>`;
+				}
+				
+				func.appendHtml(document.querySelector('.nameSpace'), html, 'li');
+			};
 
-		var name = document.querySelector('.nameSpace').querySelectorAll('a');
+			if(sessionStorage.getItem('nameSpace') != null){
+				document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+			};
 
-		if(sessionStorage.getItem('nameSpace') != null){
-			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace').toUpperCase();
-			document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
-		};
+			var name = document.querySelector('.nameSpace').querySelectorAll('a');
 
-		for(var i=0 ; i<name.length; i++){
-			name[i].addEventListener('click', (e) => {
-				sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
-				document.querySelector('.nameTop').innerHTML = e.target.innerText;
+			for(var i=0 ; i<name.length; i++){
+				name[i].addEventListener('click', (e) => {
+					sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
+					document.querySelector('.nameTop').innerHTML = e.target.innerText;
 
-				func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
-			}, false);
-		};
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+				}, false);
+			};
+		} else {
+			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+		}
 	},
 
 	create(title, url, name){
@@ -302,10 +305,11 @@ const func = {
 					console.log(JSON.parse(request.responseText));
 
 					if(method == 'POST'){
+						console.log(JSON.parse(request.responseText));
 						if(JSON.parse(request.responseText).httpStatusCode == 200){
 							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 						} else {
-							func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', func.refresh);
+							func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', 'closed');
 						}
 					} else if(method == 'PATCH'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);

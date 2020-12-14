@@ -198,7 +198,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					clusterApiUrl: "https://15.164.214.190:6443"
 					clusterName: "cp-cluster"
@@ -250,15 +249,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.loading();
-						
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', userDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						document.location.href = `${func.ui}managements/userUpdate.html`;
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

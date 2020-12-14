@@ -25,7 +25,7 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -146,7 +146,7 @@
 				searchName : '',
 
 				init(){
-					func.nameLoad = services.load;
+					func.nameLoad = services.reset;
 
 					// nameSpace session 초기화
 					sessionStorage.setItem('nameSpace', 'ALL');
@@ -156,11 +156,17 @@
 					services.event();
 				},
 
-				load(){
+				reset(){
 					func.removeHtml(document.querySelector('.seviceList'));
 
+					services.load();
+				},
+
+				load(){
+					func.loading();
+
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?searchName=${document.getElementById('searchText').value}&limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
 				},
 
 				draw(data){
@@ -198,7 +204,8 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					
 					services.listEvent();
 				},
 
@@ -211,6 +218,7 @@
 							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
 						sessionStorage.setItem('commonName', '');
 

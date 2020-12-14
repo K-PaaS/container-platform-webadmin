@@ -25,7 +25,7 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -148,7 +148,7 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.nameLoad = persistentVolumes.load;
+					func.nameLoad = persistentVolumes.reset;
 
 					// nameSpace session 초기화
 					sessionStorage.setItem('nameSpace', 'ALL');
@@ -158,8 +158,14 @@
 					persistentVolumes.event();
 				},
 
-				load(){
+				reset(){
 					func.removeHtml(document.querySelector('.listTable'));
+
+					persistentVolumes.load();
+				},
+
+				load(){
+					func.loading();
 
 					// persistentVolumes 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
@@ -201,7 +207,8 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+
 					persistentVolumes.listEvent();
 				},
 

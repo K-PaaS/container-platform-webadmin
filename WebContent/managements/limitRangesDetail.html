@@ -144,7 +144,7 @@
 						<button type="submit" id="delete">삭제</button>
 						<div>
 							<a href="javascript:;" id="modify" data-role="limitRanges">수정</a>
-							<a href="roles.html">이전</a>
+							<a href="limitRanges.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -219,13 +219,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', limitDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

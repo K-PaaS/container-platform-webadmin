@@ -19,13 +19,15 @@
 				<div>
 					<!-- title -->
 					<h3>
-						<a href="javascript:;" class="nameTop">ALL</a>
-						<ul class="nameSpace">
-						</ul>
+						All
+						<div style="display:none;">
+							<a href="javascript:;" class="nameTop">ALL</a>
+							<ul class="nameSpace"></ul>
+						</div>
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -155,24 +157,29 @@
 				type : 'administrator',
 
 				init(){
-					func.nameLoad = user.load;
+					func.nameLoad = user.reset;
 
 					user.load();
 
 					user.event();
 				},
 
+				reset(){
+					func.removeHtml(document.querySelector('.adminList'));
+
+					user.load();
+				},
+
 				load(){
 					func.loading();
-					
-					func.removeHtml(document.querySelector('.adminList'));
+
+					console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`);
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -230,7 +237,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					user.listEvent();
 				},
@@ -244,6 +253,7 @@
 							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 						};
 					}, false);
+
 					document.querySelector('.create').addEventListener('click', (e) => {
 						document.location.href = `${func.ui}managements/userCreat.html`;
 					}, false);
@@ -261,7 +271,9 @@
 								
 								e.target.parentNode.classList.toggle('on', true);
 
-								user.type = e.target.innerText;
+								user.offset = 0;
+
+								user.type = e.target.innerText.toLowerCase();
 
 								func.removeHtml(document.querySelector('.adminList'));
 								

@@ -19,7 +19,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
+						All
 						<div style="display:none;">
 							<a href="javascript:;" class="nameTop">ALL</a>
 							<ul class="nameSpace">
@@ -28,7 +28,7 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
 							<a href="javascript:;">환경설정</a>
 						</div>
@@ -146,7 +146,7 @@
 				type : 'administrator',
 
 				init(){
-					func.nameLoad = resource.load;
+					func.nameLoad = resource.reset;
 
 					sessionStorage.setItem('nameSpace', 'all');
 
@@ -155,10 +155,14 @@
 					resource.event();
 				},
 
+				reset(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					resource.load();
+				},
+
 				load(){
 					func.loading();
-
-					func.removeHtml(document.querySelector('.listTable'));
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/resourceQuotas?searchName=${document.getElementById('searchText').value}&limit=${resource.limit}&offset=${resource.offset}`, 'application/json', resource.draw);

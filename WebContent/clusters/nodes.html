@@ -19,7 +19,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All Namespaces
+						All
 						<div style="display:none;">
 							<a href="javascript:;" class="nameTop">ALL</a>
 							<ul class="nameSpace">
@@ -147,7 +147,7 @@
 				init(){
 					func.loading();
 
-					func.nameLoad = node.load;
+					func.nameLoad = node.reset;
 					
 					sessionStorage.setItem('nameSpace', 'all');
 
@@ -156,8 +156,14 @@
 					node.event();
 				},
 
-				load(){
+				reset(){
 					func.removeHtml(document.querySelector('.listTable'));
+
+					node.load();
+				},
+
+				load(){
+					func.loading();
 
 					// node 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/nodes?searchName=${document.getElementById('searchText').value}&limit=${node.limit}&offset=${node.offset}`, 'application/json', node.draw);
