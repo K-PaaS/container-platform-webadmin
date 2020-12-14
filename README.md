@@ -6,7 +6,6 @@ PaaS-TA에서 제공하는 컨테이너 플랫폼 사용을 쉽게 하기 위하
   - [컨테이너 플랫폼 WEB ADMIN 빌드 방법](#컨테이너-플랫폼-WEB-ADMIN-빌드-방법)
 - [문서](#문서)
 - [Technologies used](#Technologies-used)
-- [Browser support](#Browser-support)
 - [라이선스](#라이선스)
 
 ## 시작하기
@@ -31,16 +30,9 @@ $ gradle build
 
 ## Technologies used
 - HTML
-- CSS [style/Presentation]
-- Javascript [Logic/Working of calculator]
+- CSS
+- Javascript
 
-## Browser support
-- Chrome (latest 2)
-- Edge (latest 2)
-- Firefox (latest 2)
-- Internet Explorer 11
-- Opera (latest 2)
-- Safari (latest 2)
 
 ## 라이선스
 PaaS-TA 컨테이너 플랫폼 WEB ADMIN은 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)를 사용합니다.
