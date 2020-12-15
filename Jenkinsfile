@@ -17,7 +17,7 @@ pipeline {
 		    steps {
 		        sh 'head -5 WebContent/resources/js/common.js'
 		        sh 'sed -i "s/15.164.214.190:30333/\'+window.location.host.substr(0,window.location.host.indexOf(\':\',0)+1)+\'30333/g" WebContent/resources/js/common.js'
-		        sh 'sed -i "s/file:\\/\\/\\/D:\\/_Work\\/PaaS-TA\\/container\\/container\\/admin\\//http:\\/\\/52.79.235.113:32080\\//g" WebContent/resources/js/common.js'
+		        sh 'sed -i "s/file:\\/\\/\\/D:\\/_Work\\/PaaS-TA\\/svn\\/container\\/admin\\//http:\\/\\/52.79.235.113:32080\\//g" WebContent/resources/js/common.js'
 		        sh 'head -5 WebContent/resources/js/common.js'
 		   }
 		}
