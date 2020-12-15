@@ -84,7 +84,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumeClaims.html">persistent Volume Claims</a></li>
+						<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 					</ul>
 				</article>
 				<article class="base detail">
@@ -220,13 +220,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', volumeClaimsDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

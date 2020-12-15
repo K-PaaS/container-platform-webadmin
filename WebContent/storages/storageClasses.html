@@ -161,8 +161,10 @@
 				},
 
 				load(){
+					func.loading();
+					
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?searchName=${document.getElementById('searchText').value}&limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
 				},
 
 				draw(data){
@@ -198,7 +200,10 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
+
 					storageClass.listEvent();
 				},
 
@@ -208,7 +213,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < storageClass.allItemCount){
 							storageClass.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
+							storageClass.load();
 						};
 					}, false);
 

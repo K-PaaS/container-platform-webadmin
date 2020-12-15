@@ -166,7 +166,7 @@
 				load(){
 					func.loading();
 
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets?limit=${replica.limit}&offset=${replica.offset}&searchName=${replica.searchName}`, 'application/json', replica.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets?limit=${replica.limit}&offset=${replica.offset}&searchName=${document.getElementById('searchText').value}`, 'application/json', replica.draw);
 				},
 
 				draw(data){
@@ -210,7 +210,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					replica.listEvent();
 				},

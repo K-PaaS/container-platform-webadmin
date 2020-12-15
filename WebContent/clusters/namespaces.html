@@ -147,8 +147,6 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.loading();
-
 					func.nameLoad = nameSpace.reset;
 					
 					sessionStorage.setItem('nameSpace', 'all');
@@ -202,9 +200,10 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 					
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
-					//
 					nameSpace.listEvent();
 				},
 
@@ -214,7 +213,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
 							nameSpace.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
+							nameSpace.load();
 						};
 					}, false);
 

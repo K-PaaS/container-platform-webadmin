@@ -170,7 +170,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -204,7 +203,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 					
 					services.listEvent();
 				},
@@ -215,7 +216,7 @@
 						if(document.querySelector('.seviceList').querySelectorAll('tr').length < services.allItemCount){
 							services.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
+							services.load();
 						};
 					}, false);
 
@@ -227,7 +228,6 @@
 				},
 
 				listEvent(){
-					console.log('more');
 					var listAll = document.querySelector('.seviceList').querySelectorAll('a');
 					
 					for(var i=services.offset*10; i<=listAll.length-1; i++){
@@ -235,7 +235,7 @@
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-id'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}service/servicesDetail.html`;
+							document.location.href = `${func.ui}services/servicesDetail.html`;
 						}, true);
 					};
 				},

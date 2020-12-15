@@ -209,7 +209,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					depoly.listEvent();
 				},
@@ -220,7 +222,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < depoly.allItemCount){
 							depoly.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}`, 'application/json', depoly.draw);
+							depoly.load();
 						};
 					}, false);
 

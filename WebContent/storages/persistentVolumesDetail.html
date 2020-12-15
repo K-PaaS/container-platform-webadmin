@@ -84,7 +84,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumes.html">persistent Volumes</a></li>
+						<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
 					</ul>
 				</article>
 				<article class="base detail">
@@ -213,7 +213,7 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(2, -1);
+			func.init(3, 0);
 
 			const persistentDetail = {
 				init(){
@@ -271,13 +271,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', persistentDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

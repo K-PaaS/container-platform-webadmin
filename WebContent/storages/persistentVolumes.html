@@ -85,7 +85,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumes.html">persistent Volumes</a></li>
+						<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
@@ -168,7 +168,7 @@
 					func.loading();
 
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?lsearchName=${document.getElementById('searchText').value}&imit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
 				},
 
 				draw(data){
@@ -207,7 +207,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					persistentVolumes.listEvent();
 				},
@@ -218,7 +220,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < persistentVolumes.allItemCount){
 							persistentVolumes.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
+							persistentVolumes.load();
 						};
 					}, false);
 

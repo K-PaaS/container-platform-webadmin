@@ -234,7 +234,7 @@
 						<button type="submit" id="delete">삭제</button>
 						<div>
 							<a href="javascript:;" id="modify" data-role="replicaSets">수정</a>
-							<a href="replicaSets.html">이전</a>
+							<a href="services.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -252,7 +252,6 @@
 
 			const services = {
 				init(){
-
 					// replica 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}`, 'application/json', services.draw);
 				},

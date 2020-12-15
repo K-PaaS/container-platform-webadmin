@@ -211,6 +211,8 @@ const func = {
 			
 			func.appendHtml(document.getElementById('createName'), html, 'select');
 		};
+
+		document.getElementById('createName').value = sessionStorage.getItem('nameSpace');
 		
 		document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
 

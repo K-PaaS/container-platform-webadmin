@@ -284,6 +284,7 @@
 				},
 
 				resource(data){
+					console.log(data)
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -310,9 +311,11 @@
 
 
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td><input type="checkbox" data-name="${data.items[i].name}"></td><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td></tr>`;
+						if(data.items[i].checkYn == 'Y'){
+							var html = `<tr><td><input type="checkbox" data-name="${data.items[i].name}"></td><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td></tr>`;
 
-						func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
+							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
+						};
 					};
 				},
 
@@ -342,19 +345,20 @@
 
 					
 					for(var i=0; i<=data.items.length-1; i++){
-						
-						var html = `<tr>
-										<td><input type="checkbox" data-name="${data.items[i].name}"></td>
-										<td class="left">${data.items[i].name}</td>
-										<td>${data.items[i].type}</td>
-										<td>${data.items[i].resource}</td>
-										<td>${data.items[i].min}</td>
-										<td>${data.items[i].max}</td>
-										<td>${data.items[i].defaultRequest}</td>
-										<td>${data.items[i].defaultLimit}</td>
-									</tr>`;
+						if(data.items[i].checkYn == 'Y'){
+							var html = `<tr>
+											<td><input type="checkbox" data-name="${data.items[i].name}" data-comp="${data.items[i].name}${data.items[i].type}${data.items[i].resource}"></td>
+											<td class="left">${data.items[i].name}</td>
+											<td>${data.items[i].type}</td>
+											<td>${data.items[i].resource}</td>
+											<td>${data.items[i].min}</td>
+											<td>${data.items[i].max}</td>
+											<td>${data.items[i].defaultRequest}</td>
+											<td>${data.items[i].defaultLimit}</td>
+										</tr>`;
 
-						func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
+							func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
+						};
 					}
 
 				},
@@ -391,8 +395,22 @@
 										</thead>
 										<tbody class="resourceList">`;
 
+						var select = document.querySelector('.resourceQuotas').querySelectorAll('input[type=checkbox]');
+
 						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].name}" data-stat='${data.items[i].status}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td></tr>`;
+							var chk = '';
+							
+							for(var j=0; j<=select.length-1; j++){
+								if(select[j].getAttribute('data-name') == data.items[i].name){
+									chk = 'checked';
+								};
+							};
+
+							html += `<tr>
+										<td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].name}" data-stat='${data.items[i].status}' ${chk}><label for="resourceChk${i}"></td>
+										<td class="left">${data.items[i].name}</td>
+										<td class="left">${data.items[i].status}</td>
+									</tr>`;
 						}
 
 						html +=	`			</tbody>
@@ -483,17 +501,28 @@
 										</thead>
 										<tbody class="limitList">`;
 
+						var select = document.querySelector('.limitQuotas').querySelectorAll('input[type=checkbox]');
+
 						for(var i=0; i<=data.items.length-1; i++){
+							var chk = '';
+
+							for(var j=0; j<=select.length-1; j++){
+								if(select[j].getAttribute('data-comp') == data.items[i].name+data.items[i].type+data.items[i].resource){
+								console.log((select[j].getAttribute('data-comp') +' = '+ (data.items[i].name+data.items[i].type+data.items[i].resource)))
+									chk = 'checked';
+								};
+							};
+
 							html += `<tr>
-									<td><input type="checkbox" id="limitChk${i}" data-name="${data.items[i].name}"><label for="limitChk${i}"></td>
-									<td class="left">${data.items[i].name}</td>
-									<td>${data.items[i].type}</td>
-									<td>${data.items[i].resource}</td>
-									<td>${data.items[i].min}</td>
-									<td>${data.items[i].max}</td>
-									<td>${data.items[i].defaultRequest}</td>
-									<td>${data.items[i].defaultLimit}</td>
-								</tr>`;
+										<td><input type="checkbox" id="limitChk${i}" data-name="${data.items[i].name}" data-comp="${data.items[i].name}${data.items[i].type}${data.items[i].resource}" ${chk}><label for="limitChk${i}"></td>
+										<td class="left">${data.items[i].name}</td>
+										<td>${data.items[i].type}</td>
+										<td>${data.items[i].resource}</td>
+										<td>${data.items[i].min}</td>
+										<td>${data.items[i].max}</td>
+										<td>${data.items[i].defaultRequest}</td>
+										<td>${data.items[i].defaultLimit}</td>
+									</tr>`;
 						};
 
 						html +=	`</tbody></table></div>`;

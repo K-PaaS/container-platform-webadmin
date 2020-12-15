@@ -209,7 +209,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					resource.listEvent();
 				},
@@ -217,7 +219,6 @@
 				event(){
 					// more 버튼 event
 					document.querySelector('.more').addEventListener('click', (e) => {
-						console.log(document.querySelector('.listTable').querySelectorAll('tr').length +' = '+ pods.allItemCount)
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < resource.allItemCount){
 							resource.offset++;
 

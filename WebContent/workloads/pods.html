@@ -168,7 +168,7 @@
 				load(){
 					func.loading();
 
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods?limit=${pods.limit}&offset=${pods.offset}&searchName=${pods.searchName}`, 'application/json', pods.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods?limit=${pods.limit}&offset=${pods.offset}&searchName=${document.getElementById('searchText').value}`, 'application/json', pods.draw);
 				},
 
 				draw(data){
@@ -213,7 +213,9 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
 
 					pods.listEvent();
 				},

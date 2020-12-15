@@ -405,11 +405,25 @@
 
 					for(var i=0; i<=data.items.length-1; i++){
 						var html = `<td>${data.items[i].isAdmin}</td>
-						<td><a href="javascript:;">${data.items[i].userId}</a></td>
+						<td><a href="javascript:;" data-name="${data.items[i].userId}">${data.items[i].userId}</a></td>
 						<td>${data.items[i].serviceAccountName}</td>
 						<td>${data.items[i].created}</td>`;
 
 						func.appendHtml(document.querySelector('.usersList'), html, 'tbody');
+					};
+
+					nameDetail.userEvent();
+				},
+
+				userEvent(){
+					var listAll = document.querySelector('.usersList').querySelectorAll('a');
+					
+					for(var i=0; i<=listAll.length-1; i++){
+						listAll[i].addEventListener('click', (e) => {
+							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
+
+							document.location.href = `${func.ui}managements/usersDetail.html`;
+						}, true);
 					};
 				},
 			}

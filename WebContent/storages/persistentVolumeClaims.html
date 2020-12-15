@@ -84,8 +84,8 @@
 				<article class="location">
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
-						<li><a href="volumeClaims.html">Storages</a></li>
-						<li><a href="persistentVolumeClaims.html">persistent Volume Claims</a></li>
+						<li><a href="persistentVolumes.html">Storages</a></li>
+						<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
@@ -165,8 +165,10 @@
 				},
 
 				load(){
+					func.loading();
+					
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?searchName=${document.getElementById('searchText').value}&limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
 				},
 
 				draw(data){
@@ -204,7 +206,10 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					//
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
+
 					volumeClaims.listEvent();
 				},
 
@@ -214,7 +219,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < volumeClaims.allItemCount){
 							volumeClaims.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
+							volumeClaims.load();
 						};
 					}, false);
 
