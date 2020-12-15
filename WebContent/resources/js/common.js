@@ -1,8 +1,8 @@
 
 const func = {
 
-	url : 'http://15.164.214.190:30333/',
-	ui : 'file:///D:/_Work/PaaS-TA/container/container/admin/',
+	url : 'http://52.79.235.113:30333/',
+	ui : 'file:///D:/_Work/PaaS-TA/svn/container/admin/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
@@ -111,7 +111,7 @@ const func = {
 			};
 
 			if(sessionStorage.getItem('nameSpace') != null){
-				document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+				document.querySelector('.nameTop').innerText = sessionStorage.getItem('nameSpace');
 			};
 
 			var name = document.querySelector('.nameSpace').querySelectorAll('a');
@@ -119,13 +119,13 @@ const func = {
 			for(var i=0 ; i<name.length; i++){
 				name[i].addEventListener('click', (e) => {
 					sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
-					document.querySelector('.nameTop').innerHTML = e.target.innerText;
+					document.querySelector('.nameTop').innerText = e.target.innerText;
 
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 				}, false);
 			};
 		} else {
-			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+			document.querySelector('.nameTop').innerText = sessionStorage.getItem('nameSpace');
 		}
 	},
 

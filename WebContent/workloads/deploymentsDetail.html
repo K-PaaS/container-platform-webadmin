@@ -247,6 +247,7 @@
 
 			const depolyDetail = {
 				init(){
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 
 					// depolyDetail 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments/${sessionStorage.getItem('commonName')}`, 'application/json', depolyDetail.draw);
@@ -269,8 +270,29 @@
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
 					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
-					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
+
+					if(data.annotations.length > 0){
+						for(i=0; i<=data.annotations.length-1; i++){
+							if(data.annotations[i].checkYn == 'Y'){
+								var html = `<dl class="fly">
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else if(data.annotations[i].checkYn == 'N'){
+								var html = `<dl>
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else {
+								var html = `<dl>
+												<dt>-</dt>
+											</dl>`;
+							};
+
+							func.appendHtml(document.getElementById('annot'), html, 'dl');
+						};
+					};
 					
 					// Resource Info
 					document.getElementById('strategy').innerText = data.strategy.type;

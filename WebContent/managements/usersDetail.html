@@ -189,7 +189,7 @@
 
 			const userDetail = {
 				init(){
-					console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`);
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 					
 					func.loading();
 

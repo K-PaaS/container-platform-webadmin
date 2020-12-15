@@ -18,7 +18,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						<p class="nameTop"></p>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace scroll02">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -172,13 +174,13 @@
 
 			const roleDetail = {
 				init(){
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/roles/${sessionStorage.getItem('commonName')}`, 'application/json', roleDetail.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					annotations: "-"
 					creationTimestamp: "2020-11-26 17:49:20"
@@ -204,8 +206,29 @@
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
 					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
-					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
+
+					if(data.annotations.length > 0){
+						for(i=0; i<=data.annotations.length-1; i++){
+							if(data.annotations[i].checkYn == 'Y'){
+								var html = `<dl class="fly">
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else if(data.annotations[i].checkYn == 'N'){
+								var html = `<dl>
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else {
+								var html = `<dl>
+												<dt>-</dt>
+											</dl>`;
+							};
+
+							func.appendHtml(document.getElementById('annot'), html, 'dl');
+						};
+					};
 					
 					func.removeHtml(document.querySelector('.ruleList'));
 
