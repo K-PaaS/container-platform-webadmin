@@ -26,7 +26,7 @@
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
-							<a href="javascript:;">환경설정</a>
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -42,8 +42,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="namespaces.html">Namespaces</a></li>
-								<li><a href="nodes.html">Nodes</a></li>
+								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
+								<li><a href="../clusters/nodes.html">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
@@ -68,10 +68,10 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Managements</a>
 							<ul class="sub">
-								<li><a href="../managements/users.html">Users</a></li>
-								<li><a href="../managements/roles.html">Roles</a></li>
-								<li><a href="../managements/resourceQuotas.html">Resource Quotas</a></li>
-								<li><a href="../managements/limitRanges.html">Limit Ranges</a></li>
+								<li><a href="users.html">Users</a></li>
+								<li><a href="roles.html">Roles</a></li>
+								<li><a href="resourceQuotas.html">Resource Quotas</a></li>
+								<li><a href="limitRanges.html">Limit Ranges</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -262,8 +262,22 @@
 										</thead>
 										<tbody class="resourceList">`;
 
+						var select = document.querySelector('.resourceQuotas').querySelectorAll('input[type=checkbox]');
+
 						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].namespace}</td><td class="left">${data.items[i].name}</td></tr>`;
+							var chk = '';
+
+							for(var j=0; j<=select.length-1; j++){
+								if(select[j].getAttribute('data-comp') == data.items[i].namespace+data.items[i].name){
+									chk = 'checked';
+								};
+							};
+
+							html += `<tr>
+										<td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}' data-comp="${data.items[i].namespace}${data.items[i].name}" ${chk}><label for="resourceChk${i}"></td>
+										<td class="left">${data.items[i].namespace}</td>
+										<td class="left">${data.items[i].name}</td>
+									</tr>`;
 						}
 
 						html +=	`			</tbody>

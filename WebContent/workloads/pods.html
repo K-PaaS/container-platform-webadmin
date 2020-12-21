@@ -27,7 +27,7 @@
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
-							<a href="javascript:;">환경설정</a>
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -150,9 +150,6 @@
 
 				init(){
 					func.nameLoad = pods.reset;
-
-					// nameSpace session 초기화
-					sessionStorage.setItem('nameSpace', 'ALL');
 					
 					pods.load();
 					

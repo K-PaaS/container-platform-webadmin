@@ -29,7 +29,7 @@
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
-							<a href="javascript:;">환경설정</a>
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -178,6 +178,7 @@
 				},
 
 				draw(data){
+					console.log(data)
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -205,7 +206,7 @@
 								trID = data.items[i].userId;
 								trSum = 1;
 
-								var html = `<tr><td class="${data.items[i].userId} left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="${data.items[i].userId} left">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="${data.items[i].userId}">${data.items[i].created}</td></tr>`;
+								var html = `<tr><td class="${data.items[i].userId}${data.items[i].created} left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="${data.items[i].userId} left">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="${data.items[i].userId}">${data.items[i].created}</td></tr>`;
 							} else {
 								trSum++;
 

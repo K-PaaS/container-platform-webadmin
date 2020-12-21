@@ -12,21 +12,24 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
 					<!-- title -->
 					<h3>
-						<a href="javascript:;" class="nameTop">ALL</a>
-						<ul class="nameSpace scroll02">
-						</ul>
+						All
+						<div style="display:none;">
+							<a href="javascript:;" class="nameTop">ALL</a>
+							<ul class="nameSpace">
+							</ul>
+						</div>
 					</h3>
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
 						<div>
-							<a href="javascript:;">환경설정</a>
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -129,22 +132,10 @@
 									<col width="20%" />
 									<col width="80%" />
 								</colgroup>
-								<tbody class="listTable">
+								<tbody class="resourceTable">
 									<tr>
 										<th scope="row" class="left">Provider</th>
 										<td class="left" id="provider"></td>
-									</tr>
-									<tr>
-										<th scope="row" class="left">iopsPerGB</th>
-										<td class="left" id="iops"></td>
-									</tr>
-									<tr>
-										<th scope="row" class="left">Type</th>
-										<td class="left" id="type"></td>
-									</tr>
-									<tr>
-										<th scope="row" class="left">Zones</th>
-										<td class="left" id="zones"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -180,6 +171,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					annotations: "-"
 					creationTimestamp: "2020-11-24 10:18:42"
@@ -222,16 +214,20 @@
 						};
 					};
 
+					console.log(data.parameters)
+
 					// Resource Info
 					document.getElementById('provider').innerText = data.provisioner;
-					document.getElementById('iops').innerText = data.parameters.iopsPerGB;
-					document.getElementById('type').innerText = data.parameters.type;
-					document.getElementById('zones').innerText = data.parameters.zones;
 
-					
-					//document.getElementById('parameters').innerText = JSON.stringify(data.parameters);
+					for(var i=0; i<=Object.getOwnPropertyNames(data.parameters).length-1; i++){
+						console.log(Object.getOwnPropertyNames(data.parameters)[i]);
 
-					storageClassDetail.event();
+						var html = `<tr><th class="left">${Object.getOwnPropertyNames(data.parameters)[i]}</th><td class="left">${data.parameters[Object.keys(data.parameters)[i]]}</td></tr>`;
+
+						func.appendHtml(document.querySelector('.resourceTable'), html, 'tbody');
+					};
+
+					storageClassDetail.event();//resourceTable
 				},
 
 				event(){
