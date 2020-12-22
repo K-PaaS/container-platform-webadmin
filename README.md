@@ -28,7 +28,7 @@ $ gradle build
 - 컨테이너 플랫폼 활용에 대한 정보는 [https://github.com/PaaS-TA/paas-ta-container-platform](https://github.com/PaaS-TA/paas-ta-container-platform)을 참조하십시오.
 
 
-## Technologies used
+## 사용 기술
 - HTML
 - CSS
 - Javascript
