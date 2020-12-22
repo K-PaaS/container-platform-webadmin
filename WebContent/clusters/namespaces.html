@@ -19,7 +19,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All
+						ALL
 						<div style="display:none;">
 							<a href="javascript:;" class="nameTop">ALL</a>
 							<ul class="nameSpace">
@@ -29,7 +29,7 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
+						<div id="setInfo">
 							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
@@ -64,8 +64,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -149,7 +149,7 @@
 				init(){
 					func.nameLoad = nameSpace.reset;
 					
-					sessionStorage.setItem('nameSpace', 'all');
+					sessionStorage.setItem('nameSpace', 'ALL');
 
 					nameSpace.load();
 

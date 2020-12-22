@@ -47,7 +47,7 @@ const func = {
 	},
 
 	event(){
-		// navigation event
+		// navigation
 		var nav = document.querySelector('nav').querySelectorAll('.dep01');
 		
 		for(var i=0; i<=nav.length-1; i++){
@@ -63,18 +63,32 @@ const func = {
 			}, false);
 		};
 
+		// search
 		if(document.getElementById('search') != null){
-			// search event
 			document.getElementById('search').addEventListener('click', (e) => {
-				e.target.parentNode.classList.toggle('on', true);
+				if(e.target.parentNode.classList != 'on'){
+					e.target.parentNode.classList.toggle('on');
+				} else {
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+				}
 			}, false);
-			
+
 			document.getElementById('searchText').onkeydown = function(event) {
 				if(event.keyCode === 13){
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 				};
 			};
+
+			document.getElementById('searchText').onkeyup = function(event) {
+				document.getElementById('searchText').value = document.getElementById('searchText').value.replace( /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
+			};
 		};
+		
+		// setting
+		document.getElementById('userSetting').addEventListener('click', (e) => {
+			console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/${sessionStorage.getItem('user')}`);
+			func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/${sessionStorage.getItem('users')}`, 'application/json', func.setting);
+		}, false);
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
@@ -86,6 +100,71 @@ const func = {
 		sessionStorage.clear();
 
 		document.location.href = `${func.ui}member/login.html`;
+	},
+
+	setting(data){
+		console.log(data);
+
+		var html = `<div id="myInfo">
+						<h4>My Info</h4>
+						<fieldset>
+							<div>
+								<h5>Kubernetes Cluster</h5>
+								<dl>
+									<dt>Name</dt>
+									<dd><input type="text" id="name" disabled /></dd>
+								</dl>
+								<dl>
+									<dt>API URL</dt>
+									<dd><input type="text" id="url" disabled /></dd>
+								</dl>
+								<dl>
+									<dt>Token</dt>
+									<dd><input type="text" id="token" disabled /></dd>
+								</dl>
+								<dl>
+									<dt class="bold">Namespace</dt>
+									<dd><input type="text" id="space" disabled /></dd>
+								</dl>
+							</div>
+							<div>
+								<h5>User</h5>
+								<dl>
+									<dt>User ID</dt>
+									<dd><input type="text" id="id" disabled /></dd>
+								</dl>
+								<dl>
+									<dt>Password</dt>
+									<dd><input type="text" id="ps" /></dd>
+								</dl>
+								<dl>
+									<dt>Password Confirm</dt>
+									<dd><input type="text" id="psc" /></dd>
+								</dl>
+								<dl>
+									<dt>E-mail</dt>
+									<dd><input type="text" id="mail" /></dd>
+								</dl>
+							</div>
+						</fieldset>
+						<div class="btn02">
+							<button class="close">취소</button>
+							<div>
+								<a href="javascript:;">업데이트</a>
+							</div>
+						</div>
+						<a href="javascript:;" class="close">닫기</a>
+					</div>`;
+
+		func.appendHtml(document.getElementById('setInfo'), html, 'div');
+
+		var close = document.getElementById('myInfo').querySelectorAll('.close');
+		
+		for(var i=0; i<=close.length-1; i++){
+			close[i].addEventListener('click', (e) => {
+				document.getElementById('setInfo').removeChild(document.getElementById('myInfo'));
+			}, false);
+		};
 	},
 
 	namespaces(data){
@@ -112,6 +191,9 @@ const func = {
 
 			if(sessionStorage.getItem('nameSpace') != null){
 				document.querySelector('.nameTop').innerText = sessionStorage.getItem('nameSpace');
+			} else {
+				document.querySelector('.nameTop').innerText = 'ALL';
+				sessionStorage.setItem('nameSpace', 'ALL');
 			};
 
 			var name = document.querySelector('.nameSpace').querySelectorAll('a');
@@ -124,9 +206,7 @@ const func = {
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 				}, false);
 			};
-		} else {
-			document.querySelector('.nameTop').innerText = sessionStorage.getItem('nameSpace');
-		}
+		};
 	},
 
 	create(title, url, name){
@@ -242,6 +322,7 @@ const func = {
 				if(request.status === 200){
 					console.log(request.status)
 					if(JSON.parse(request.responseText).httpStatusCode != 401){
+						sessionStorage.setItem('user' , user);
 						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
 						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).token);
 

@@ -76,7 +76,7 @@ body {font-family:'Apple SD Gothic Neo',"Noto Sans KR", "맑은 고딕", sans-se
 
 /*------------------------ Header -------------------------*/
 header {position:absolute; top:0; left:0; z-index:2; width:100%;}
-header > div {width:1600px; min-width:1600px; height:110px; margin:0 auto; padding-top:43px;}
+header > div {position:relative; width:1600px; min-width:1600px; height:110px; margin:0 auto; padding-top:43px;}
 /*logo*/
 header > div h1 {float:left; width:310px; padding-top:8px; padding-left:44px;}
 header > div h1 a {display:block;}
@@ -105,12 +105,31 @@ header > div > div h3 ul li a.on {background-color:#ff7a0f; color:#ffffff;}
 header > div > div > div {float:right; height:40px; padding-top:9px;}
 header > div > div > div > a {float:left; color:rgba(255, 255, 255, 0.568); padding-left:37px; background:url("../../resources/img/logout_icon.png") no-repeat 0 0; background-position:left 1px; transition:.3s; line-height:30px;}
 header > div > div > div > a:hover {color:#fff;}
-header div div div div {float:left; margin-left:26px;}
-header div div div div a {text-indent:-9999px; display:inline-block; width:25px; height:30px; background:url("../../resources/img/set_icon.png") no-repeat 0 0;}
+header > div > div > div > div {float:left; margin-left:26px;}
+header > div > div > div > div > a {text-indent:-9999px; display:inline-block; width:25px; height:30px; background:url("../../resources/img/set_icon.png") no-repeat 0 0;}
 /*------------------------ // Header -------------------------*/
 
 /*------------------------ Main Container -------------------------*/
 #container {position:relative; overflow:hidden; display:flex; width:1600px; min-height:100%; margin:0 auto;}
+
+
+/*------------------------ my info -------------------------*/
+#myInfo {position:absolute; right:70px; top:82px; padding:50px; background:#fff; box-shadow:0 0 30px rgba(0, 0, 0, .2);}
+#myInfo h4 {margin-bottom:30px; color:#444; font-size:34px; font-weight:500; line-height:36px;}
+#myInfo h5 {margin-bottom:20px; color:#444; font-size:22px; font-weight:500;}
+#myInfo fieldset {overflow:hidden; padding-bottom:25px; border-bottom:1px solid #ddd;}
+#myInfo fieldset div {floaT:left;}
+#myInfo fieldset div:first-child {margin-right:30px;}
+#myInfo fieldset input {width:380px; height:50px; border:1px solid #ddd; line-height:48px; padding:0 20px; font-size:17px; color:#333; font-weight:500;}
+#myInfo fieldset input:disabled {background:#fbfbfb;}
+#myInfo fieldset input:focus {border:1px solid #2479d9;}
+#myInfo fieldset dl {margin-top:15px;}
+#myInfo fieldset dl dt {line-height:32px;}
+#myInfo fieldset dl dd {height:50px;}
+#myInfo > .close {width:30px; height:30px; position:absolute; top:21px; right:21px; text-indent:-9999px;}
+#myInfo > .close:before {content:""; width:2px; height:28px; background-color:#141414; position:absolute; top:6px; left:14px; transform:rotate(45deg);}
+#myInfo > .close:after {content:""; width:2px; height:28px; background-color:#141414; position:absolute; top:6px; left:14px; transform:rotate(-45deg);}
+
 
 /*------------------------ Aside -------------------------*/
 aside {width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
@@ -141,6 +160,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 
 /*------------------------ Content -------------------------*/
 #container #content {flex:1; min-width:1290px; width:1290px; background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%)}
+
 /*------------------------ view -------------------------*/
 .view {background:linear-gradient( to right, #15181d, #292d37 2.5%); padding:111px 71px 66px 71px;}
 .view h3 {color:#ffffff; font-size:34px; padding-top:77px; line-height:35px; font-family:'Apple SD Gothic Neo B', sans-serif; letter-spacing:-0.5px;}

@@ -19,7 +19,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						All
+						ALL
 						<div style="display:none;">
 							<a href="javascript:;" class="nameTop">ALL</a>
 							<ul class="nameSpace"></ul>
@@ -28,7 +28,7 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
+						<div id="setInfo">
 							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
@@ -63,8 +63,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -202,17 +202,19 @@
 
 					if(user.allItemCount > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							if(trID != data.items[i].userId){
-								trID = data.items[i].userId;
+							if(trID != data.items[i].userId.replace(/\./gi, '')){
+								trID = data.items[i].userId.replace(/\./gi, '');
 								trSum = 1;
 
-								var html = `<tr><td class="${data.items[i].userId}${data.items[i].created} left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="${data.items[i].userId} left">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="${data.items[i].userId}">${data.items[i].created}</td></tr>`;
+								var html = `<tr><td class="left" data-class="${trID}"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="left" data-class="${trID}">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td data-class="${trID}">${data.items[i].created}</td></tr>`;
 							} else {
 								trSum++;
 
+								console.log(trID +' = '+ data.items[i].userId.replace(/\./gi, ''));
+
 								var html = `<tr><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
 
-								var trRow = document.querySelectorAll(`.${data.items[i].userId}`);
+								var trRow = document.querySelectorAll(`[data-class=${data.items[i].userId.replace(/\./gi, '')}]`);
 								
 								for(var j=0; j<=trRow.length-1; j++){
 									trRow[j].setAttribute('rowspan', trSum);
