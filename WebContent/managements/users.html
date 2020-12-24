@@ -299,7 +299,7 @@
 				listEvent(){
 					var listAll = document.querySelector('.adminList').querySelectorAll('a');
 					
-					for(var i=user.offset*10; i<=listAll.length-1; i++){
+					for(var i=0; i<=listAll.length-1; i++){
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-spac'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));

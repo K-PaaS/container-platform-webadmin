@@ -291,6 +291,10 @@
 								};
 							};
 
+							if(data.items[i].isNamespaceAdminRole == 'Y'){
+								chk = 'checked disabled';
+							};
+
 							html += `<tr>
 										<td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}' data-comp="${data.items[i].namespace}${data.items[i].name}" ${chk}><label for="resourceChk${i}"></td>
 										<td class="left">${data.items[i].namespace}</td>

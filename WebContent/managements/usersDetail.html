@@ -143,8 +143,8 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Kubernetes Clusters Info</h4>
-						<div class="table_style01">
+						<h4 class="kubernetes">Kubernetes Clusters Info</h4>
+						<div class="table_style01 kubernetes">
 							<table>
 								<caption>kubernetes Clusters Info</caption>
 								<colgroup >
@@ -234,6 +234,14 @@
 					document.getElementById('name').innerText = data.clusterName;
 					document.getElementById('url').innerText = data.clusterApiUrl;
 					document.getElementById('token').innerText = data.clusterToken;
+
+					if(data.clusterName == '-'){
+						var kuber =  document.querySelectorAll('.kubernetes');
+						
+						for(var i=0; i<=kuber.length-1; i++){
+							kuber[i].style.display = 'none';
+						};
+					};
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
