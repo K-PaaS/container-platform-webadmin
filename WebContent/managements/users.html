@@ -112,17 +112,19 @@
 							<table>
 								<caption>Administrator List</caption>
 								<colgroup >
+									<col width="16%" />
+									<col width="16%" />
+									<col width="16%" />
 									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
-									<col width="20%" />
+									<col width="16%" />
+									<col width="16%" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col">User ID</th>
 										<th scope="col">Services Account</th>
 										<th scope="col">Namespaces</th>
+										<th scope="col">Authority</th>
 										<th scope="col">Roles</th>
 										<th scope="col">Created Time</th>
 									</tr>
@@ -178,7 +180,6 @@
 				},
 
 				draw(data){
-					console.log(data)
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -186,11 +187,11 @@
 					items: Array(8)
 						0:
 						cpNamespace: "testuser-namespace"
-						created: "2020-11-11 20:32:39"
+						created: "2020-12-01 16:46:41"
 						roleSetCode: "cluster-admin"
 						serviceAccountName: "testuser"
 						userId: "testuser"
-						userType: "CLUSTER_ADMIN"
+						userType: "Cluster Admin"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
@@ -206,13 +207,24 @@
 								trID = data.items[i].userId.replace(/\./gi, '');
 								trSum = 1;
 
-								var html = `<tr><td class="left" data-class="${trID}"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="left" data-class="${trID}">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td data-class="${trID}">${data.items[i].created}</td></tr>`;
+								var html = `<tr>
+									<td class="left" data-class="${trID}"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td>
+									<td class="left" data-class="${trID}">${data.items[i].serviceAccountName}</td>
+									<td class="left">${data.items[i].cpNamespace}</td>
+									<td class="left">${data.items[i].userType}</td>
+									<td class="left">${data.items[i].roleSetCode}</td>
+									<td data-class="${trID}">${data.items[i].created}</td>
+								</tr>`;
 							} else {
 								trSum++;
 
 								console.log(trID +' = '+ data.items[i].userId.replace(/\./gi, ''));
 
-								var html = `<tr><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
+								var html = `<tr>
+									<td class="left">${data.items[i].cpNamespace}</td>
+									<td class="left">${data.items[i].userType}</td>
+									<td class="left">${data.items[i].roleSetCode}</td>
+								</tr>`;
 
 								var trRow = document.querySelectorAll(`[data-class=${data.items[i].userId.replace(/\./gi, '')}]`);
 								
