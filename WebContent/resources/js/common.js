@@ -144,7 +144,7 @@ const func = {
 								</dl>
 								<dl>
 									<dt>E-mail</dt>
-									<dd><input type="text" class="mail" /></dd>
+									<dd><input type="text" class="mail" value="${data.email}" /></dd>
 								</dl>
 							</div>
 						</fieldset>
@@ -356,7 +356,7 @@ const func = {
 	loadData(method, url, header, callbackFunction, list){
 		if(sessionStorage.getItem('token') == null){
 			document.location.href = `${func.ui}member/login.html`;
-		}
+		};
 
 		var request = new XMLHttpRequest();
 		request.open(method, url);
@@ -367,9 +367,9 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
 					callbackFunction(JSON.parse(request.responseText), list);
-				} else if(request.status === 401){
-					//sessionStorage.clear();
-					//document.location.href = '../login.html';
+				} else if(JSON.parse(request.responseText).httpStatusCode === 500){
+					sessionStorage.clear();
+					document.location.href = `${func.ui}member/login.html`;
 				};
 			};
 		};

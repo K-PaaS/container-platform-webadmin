@@ -159,6 +159,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 						deploymentsCount: 50
 						deploymentsUsage: {running: "96%", failed: "4%"}
@@ -175,8 +176,8 @@
 					*/
 
 					if(data.httpStatusCode == 500){
-						sessionStorage.clear();
-						document.location.href = `${func.ui}member/login.html`;
+						//sessionStorage.clear();
+						//document.location.href = `${func.ui}member/login.html`;
 					}
 
 					var legends = document.querySelectorAll('.legend');

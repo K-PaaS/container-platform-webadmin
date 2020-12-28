@@ -198,6 +198,7 @@
 					// Details data
 					document.getElementById('userId').value = data.userId;
 					document.getElementById('account').value = data.serviceAccountName;
+					document.getElementById('email').value = data.email;
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
@@ -216,7 +217,7 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/users/all/namespacesRolesList`, 'application/json', userUpdate.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/users/${document.getElementById('userId').value}/namespacesRolesList`, 'application/json', userUpdate.resource);
 					}, false);
 					
 					document.getElementById('modify').addEventListener('click', (e) => {
