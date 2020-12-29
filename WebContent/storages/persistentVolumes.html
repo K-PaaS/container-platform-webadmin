@@ -19,18 +19,15 @@
 				<div>
 					<!-- title -->
 					<h3>
-						ALL
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -64,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -88,7 +85,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
+						<li><a href="persistentVolumes.html">persistent Volumes</a></li>
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
@@ -151,7 +148,7 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.nameLoad = persistentVolumes.reset;
+					func.nameLoad = persistentVolumes.load;
 
 					// nameSpace session 초기화
 					sessionStorage.setItem('nameSpace', 'ALL');
@@ -161,19 +158,11 @@
 					persistentVolumes.event();
 				},
 
-				reset(){
+				load(){
 					func.removeHtml(document.querySelector('.listTable'));
 
-					persistentVolumes.load();
-				},
-
-				load(){
-					func.loading();
-
-					console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?searchName=${document.getElementById('searchText').value}&limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`);
-
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?searchName=${document.getElementById('searchText').value}&limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
 				},
 
 				draw(data){
@@ -212,10 +201,7 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
-
+					//
 					persistentVolumes.listEvent();
 				},
 
@@ -225,7 +211,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < persistentVolumes.allItemCount){
 							persistentVolumes.offset++;
 
-							persistentVolumes.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
 						};
 					}, false);
 
@@ -243,7 +229,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}storages/persistentVolumesDetail.html`;
+							document.location.href = 'persistentVolumesDetail.html';
 						}, true);
 					};
 				},

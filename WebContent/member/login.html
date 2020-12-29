@@ -18,9 +18,9 @@
 				</fieldset>
 				<!-- btn -->
 				<div class="btn03">
-					<button type="submit" id="login">로그인</button>
+					<button type="submit" id="login">Login</button>
 				</div>
-				<p>운영자 등록이 필요하신가요?<a href="join.html">회원가입</a></p>
+				<p>운영자 등록이 필요하신가요?<a href="join.html">Register</a></p>
 			</article>
 		</div>
 	</div>
@@ -32,13 +32,13 @@
 					func.loginCheck(document.getElementById('logid').value, document.getElementById('logps').value);
 				} else {
 					if(document.getElementById('logid').value == ''){
-						func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기', 'closed');
+						func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기');
 					} else {
-						func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기', 'closed');
+						func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기');
 					};
 				};
 			}, false);
-
+			
 			document.getElementById('logps').onkeydown = function(event) {
 				if(event.keyCode === 13){
 					if(document.getElementById('modal')){
@@ -48,27 +48,9 @@
 							func.loginCheck(document.getElementById('logid').value, document.getElementById('logps').value);
 						} else {
 							if(document.getElementById('logid').value == ''){
-								func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기', 'closed');
+								func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기');
 							} else {
-								func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기', 'closed');
-							};
-						};
-					};
-				};
-			};
-
-			document.getElementById('logid').onkeydown = function(event) {
-				if(event.keyCode === 13){
-					if(document.getElementById('modal')){
-						document.body.removeChild(document.getElementById('modal'));
-					} else {
-						if(document.getElementById('logid').value != '' && document.getElementById('logps').value != ''){
-							func.loginCheck(document.getElementById('logid').value, document.getElementById('logps').value);
-						} else {
-							if(document.getElementById('logid').value == ''){
-								func.alertPopup('ERROR', '아이디를 입력해주세요.', true, '닫기', 'closed');
-							} else {
-								func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기', 'closed');
+								func.alertPopup('ERROR', '비밀번호를 입력해주세요.', true, '닫기');
 							};
 						};
 					};

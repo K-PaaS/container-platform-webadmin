@@ -24,9 +24,9 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -42,8 +42,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
-								<li><a href="../clusters/nodes.html">Nodes</a></li>
+								<li><a href="namespaces.html">Namespaces</a></li>
+								<li><a href="nodes.html">Nodes</a></li>
 							</ul>
 						</li>
 						<li class="plus">
@@ -60,8 +60,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -89,7 +89,7 @@
 				</article>
 				<article class="base">
 					<div class="creat">
-						<h3>Users <span>수정</span></h3>
+						<h3>Users <span>생성</span></h3>
 						<div>
 							<dl>
 								<dt><label for="userId">User ID</label></dt>
@@ -198,11 +198,10 @@
 					// Details data
 					document.getElementById('userId').value = data.userId;
 					document.getElementById('account').value = data.serviceAccountName;
-					document.getElementById('email').value = data.email;
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td><input type="checkbox" data-name="${data.items[i].cpNamespace}" data-comp="${data.items[i].cpNamespace}${data.items[i].roleSetCode}"></td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
+							var html = `<tr><td><input type="checkbox" data-name="${data.items[i].cpNamespace}" ></td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 						};
@@ -217,7 +216,7 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/users/${document.getElementById('userId').value}/namespacesRolesList`, 'application/json', userUpdate.resource);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/users/all/namespacesRolesList`, 'application/json', userUpdate.resource);
 					}, false);
 					
 					document.getElementById('modify').addEventListener('click', (e) => {
@@ -235,7 +234,6 @@
 							"userId": document.getElementById('userId').value,
 							"password": document.getElementById('pass').value,
 							"email": document.getElementById('email').value,
-							"serviceAccountName": document.getElementById('userId').value,
 							"selectValues": resourceQuotasList,
 						};
 
@@ -281,26 +279,8 @@
 										</thead>
 										<tbody class="resourceList">`;
 
-						var select = document.querySelector('.resourceQuotas').querySelectorAll('input[type=checkbox]');
-
 						for(var i=0; i<=data.items.length-1; i++){
-							var chk = '';
-
-							for(var j=0; j<=select.length-1; j++){
-								if(select[j].getAttribute('data-comp') == data.items[i].namespace+data.items[i].name){
-									chk = 'checked';
-								};
-							};
-
-							if(data.items[i].isNamespaceAdminRole == 'Y'){
-								chk = 'checked disabled';
-							};
-
-							html += `<tr>
-										<td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}' data-comp="${data.items[i].namespace}${data.items[i].name}" ${chk}><label for="resourceChk${i}"></td>
-										<td class="left">${data.items[i].namespace}</td>
-										<td class="left">${data.items[i].name}</td>
-									</tr>`;
+							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].namespace}" data-stat='${data.items[i].name}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].namespace}</td><td class="left">${data.items[i].name}</td></tr>`;
 						}
 
 						html +=	`			</tbody>

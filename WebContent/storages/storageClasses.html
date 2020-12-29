@@ -19,19 +19,15 @@
 				<div>
 					<!-- title -->
 					<h3>
-						<h3>
-							All
-							<div style="display:none;">
-								<a href="javascript:;" class="nameTop">ALL</a>
-								<ul class="nameSpace">
-								</ul>
-							</div>
-						</h3>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+							</ul>
+					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -65,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -148,7 +144,7 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.nameLoad = storageClass.reset;
+					func.nameLoad = storageClass.load;
 
 					// nameSpace session 초기화
 					sessionStorage.setItem('nameSpace', 'ALL');
@@ -158,17 +154,11 @@
 					storageClass.event();
 				},
 
-				reset(){
+				load(){
 					func.removeHtml(document.querySelector('.listTable'));
 
-					storageClass.load();
-				},
-
-				load(){
-					func.loading();
-					
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?searchName=${document.getElementById('searchText').value}&limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
 				},
 
 				draw(data){
@@ -204,10 +194,7 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
-
+					//
 					storageClass.listEvent();
 				},
 
@@ -217,7 +204,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < storageClass.allItemCount){
 							storageClass.offset++;
 
-							storageClass.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/storageClasses?limit=${storageClass.limit}&offset=${storageClass.offset}`, 'application/json', storageClass.draw);
 						};
 					}, false);
 
@@ -235,7 +222,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}storages/storageClassesDetail.html`;
+							document.location.href = 'storageClassesDetail.html';
 						}, true);
 					};
 				},

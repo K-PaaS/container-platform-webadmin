@@ -12,7 +12,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -25,8 +25,8 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -99,16 +99,16 @@
 								</colgroup>
 								<tbody class="listTable">
 									<tr>
-										<th scope="row" class="left">Name</th>
-										<td class="left" id="name"></td>
+										<th scope="row">Name</th>
+										<td>test-pod-01</td>
 									</tr>
 									<tr>
-										<th scope="row" class="left">Namespaces</th>
-										<td class="left" id="space"></td>
+										<th scope="row">Namespaces</th>
+										<td><a href="../clusters/namespacesDetail.html">test-namespace</a></td>
 									</tr>
 									<tr>
-										<th scope="row" class="left">Created time</th>
-										<td class="left" id="time"></td>
+										<th scope="row">Created time</th>
+										<td>2020-07-31 16:20:30</td>
 									</tr>
 								</tbody>
 							</table>
@@ -134,16 +134,24 @@
 										<th scope="col">Default Limit</th>
 									</tr>
 								</thead>
-								<tbody class="detailList">
+								<tbody class="listTable">
+									<tr>
+										<td>container</td>
+										<td>memory</td>
+										<td>-</td>
+										<td>-</td>
+										<td>256Mi</td>
+										<td>512Mi</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<!-- btn -->
 					<div class="btn02">
-						<button type="submit" id="delete">삭제</button>
+						<button type="submit">삭제</button>
 						<div>
-							<a href="javascript:;" id="modify" data-role="limitRanges">수정</a>
+							<a href="../clusters/namespacesUpdate.html">수정</a>
 							<a href="limitRanges.html">이전</a>
 						</div>
 					</div>
@@ -152,89 +160,128 @@
 			<!-- // Content -->
 		</div>
 		<!-- // container -->
+		<!-- modal -->
+		<div class="modal-wrap" style="display:none;">
+			<div class="modal">
+				<h5>삭제확인</h5>
+				<p>리소스를 삭제하시겠습니까?</p>
+				<button class="confirm" type="submit">삭제</button>
+				<a class="close" href="javascript:;">닫기</a>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(4, 3);
+			func.init(0, 0);
 
-			const limitDetail = {
+			const createNamespaces = {
 				init(){
-					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}`, 'application/json', limitDetail.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/adminCheck`, 'application/json', createNamespaces.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
-					creationTimestamp: "2020-12-03 16:15:55"
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					items: Array(1)
-						0:
-						defaultLimit: "1Gi"
-						defaultRequest: "1Gi"
-						max: "1Gi"
-						min: "500Mi"
-						resource: "memory"
-						type: "Container"
-					name: "mem-min-max-demo-lr"
-					namespace: "rex"
+					namespace: "all"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
+					usersInfo: Array(66)
+						0: {userId: "opdcminsu", isNsAdmin: "N"}
+						1: {userId: "hrjin4", isNsAdmin: "N"}
 					*/
 
-					// Details data
-					document.getElementById('name').innerText = data.name;
-					document.getElementById('space').innerText = data.namespace;
-					//document.getElementById('scopes').innerText = JSON.stringify(data.annotations);
-					document.getElementById('time').innerText = data.creationTimestamp;
-					
-					func.removeHtml(document.querySelector('.detailList'));
-
-					if(data.items.length > 0){
-						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr>
-									<td>${data.items[i].type}</td>
-									<td>${data.items[i].resource}</td>
-									<td>${data.items[i].min}</td>
-									<td>${data.items[i].max}</td>
-									<td>${data.items[i].defaultRequest}</td>
-									<td>${data.items[i].defaultLimit}</td>
-								</tr>`;
-
-							func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
-						};
-					} else {
-						var html = '<tr><td colspan="6">No Data.</td></tr>';
-
-						func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
+					for(var i=0; i<=data.usersInfo.length-1; i++){
+						var html = `<option value="${data.usersInfo[i].userId}">${data.usersInfo[i].userId}</option>`;
+						
+						func.appendHtml(document.getElementById('user'), html, 'select');
 					};
+					
+					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
 
-					limitDetail.event()
+					createNamespaces.event();
 				},
 
 				event(){
-					document.getElementById('delete').addEventListener('click', (e) => {
-						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', limitDetail.delete);
+					document.querySelector('.resAdd').addEventListener('click', (e) => {
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', createNamespaces.resource);
 					}, false);
-
-					document.getElementById('modify').addEventListener('click', (e) => {
-						// Resource yaml 정보 조회
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
+					
+					document.querySelector('.limAdd').addEventListener('click', (e) => {
+					}, false);
+					
+					document.getElementById('save').addEventListener('click', (e) => {
+						console.log(document.getElementById('name').value);
+						console.log(document.getElementById('user').value);
 					}, false);
 				},
 
-				delete(){
-					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/limitRanges/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+				resource(data){
+					console.log(data);
+					/*
+					detailMessage: "정상적으로 처리 되었습니다."
+					httpStatusCode: 200
+					itemMetaData: {allItemCount: 3, remainingItemCount: 0}
+					items: Array(3)
+						0: {name: "cp-low-rq", requestCpu: "0", requestMemory: "0", limitCpu: "2", limitMemory: "2Gi", …}
+						1: {name: "cp-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
+					metadata: null
+					resultCode: "SUCCESS"
+					resultMessage: "정상적으로 처리 되었습니다."
+					*/
+					if(data.items.length > 0){
+						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Resource Quotas</h5>`;
+						
+						html += `<div class="table_style01">
+									<table>
+										<caption>Resource Quotas</caption>
+										<colgroup >
+											<col width="30%" />
+											<col width="70%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">Name</th>
+												<th scope="col">Status</th>
+											</tr>
+										</thead>
+										<tbody class="resourceList">`;
+
+						for(var i=0; i<=data.items.length-1; i++){
+							html += `<tr><td>${data.items[i].name}</td><td>${data.items[i].status}</td></tr>`;
+						}
+
+						html +=	`			</tbody>
+									</table>
+								</div>`;
+						html += `<a class='confirm' href='javascript:;'>저장</a>`;
+						html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
+
+						func.appendHtml(document.getElementById('wrap'), html, 'div');
+					} else {
+						func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
+					}
+				},
+
+				limit(data){
+
+				},
+
+				resourceSelect(){
+					console.log('call');
+				},
+
+				limitSelect(){
+
 				},
 			}
 
-			limitDetail.init();
+			createNamespaces.init();
 		}
 	</script>
 </body>

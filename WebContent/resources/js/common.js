@@ -1,8 +1,7 @@
 
 const func = {
 
-	url : 'http://52.79.235.113:30333/',
-	ui : 'file:///D:/_Work/PaaS-TA/svn/container/admin/',
+	url : 'http://15.164.214.190:30333/',
 	nameLoad : new function(){},
 	nameData : new Object(),
 	createIm : '',
@@ -31,7 +30,7 @@ const func = {
 
 				nav1d[depth1].classList.toggle('on', true);
 
-			};
+			}
 		}
 
 		// navigation height 설정
@@ -47,7 +46,7 @@ const func = {
 	},
 
 	event(){
-		// navigation
+		// navigation event
 		var nav = document.querySelector('nav').querySelectorAll('.dep01');
 		
 		for(var i=0; i<=nav.length-1; i++){
@@ -63,117 +62,24 @@ const func = {
 			}, false);
 		};
 
-		// search
 		if(document.getElementById('search') != null){
+			// search event
 			document.getElementById('search').addEventListener('click', (e) => {
-				if(e.target.parentNode.classList != 'on'){
-					e.target.parentNode.classList.toggle('on');
-				} else {
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
-				}
+				e.target.parentNode.classList.toggle('on', true);
 			}, false);
-
-			document.getElementById('searchText').onkeydown = function(event) {
-				if(event.keyCode === 13){
+			
+			document.getElementById('searchText').onkeydown = function(e) {
+				if(e.keyCode === 13){
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
 				};
 			};
-
-			document.getElementById('searchText').onkeyup = function(event) {
-				document.getElementById('searchText').value = document.getElementById('searchText').value.replace( /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');
-			};
 		};
-		
-		// setting
-		document.getElementById('userSetting').addEventListener('click', (e) => {
-			console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`);
-			
-			func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`, 'application/json', func.setting);
-		}, false);
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
-			func.alertPopup('LOGOUT', '로그아웃 되었습니다.', true, '닫기', func.logout);
-		}, false);
-	},
+			sessionStorage.clear();
 
-	logout(){
-		sessionStorage.clear();
-
-		document.location.href = `${func.ui}member/login.html`;
-	},
-
-	setting(data){
-		console.log(data);
-
-		var html = `<div id="myInfo">
-						<h4>My Info</h4>
-						<fieldset>
-							<div>
-								<h5>Kubernetes Cluster</h5>
-								<dl>
-									<dt>Name</dt>
-									<dd><input type="text" id="name" value="${data.clusterName}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>API URL</dt>
-									<dd><input type="text" id="url" value="${data.clusterApiUrl}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>Token</dt>
-									<dd><input type="text" id="token" value="${data.clusterToken}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt class="bold">Namespace</dt>
-									<dd><input type="text" id="space" value="${data.cpNamespace}" disabled /></dd>
-								</dl>
-							</div>
-							<div>
-								<h5>User</h5>
-								<dl>
-									<dt>User ID</dt>
-									<dd><input type="text" id="id" value="${data.userId}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>Password</dt>
-									<dd><input type="password" class="ps" /></dd>
-								</dl>
-								<dl>
-									<dt>Password Confirm</dt>
-									<dd><input type="password" class="psc" /></dd>
-								</dl>
-								<dl>
-									<dt>E-mail</dt>
-									<dd><input type="text" class="mail" value="${data.email}" /></dd>
-								</dl>
-							</div>
-						</fieldset>
-						<div class="btn02">
-							<button class="close">취소</button>
-							<div>
-								<a href="javascript:;" id="userUpdate">업데이트</a>
-							</div>
-						</div>
-						<a href="javascript:;" class="close">닫기</a>
-					</div>`;
-
-		func.appendHtml(document.getElementById('setInfo'), html, 'div');
-
-		var close = document.getElementById('myInfo').querySelectorAll('.close');
-		
-		for(var i=0; i<=close.length-1; i++){
-			close[i].addEventListener('click', (e) => {
-				document.getElementById('setInfo').removeChild(document.getElementById('myInfo'));
-			}, false);
-		};
-		
-		document.getElementById('userUpdate').addEventListener('click', (e) => {
-			var updata = {
-							"userId": data.userId,
-							"password": document.getElementById('myInfo').querySelector('.ps').value,
-							"email": document.getElementById('myInfo').querySelector('.mail').value
-						}
-			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`, JSON.stringify(updata), true, 'application/json', func.refresh);
+			document.location.href = 'member/login.html';
 		}, false);
 	},
 
@@ -188,34 +94,32 @@ const func = {
 			resultCode: "SUCCESS"
 			resultMessage: "정상적으로 처리 되었습니다."
 		*/
-		if(document.querySelector('.nameSpace')){
-			for(var i=0; i<=data.items.length-1; i++){
-				if(i == 0){
-					var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i].toUpperCase()}</a></li>`;
-				} else {
-					var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i]}</a></li>`;
-				}
-				
-				func.appendHtml(document.querySelector('.nameSpace'), html, 'li');
-			};
-
-			if(sessionStorage.getItem('nameSpace') != null){
-				document.querySelector('.nameTop').innerText = sessionStorage.getItem('nameSpace');
+		for(var i=0; i<=data.items.length-1; i++){
+			if(i == 0){
+				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i].toUpperCase()}</a></li>`;
 			} else {
-				document.querySelector('.nameTop').innerText = 'ALL';
-				sessionStorage.setItem('nameSpace', 'ALL');
-			};
+				var html = `<li><a href="javascript:;" data-name="${data.items[i]}">${data.items[i]}</a></li>`;
+			}
+			
+			func.appendHtml(document.querySelector('.nameSpace'), html, 'li');
+		};
 
-			var name = document.querySelector('.nameSpace').querySelectorAll('a');
+		var name = document.querySelector('.nameSpace').querySelectorAll('a');
 
-			for(var i=0 ; i<name.length; i++){
-				name[i].addEventListener('click', (e) => {
-					sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
-					document.querySelector('.nameTop').innerText = e.target.innerText;
+		if(sessionStorage.getItem('nameSpace') == null){
 
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
-				}, false);
-			};
+		} else {
+			document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
+			//document.querySelector('.nameSpace').value = sessionStorage.getItem('nameSpace');
+		};
+
+		for(var i=0 ; i<name.length; i++){
+			name[i].addEventListener('click', (e) => {
+				sessionStorage.setItem('nameSpace' , e.target.getAttribute('data-name'));
+				document.querySelector('.nameTop').innerHTML = e.target.innerText;
+
+				func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+			}, false);
 		};
 	},
 
@@ -301,8 +205,6 @@ const func = {
 			
 			func.appendHtml(document.getElementById('createName'), html, 'select');
 		};
-
-		document.getElementById('createName').value = sessionStorage.getItem('nameSpace');
 		
 		document.querySelector('.nameTop').innerHTML = sessionStorage.getItem('nameSpace');
 
@@ -318,6 +220,8 @@ const func = {
 			
 			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/${document.getElementById('modify').getAttribute('data-role')}/${sessionStorage.getItem('commonName')}`, input.value, true, 'application/yaml', func.refresh);
 		}, false);
+
+		//
 	},
 	
 	// 로그인 체크 ////////////////////////////////////////////////////////////////
@@ -332,11 +236,10 @@ const func = {
 				if(request.status === 200){
 					console.log(request.status)
 					if(JSON.parse(request.responseText).httpStatusCode != 401){
-						sessionStorage.setItem('user' , user);
 						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
 						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).token);
 
-						document.location.href = `${func.ui}index.html`;
+						document.location.href = '../index.html';
 					} else {
 						func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기', func.refresh);
 					}
@@ -347,6 +250,7 @@ const func = {
 		};
 		
 		request.send(`{"userId":"${user}","password":"${pw}"}`);
+		// 'testuser', 'PaaS-TA@2020'
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -355,8 +259,8 @@ const func = {
 	/////////////////////////////////////////////////////////////////////////////////////
 	loadData(method, url, header, callbackFunction, list){
 		if(sessionStorage.getItem('token') == null){
-			document.location.href = `${func.ui}member/login.html`;
-		};
+			document.location.href = '../member/login.html';
+		}
 
 		var request = new XMLHttpRequest();
 		request.open(method, url);
@@ -367,9 +271,9 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
 					callbackFunction(JSON.parse(request.responseText), list);
-				} else if(JSON.parse(request.responseText).httpStatusCode === 500){
-					sessionStorage.clear();
-					document.location.href = `${func.ui}member/login.html`;
+				} else if(request.status === 401){
+					//sessionStorage.clear();
+					//document.location.href = '../login.html';
 				};
 			};
 		};
@@ -398,11 +302,10 @@ const func = {
 					console.log(JSON.parse(request.responseText));
 
 					if(method == 'POST'){
-						console.log(JSON.parse(request.responseText));
 						if(JSON.parse(request.responseText).httpStatusCode == 200){
 							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 						} else {
-							func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', 'closed');
+							func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', func.refresh);
 						}
 					} else if(method == 'PATCH'){
 						func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
@@ -450,10 +353,7 @@ const func = {
 
 		if(callback){
 			document.getElementById('modal').querySelector('.confirm').addEventListener('click', (e) => {
-				if(callback != 'closed'){
-					callback();
-				};
-
+				callback();
 				document.getElementById('wrap').removeChild(document.getElementById('modal'));
 			}, false);
 		};
@@ -468,6 +368,7 @@ const func = {
 	},
 
 	loading(){
+		console.log('ld');
 		var html = `<div id="loading">
 						<div class="cubeSet">
 							<div class="cube1 cube"></div>

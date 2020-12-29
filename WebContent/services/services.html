@@ -25,9 +25,9 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -146,27 +146,25 @@
 				searchName : '',
 
 				init(){
-					func.nameLoad = services.reset;
+					func.nameLoad = services.load;
+
+					// nameSpace session 초기화
+					sessionStorage.setItem('nameSpace', 'ALL');
 					
 					services.load();
 					
 					services.event();
 				},
 
-				reset(){
+				load(){
 					func.removeHtml(document.querySelector('.seviceList'));
 
-					services.load();
-				},
-
-				load(){
-					func.loading();
-
 					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?searchName=${document.getElementById('searchText').value}&limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -200,10 +198,7 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
-					
+					//
 					services.listEvent();
 				},
 
@@ -213,10 +208,9 @@
 						if(document.querySelector('.seviceList').querySelectorAll('tr').length < services.allItemCount){
 							services.offset++;
 
-							services.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services?limit=${services.limit}&offset=${services.offset}`, 'application/json', services.draw);
 						};
 					}, false);
-
 					document.querySelector('.create').addEventListener('click', (e) => {
 						sessionStorage.setItem('commonName', '');
 
@@ -225,6 +219,7 @@
 				},
 
 				listEvent(){
+					console.log('more');
 					var listAll = document.querySelector('.seviceList').querySelectorAll('a');
 					
 					for(var i=services.offset*10; i<=listAll.length-1; i++){
@@ -232,7 +227,7 @@
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-id'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}services/servicesDetail.html`;
+							document.location.href = 'servicesDetail.html';
 						}, true);
 					};
 				},

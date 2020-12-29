@@ -19,7 +19,7 @@
 				<div>
 					<!-- title -->
 					<h3>
-						ALL
+						All Namespaces
 						<div style="display:none;">
 							<a href="javascript:;" class="nameTop">ALL</a>
 							<ul class="nameSpace">
@@ -28,9 +28,9 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -64,8 +64,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -147,29 +147,16 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.nameLoad = nameSpace.reset;
-					
-					sessionStorage.setItem('nameSpace', 'ALL');
+					//func.nameLoad = nameSpace.draw;
 
-					nameSpace.load();
+					// nameSpace 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 
 					nameSpace.event();
 				},
 
-				reset(){
-					func.removeHtml(document.querySelector('.listTable'));
-
-					nameSpace.load();
-				},
-
-				load(){
-					func.loading();
-
-					// nameSpace 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?searchName=${document.getElementById('searchText').value}&limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
-				},
-
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -199,11 +186,8 @@
 					} else {
 						document.querySelector('.more').classList.toggle('on', false);
 					};
-					
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
 
+					//
 					nameSpace.listEvent();
 				},
 
@@ -213,12 +197,11 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < nameSpace.allItemCount){
 							nameSpace.offset++;
 
-							nameSpace.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 						};
 					}, false);
-
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = `${func.ui}clusters/namespacesCreat.html`;
+						document.location.href = 'namespacesCreat.html';
 					}, false);
 				},
 
@@ -230,7 +213,7 @@
 						listAll[i].addEventListener('click', (e) => {
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}clusters/namespacesDetail.html`;
+							document.location.href = 'namespacesDetail.html';
 						}, true);
 					};
 				},

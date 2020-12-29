@@ -19,18 +19,15 @@
 				<div>
 					<!-- title -->
 					<h3>
-						ALL
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -64,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -87,8 +84,8 @@
 				<article class="location">
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
-						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+						<li><a href="volumeClaims.html">Storages</a></li>
+						<li><a href="persistentVolumeClaims.html">persistent Volume Claims</a></li>
 					</ul>
 					<!-- Click event class="on" -->
 					<fieldset>
@@ -151,7 +148,7 @@
 				allItemCount : 0, //게시물 촐 개수
 
 				init(){
-					func.nameLoad = volumeClaims.reset;
+					func.nameLoad = volumeClaims.load;
 
 					// nameSpace session 초기화
 					sessionStorage.setItem('nameSpace', 'ALL');
@@ -161,17 +158,11 @@
 					volumeClaims.event();
 				},
 
-				reset(){
+				load(){
 					func.removeHtml(document.querySelector('.listTable'));
 
-					volumeClaims.load();
-				},
-
-				load(){
-					func.loading();
-					
 					// persistentVolumes 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?searchName=${document.getElementById('searchText').value}&limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
 				},
 
 				draw(data){
@@ -209,10 +200,7 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
-
+					//
 					volumeClaims.listEvent();
 				},
 
@@ -222,7 +210,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < volumeClaims.allItemCount){
 							volumeClaims.offset++;
 
-							volumeClaims.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims?limit=${volumeClaims.limit}&offset=${volumeClaims.offset}`, 'application/json', volumeClaims.draw);
 						};
 					}, false);
 
@@ -241,7 +229,7 @@
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-spc'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}storages/persistentVolumeClaimsDetail.html`;
+							document.location.href = 'persistentVolumeClaimsDetail.html';
 						}, true);
 					};
 				},

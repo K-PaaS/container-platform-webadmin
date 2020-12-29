@@ -19,17 +19,15 @@
 				<div>
 					<!-- title -->
 					<h3>
-						ALL
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace"></ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="javascript:;" id="logout">로그아웃</a>
-						<div id="setInfo">
-							<a href="javascript:;" id="userSetting">환경설정</a>
+						<a href="../member/login.html" id="logout">로그아웃</a>
+						<div>
+							<a href="javascript:;">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -63,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -112,19 +110,17 @@
 							<table>
 								<caption>Administrator List</caption>
 								<colgroup >
-									<col width="16%" />
-									<col width="16%" />
-									<col width="16%" />
 									<col width="20%" />
-									<col width="16%" />
-									<col width="16%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="20%" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col">User ID</th>
 										<th scope="col">Services Account</th>
 										<th scope="col">Namespaces</th>
-										<th scope="col">Authority</th>
 										<th scope="col">Roles</th>
 										<th scope="col">Created Time</th>
 									</tr>
@@ -159,17 +155,11 @@
 				type : 'administrator',
 
 				init(){
-					func.nameLoad = user.reset;
+					func.nameLoad = user.load;
 
 					user.load();
 
 					user.event();
-				},
-
-				reset(){
-					func.removeHtml(document.querySelector('.adminList'));
-
-					user.load();
 				},
 
 				load(){
@@ -180,6 +170,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -187,11 +178,11 @@
 					items: Array(8)
 						0:
 						cpNamespace: "testuser-namespace"
-						created: "2020-12-01 16:46:41"
+						created: "2020-11-11 20:32:39"
 						roleSetCode: "cluster-admin"
 						serviceAccountName: "testuser"
 						userId: "testuser"
-						userType: "Cluster Admin"
+						userType: "CLUSTER_ADMIN"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
@@ -203,30 +194,17 @@
 
 					if(user.allItemCount > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							if(trID != data.items[i].userId.replace(/\./gi, '')){
-								trID = data.items[i].userId.replace(/\./gi, '');
+							if(trID != data.items[i].userId){
+								trID = data.items[i].userId;
 								trSum = 1;
 
-								var html = `<tr>
-									<td class="left" data-class="${trID}"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td>
-									<td class="left" data-class="${trID}">${data.items[i].serviceAccountName}</td>
-									<td class="left">${data.items[i].cpNamespace}</td>
-									<td class="left">${data.items[i].userType}</td>
-									<td class="left">${data.items[i].roleSetCode}</td>
-									<td data-class="${trID}">${data.items[i].created}</td>
-								</tr>`;
+								var html = `<tr><td class="${data.items[i].userId} left"><a href="javascript:;" data-name="${data.items[i].userId}" data-spac="${data.items[i].cpNamespace}">${data.items[i].userId}</a></td><td class="${data.items[i].userId} left">${data.items[i].serviceAccountName}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="${data.items[i].userId}">${data.items[i].created}</td></tr>`;
 							} else {
 								trSum++;
 
-								console.log(trID +' = '+ data.items[i].userId.replace(/\./gi, ''));
+								var html = `<tr><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
 
-								var html = `<tr>
-									<td class="left">${data.items[i].cpNamespace}</td>
-									<td class="left">${data.items[i].userType}</td>
-									<td class="left">${data.items[i].roleSetCode}</td>
-								</tr>`;
-
-								var trRow = document.querySelectorAll(`[data-class=${data.items[i].userId.replace(/\./gi, '')}]`);
+								var trRow = document.querySelectorAll(`.${data.items[i].userId}`);
 								
 								for(var j=0; j<=trRow.length-1; j++){
 									trRow[j].setAttribute('rowspan', trSum);
@@ -250,9 +228,7 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
-					if(document.getElementById('loading')){
-						document.getElementById('wrap').removeChild(document.getElementById('loading'));
-					};
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
 
 					user.listEvent();
 				},
@@ -263,14 +239,14 @@
 						if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
 							user.offset++;
 
-							user.load();
+							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users?userType=${user.type}&searchName=${document.getElementById('searchText').value}&limit=${user.limit}&offset=${user.offset}`, 'application/json', user.draw);
 						};
 					}, false);
-
 					document.querySelector('.create').addEventListener('click', (e) => {
-						document.location.href = `${func.ui}managements/userCreat.html`;
+						document.location.href = 'userCreat.html';
 					}, false);
 
+					var tabBtn = document.querySelectorAll('.tabBtn');
 					var tabBtn = document.querySelectorAll('.tabBtn');
 					
 					for(var i=0; i<=tabBtn.length-1; i++){
@@ -284,9 +260,7 @@
 								
 								e.target.parentNode.classList.toggle('on', true);
 
-								user.offset = 0;
-
-								user.type = e.target.innerText.toLowerCase();
+								user.type = e.target.innerText;
 
 								func.removeHtml(document.querySelector('.adminList'));
 								
@@ -299,12 +273,11 @@
 				listEvent(){
 					var listAll = document.querySelector('.adminList').querySelectorAll('a');
 					
-					for(var i=0; i<=listAll.length-1; i++){
+					for(var i=user.offset*10; i<=listAll.length-1; i++){
 						listAll[i].addEventListener('click', (e) => {
-							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-spac'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = `${func.ui}managements/usersDetail.html`;
+							document.location.href = 'usersDetail.html';
 						}, true);
 					};
 				},
