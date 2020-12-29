@@ -25,8 +25,8 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -222,31 +222,33 @@
 					}, false);
 					
 					document.getElementById('save').addEventListener('click', (e) => {
-						var resourceName = document.querySelector('.resourceQuotas').querySelectorAll('input');
-						var limitName = document.querySelector('.limitQuotas').querySelectorAll('input');
-
-						var resourceQuotasList = [];
-						var  limitRangesList = [];
-
-						for(var i=0; i<=resourceName.length-1; i++){
-							resourceQuotasList.push(resourceName[i].getAttribute('data-name'));
-						};
-
-						for(var j=0; j<=limitName.length-1; j++){
-							limitRangesList.push(limitName[j].getAttribute('data-name'));
-						};
-
-						var createName = {
-							"name": document.getElementById('name').value,
-							"nsAdminUserId": document.getElementById('user').value,
-							"resourceQuotasList": resourceQuotasList,
-							"limitRangesList": limitRangesList,
-						};
-
-						console.log(createName);
-
-						func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.stringify(createName), true, 'application/json', func.historyBack);
+						func.alertPopup('SAVE', '저장하시겠습니까?', true, '확인', createNamespaces.save);
 					}, false);
+				},
+
+				save(){
+					var resourceName = document.querySelector('.resourceQuotas').querySelectorAll('input');
+					var limitName = document.querySelector('.limitQuotas').querySelectorAll('input');
+
+					var resourceQuotasList = [];
+					var  limitRangesList = [];
+
+					for(var i=0; i<=resourceName.length-1; i++){
+						resourceQuotasList.push(resourceName[i].getAttribute('data-name'));
+					};
+
+					for(var j=0; j<=limitName.length-1; j++){
+						limitRangesList.push(limitName[j].getAttribute('data-name'));
+					};
+
+					var createName = {
+						"name": document.getElementById('name').value,
+						"nsAdminUserId": document.getElementById('user').value,
+						"resourceQuotasList": resourceQuotasList,
+						"limitRangesList": limitRangesList,
+					};
+
+					func.saveData('POST', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces`, JSON.stringify(createName), true, 'application/json', func.historyBack);
 				},
 
 				resource(data){
@@ -281,8 +283,22 @@
 										</thead>
 										<tbody class="resourceList">`;
 
+						var select = document.querySelector('.resourceQuotas').querySelectorAll('input[type=checkbox]');
+
 						for(var i=0; i<=data.items.length-1; i++){
-							html += `<tr><td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].name}" data-stat='${data.items[i].status}'><label for="resourceChk${i}"></td><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td></tr>`;
+							var chk = '';
+							
+							for(var j=0; j<=select.length-1; j++){
+								if(select[j].getAttribute('data-name') == data.items[i].name){
+									chk = 'checked';
+								};
+							};
+							
+							html += `<tr>
+										<td><input type="checkbox" id="resourceChk${i}" data-name="${data.items[i].name}" ${chk}><label for="resourceChk${i}"></td>
+										<td class="left">${data.items[i].name}</td>
+										<td class="left">${data.items[i].status}</td>
+									</tr>`;
 						}
 
 						html +=	`			</tbody>
@@ -324,7 +340,6 @@
 				},
 
 				limit(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -375,17 +390,28 @@
 										</thead>
 										<tbody class="limitList">`;
 
+						var select = document.querySelector('.limitQuotas').querySelectorAll('input[type=checkbox]');
+
 						for(var i=0; i<=data.items.length-1; i++){
+							var chk = '';
+
+							for(var j=0; j<=select.length-1; j++){
+								if(select[j].getAttribute('data-comp') == data.items[i].name+data.items[i].type+data.items[i].resource){
+								console.log((select[j].getAttribute('data-comp') +' = '+ (data.items[i].name+data.items[i].type+data.items[i].resource)))
+									chk = 'checked';
+								};
+							};
+
 							html += `<tr>
-									<td><input type="checkbox" id="limitChk${i}" data-name="${data.items[i].name}"><label for="limitChk${i}"></td>
-									<td class="left">${data.items[i].name}</td>
-									<td>${data.items[i].type}</td>
-									<td>${data.items[i].resource}</td>
-									<td>${data.items[i].min}</td>
-									<td>${data.items[i].max}</td>
-									<td>${data.items[i].defaultRequest}</td>
-									<td>${data.items[i].defaultLimit}</td>
-								</tr>`;
+										<td><input type="checkbox" id="limitChk${i}" data-name="${data.items[i].name}" data-comp="${data.items[i].name}${data.items[i].type}${data.items[i].resource}" ${chk}><label for="limitChk${i}"></td>
+										<td class="left">${data.items[i].name}</td>
+										<td>${data.items[i].type}</td>
+										<td>${data.items[i].resource}</td>
+										<td>${data.items[i].min}</td>
+										<td>${data.items[i].max}</td>
+										<td>${data.items[i].defaultRequest}</td>
+										<td>${data.items[i].defaultLimit}</td>
+									</tr>`;
 						};
 
 						html +=	`</tbody></table></div>`;

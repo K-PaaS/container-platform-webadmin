@@ -25,9 +25,9 @@
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -138,8 +138,6 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			console.log(sessionStorage.getItem('token'));
-
 			func.init(1, 0);
 
 			const depoly = {
@@ -149,22 +147,26 @@
 				searchName : '',
 
 				init(){
-					func.nameLoad = depoly.load;
-
-					// nameSpace session 초기화
-					sessionStorage.setItem('nameSpace', 'ALL');
+					func.nameLoad = depoly.reset;
 					
 					depoly.load();
-				},
-
-				load(){
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}&searchName=${depoly.searchName}`, 'application/json', depoly.draw);
 
 					depoly.event();
 				},
 
+				reset(){
+					func.removeHtml(document.querySelector('.listTable'));
+
+					depoly.load();
+				},
+
+				load(){
+					func.loading();
+
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?searchName=${document.getElementById('searchText').value}&limit=${depoly.limit}&offset=${depoly.offset}`, 'application/json', depoly.draw);
+				},
+
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -204,6 +206,10 @@
 						document.querySelector('.more').classList.toggle('on', false);
 					};
 
+					if(document.getElementById('loading')){
+						document.getElementById('wrap').removeChild(document.getElementById('loading'));
+					};
+
 					depoly.listEvent();
 				},
 
@@ -213,7 +219,7 @@
 						if(document.querySelector('.listTable').querySelectorAll('tr').length < depoly.allItemCount){
 							depoly.offset++;
 
-							func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/deployments?limit=${depoly.limit}&offset=${depoly.offset}`, 'application/json', depoly.draw);
+							depoly.load();
 						};
 					}, false);
 
@@ -233,7 +239,7 @@
 							sessionStorage.setItem('nameSpace', e.target.getAttribute('data-id'));
 							sessionStorage.setItem('commonName', e.target.getAttribute('data-name'));
 
-							document.location.href = 'deploymentsDetail.html';
+							document.location.href = `${func.ui}workloads/deploymentsDetail.html`;
 						}, true);
 					};
 				},

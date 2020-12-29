@@ -18,15 +18,18 @@
 				<div>
 					<!-- title -->
 					<h3>
-						<a href="javascript:;" class="nameTop">ALL</a>
-						<ul class="nameSpace scroll02">
-						</ul>
+						ALL
+						<div style="display:none;">
+							<a href="javascript:;" class="nameTop">ALL</a>
+							<ul class="nameSpace">
+							</ul>
+						</div>
 					</h3>
 					<!-- member-menu -->
 					<div>
-						<a href="../member/login.html" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<a href="javascript:;" id="logout">로그아웃</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -60,8 +63,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -84,7 +87,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumeClaims.html">persistent Volume Claims</a></li>
+						<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 					</ul>
 				</article>
 				<article class="base detail">
@@ -177,13 +180,13 @@
 
 			const volumeClaimsDetail = {
 				init(){
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 
 					// replica 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}`, 'application/json', volumeClaimsDetail.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					accessMode: ["ReadWriteOnce"]
 					annotations: "-"
@@ -206,8 +209,29 @@
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('namespaces').innerText = sessionStorage.getItem('nameSpace')
 					document.getElementById('labels').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
-					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
+
+					if(data.annotations.length > 0){
+						for(i=0; i<=data.annotations.length-1; i++){
+							if(data.annotations[i].checkYn == 'Y'){
+								var html = `<dl class="fly">
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else if(data.annotations[i].checkYn == 'N'){
+								var html = `<dl>
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else {
+								var html = `<dl>
+												<dt>-</dt>
+											</dl>`;
+							};
+
+							func.appendHtml(document.getElementById('annot'), html, 'dl');
+						};
+					};
 
 					// Resource Info
 					document.getElementById('status').innerText = data.persistentVolumeClaimStatus;
@@ -220,13 +244,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', volumeClaimsDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumeClaims/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

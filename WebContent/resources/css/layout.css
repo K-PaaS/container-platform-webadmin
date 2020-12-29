@@ -69,14 +69,14 @@ body {font-family:'Apple SD Gothic Neo',"Noto Sans KR", "맑은 고딕", sans-se
 /* 스타일 미적용 */
 #wrap .nostyle {margin:0; padding:0; font-size:16px; color:#333; line-height:20px; border:0;}
 
-#wrap {width:100%; height:100%; overflow:hidden; overflow-x:auto;}
+#wrap {position:fixed; top:0; left:0; width:100%; height:100%; overflow:auto;}
 
 /* 요소 숨김 */
 .blind {overflow:hidden; position:absolute; z-index:-1; height:0; visibility:hidden;}
 
 /*------------------------ Header -------------------------*/
-header {position:absolute; top:0; left:0; width:100%;}
-header > div {width:1600px; min-width:1600px; height:110px; margin:0 auto; padding-top:43px;}
+header {position:absolute; top:0; left:0; z-index:2; width:100%;}
+header > div {position:relative; width:1600px; min-width:1600px; height:110px; margin:0 auto; padding-top:43px;}
 /*logo*/
 header > div h1 {float:left; width:310px; padding-top:8px; padding-left:44px;}
 header > div h1 a {display:block;}
@@ -89,6 +89,7 @@ header > div > div h3:hover > a {background:url("../../resources/img/arrowbottom
 /* title pop-up */
 header > div > div h3 ul {display:none; position:absolute; top:52px; left:0; overflow-y:auto; max-height:400px; background-color:#fff; padding:18px 0; z-index:10; border:1px solid #ebebeb; box-shadow:10px 10px 10px 1px rgba(119, 119, 119, 0.336);}
 header > div > div h3:hover ul {display:block; animation:submenu linear .3s both;}
+header > div > div h3 ul.hidden {display:none !important;}
 @keyframes submenu {0% {opacity:0;} 100% {opacity:1;}}
 header > div > div h3 ul li {line-height:38px;}
 header > div > div h3 ul li a {color:#818894; display:block; padding:0 23px; white-space:nowrap; font-size:20px;}
@@ -104,15 +105,34 @@ header > div > div h3 ul li a.on {background-color:#ff7a0f; color:#ffffff;}
 header > div > div > div {float:right; height:40px; padding-top:9px;}
 header > div > div > div > a {float:left; color:rgba(255, 255, 255, 0.568); padding-left:37px; background:url("../../resources/img/logout_icon.png") no-repeat 0 0; background-position:left 1px; transition:.3s; line-height:30px;}
 header > div > div > div > a:hover {color:#fff;}
-header div div div div {float:left; margin-left:26px;}
-header div div div div a {text-indent:-9999px; display:inline-block; width:25px; height:30px; background:url("../../resources/img/set_icon.png") no-repeat 0 0;}
+header > div > div > div > div {float:left; margin-left:26px;}
+header > div > div > div > div > a {text-indent:-9999px; display:inline-block; width:25px; height:30px; background:url("../../resources/img/set_icon.png") no-repeat 0 0;}
 /*------------------------ // Header -------------------------*/
 
 /*------------------------ Main Container -------------------------*/
-#container {overflow:hidden; min-width:1600px; width:1600px; margin:0 auto;}
+#container {position:relative; overflow:hidden; display:flex; width:1600px; min-height:100%; margin:0 auto;}
+
+
+/*------------------------ my info -------------------------*/
+#myInfo {position:absolute; right:70px; top:82px; padding:50px; background:#fff; box-shadow:0 0 30px rgba(0, 0, 0, .2);}
+#myInfo h4 {margin-bottom:30px; color:#444; font-size:34px; font-weight:500; line-height:36px;}
+#myInfo h5 {margin-bottom:20px; color:#444; font-size:22px; font-weight:500;}
+#myInfo fieldset {overflow:hidden; padding-bottom:25px; border-bottom:1px solid #ddd;}
+#myInfo fieldset div {floaT:left;}
+#myInfo fieldset div:first-child {margin-right:30px;}
+#myInfo fieldset input {width:380px; height:50px; border:1px solid #ddd; line-height:48px; padding:0 20px; font-size:17px; color:#333; font-weight:500;}
+#myInfo fieldset input:disabled {background:#fbfbfb;}
+#myInfo fieldset input:focus {border:1px solid #2479d9;}
+#myInfo fieldset dl {margin-top:15px;}
+#myInfo fieldset dl dt {line-height:32px;}
+#myInfo fieldset dl dd {height:50px;}
+#myInfo > .close {width:30px; height:30px; position:absolute; top:21px; right:21px; text-indent:-9999px;}
+#myInfo > .close:before {content:""; width:2px; height:28px; background-color:#141414; position:absolute; top:6px; left:14px; transform:rotate(45deg);}
+#myInfo > .close:after {content:""; width:2px; height:28px; background-color:#141414; position:absolute; top:6px; left:14px; transform:rotate(-45deg);}
+
 
 /*------------------------ Aside -------------------------*/
-aside {float:left; width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
+aside {width:310px; background-color:#fff; padding:177px 47px 0 47px; font-family:'Apple SD Gothic Neo B', sans-serif;}
 aside nav > ul > li {font-size:22px; line-height:35px; margin-top:26px; position:relative;}
 aside nav > ul > li:first-child {margin-top:0;}
 aside nav ul li ul {height:0!important; opacity:0;}
@@ -139,7 +159,8 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 
 
 /*------------------------ Content -------------------------*/
-#container #content {float:left; min-width:1290px; width:1290px;}
+#container #content {flex:1; min-width:1290px; width:1290px; background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%)}
+
 /*------------------------ view -------------------------*/
 .view {background:linear-gradient( to right, #15181d, #292d37 2.5%); padding:111px 71px 66px 71px;}
 .view h3 {color:#ffffff; font-size:34px; padding-top:77px; line-height:35px; font-family:'Apple SD Gothic Neo B', sans-serif; letter-spacing:-0.5px;}
@@ -194,7 +215,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .location fieldset button {float:left; width:31px; height:40px; background:url("../../resources/img/search_icon.png") no-repeat 0 0; background-position:right 50%; text-indent:-9999px;}
 
 /* base */
-.base {background:linear-gradient( to right, #e7e9ed, #f5f7fa 2.5%); padding:60px 70px 200px 70px;}
+.base {padding:60px 70px 200px 70px;}
 .base > div:first-child {background-color:#ffffff; padding:50px 40px 30px 40px; box-shadow:-3px 2px 5px -5px rgba(204, 204, 204, 0.5);}
 
 /* title */
@@ -318,6 +339,14 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .detail .notice > div:last-child {margin-bottom:30px;}
 .detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
 .detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
+.detail .notice .table_style01 table tr td#annot dl {position:relative; float:left; margin-right:5px; margin-bottom:5px; padding:0 8px; line-height:28px; background:#eee; border-radius:5px;}
+.detail .notice .table_style01 table tr td#annot dl dt {float:left; padding-right:4px; color:#666;}
+.detail .notice .table_style01 table tr td#annot dl dd {float:left;}
+.detail .notice .table_style01 table tr td#annot dl dd:before {content:' : ';}
+.detail .notice .table_style01 table tr td#annot dl.fly {background:#b6d6ff;}
+.detail .notice .table_style01 table tr td#annot dl.fly dd {display:none; position:absolute; top:28px; left:0px; width:100%; min-width:500px; height:100px; padding:10px 15px; overflow-y:scroll; overflow-x:hidden; background-color:#333333; color:#ffffff; white-space:normal; border:1px solid #ebebeb; z-index:3; text-align:left; font-size:13px;}
+.detail .notice .table_style01 table tr td#annot dl.fly:hover dd {display:block;}
+.detail .notice .table_style01 table tr td#annot dl.fly dd:before {content:'';}
 
 /*------------------------ Users -------------------------*/
 /* tab-menu */

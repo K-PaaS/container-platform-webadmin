@@ -26,8 +26,8 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;" id="setting">환경설정</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -112,7 +112,7 @@
 							</div>
 							<ul class="legend">
 							</ul>
-							<a href="javascript:;">more</a>
+							<a href="workloads/deployments.html">more</a>
 						</li>
 						<li id="podChart">
 							<h5>Pods</h5>
@@ -120,15 +120,15 @@
 							</div>
 							<ul class="legend">
 							</ul>
-							<a href="javascript:;">more</a>
+							<a href="workloads/pods.html">more</a>
 						</li>
 						<li id="servicesChart">
-							<h5>Services</h5>
+							<h5>Replica Sets</h5>
 							<div class="pie">
 							</div>
 							<ul class="legend">
 							</ul>
-							<a href="javascript:;">more</a>
+							<a href="workloads/replicaSets.html">more</a>
 						</li>
 					</ul>
 				</article>
@@ -148,6 +148,8 @@
 
 			const overview = {
 				init(){
+					func.loading();
+
 					func.nameLoad = overview.draw;
 
 					// overview 정보 조회
@@ -157,6 +159,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 						deploymentsCount: 50
 						deploymentsUsage: {running: "96%", failed: "4%"}
@@ -173,8 +176,8 @@
 					*/
 
 					if(data.httpStatusCode == 500){
-						sessionStorage.clear();
-						document.location.href = 'member/login.html';
+						//sessionStorage.clear();
+						//document.location.href = `${func.ui}member/login.html`;
 					}
 
 					var legends = document.querySelectorAll('.legend');
@@ -244,6 +247,8 @@
 					}
 
 					func.donutChart(document.getElementById('servicesChart').querySelector('.pie'), deploy);
+
+					document.getElementById('wrap').removeChild(document.getElementById('loading'));
 				},
 			}
 

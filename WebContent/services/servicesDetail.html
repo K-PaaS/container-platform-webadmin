@@ -13,7 +13,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -26,8 +26,8 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -61,8 +61,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -233,8 +233,8 @@
 					<div class="btn02">
 						<button type="submit" id="delete">삭제</button>
 						<div>
-							<a href="javascript:;" id="modify" data-role="replicaSets">수정</a>
-							<a href="replicaSets.html">이전</a>
+							<a href="javascript:;" id="modify" data-role="services">수정</a>
+							<a href="services.html">이전</a>
 						</div>
 					</div>
 				</article>
@@ -252,13 +252,13 @@
 
 			const services = {
 				init(){
-
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
+					
 					// replica 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}`, 'application/json', services.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					annotations: {nginx.services.targer2: "nginx2", nginx.services.target1: "nginx1"}
 					clusterIP: "10.96.207.254"
@@ -281,8 +281,29 @@
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
 					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
-					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
+
+					if(data.annotations.length > 0){
+						for(i=0; i<=data.annotations.length-1; i++){
+							if(data.annotations[i].checkYn == 'Y'){
+								var html = `<dl class="fly">
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else if(data.annotations[i].checkYn == 'N'){
+								var html = `<dl>
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else {
+								var html = `<dl>
+												<dt>-</dt>
+											</dl>`;
+							};
+
+							func.appendHtml(document.getElementById('annot'), html, 'dl');
+						};
+					};
 					
 					// Resource Info
 					document.getElementById('type').innerText = data.type;
@@ -307,10 +328,6 @@
 					};
 
 
-
-					console.log(data.uid);
-					console.log(replicaKey);
-
 					// endpoints 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/endpoints/${data.name}`, 'application/json', services.endpoints);
 					
@@ -322,7 +339,6 @@
 				},
 
 				endpoints(data){
-					console.log(data);
 					/*
 					 "resultCode": "SUCCESS",
 					"resultMessage": "정상적으로 처리 되었습니다.",
@@ -348,10 +364,8 @@
 						}, 
 					]
 					*/
-					console.log(data.httpStatusCode);
 
 					if(data.httpStatusCode == 404){
-						console.log('404');
 							var html = '<tr><td colspan="4">No Data.</td></tr>';
 
 							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
@@ -371,7 +385,7 @@
 								nodeLink[i].addEventListener('click', (e) => {
 									sessionStorage.setItem('nodeName', e.target.innerText);
 
-									document.location.href = '../clusters/nodesDetail.html';
+									document.location.href = `${func.ui}clusters/nodesDetail.html`;
 								}, false);
 							}
 						} else {
@@ -384,7 +398,6 @@
 				
 
 				podsList(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -455,13 +468,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', services.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/replicaSets/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/services/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

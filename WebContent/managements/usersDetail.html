@@ -12,7 +12,7 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
@@ -25,8 +25,8 @@
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="../storages/persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="../storages/persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="../storages/persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="../storages/persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="../storages/storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -117,17 +117,19 @@
 							<table>
 								<caption>Details</caption>
 								<colgroup >
-									<col width="18%" />
-									<col width="18%" />
-									<col width="12%" />
-									<col width="15%" />
-									<col width="27%" />
-									<col width="20%" />
+									<col width="11%" />
+									<col width="17%" />
+									<col width="14%" />
+									<col width="14%" />
+									<col width="14%" />
+									<col width="14%" />
+									<col width="14%" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col" rowspan="2">Services Account UID</th>
 										<th scope="col" rowspan="2">Namespaces</th>
+										<th scope="col" rowspan="2">Authority</th>
 										<th scope="col" rowspan="2">Role</th>
 										<th scope="col" colspan="3">Secrets</th>
 									</tr>
@@ -141,8 +143,8 @@
 								</tbody>
 							</table>
 						</div>
-						<h4>Kubernetes Clusters Info</h4>
-						<div class="table_style01">
+						<h4 class="kubernetes">Kubernetes Clusters Info</h4>
+						<div class="table_style01 kubernetes">
 							<table>
 								<caption>kubernetes Clusters Info</caption>
 								<colgroup >
@@ -189,7 +191,7 @@
 
 			const userDetail = {
 				init(){
-					console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`);
+					document.querySelector('header h3 ul').classList.toggle('hidden', true);
 					
 					func.loading();
 
@@ -209,12 +211,14 @@
 					itemMetaData: {allItemCount: 2, remainingItemCount: 0}
 					items: Array(2)
 						0:
-						cpNamespace: "twkim-ns"
-						roleSetCode: "ns-admin-role"
+						cpNamespace: "cp-namespace"
+						roleSetCode: "paas-ta-container-platform-admin-role"
 						secrets:
-							saSecret: "twkim-token-fqc8m"
+							saSecret: "testuser-token-dm46r"
 							secretLabels: "-"
 							secretType: "kubernetes.io/service-account-token"
+						serviceAccountUid: "a8bc318d-0a49-41b9-8815-b9cf60ff0266"
+						userType: "User"
 					resultCode: "SUCCESS"
 					resultMessage: "정상적으로 처리 되었습니다."
 					serviceAccountName: "twkim"
@@ -231,9 +235,25 @@
 					document.getElementById('url').innerText = data.clusterApiUrl;
 					document.getElementById('token').innerText = data.clusterToken;
 
+					if(data.clusterName == '-'){
+						var kuber =  document.querySelectorAll('.kubernetes');
+						
+						for(var i=0; i<=kuber.length-1; i++){
+							kuber[i].style.display = 'none';
+						};
+					};
+
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left">${data.userId}</td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td><td class="left">${data.items[i].secrets.saSecret}</td><td class="ellips"><span>${JSON.stringify(data.items[i].secrets.secretLabels)}</span><div class="scroll02">${JSON.stringify(data.items[i].secretLabels)}</div></td><td class="left">${data.items[i].secrets.secretType}</td></tr>`;
+							var html = `<tr>
+								<td class="left">${data.items[i].serviceAccountUid}</td>
+								<td class="left">${data.items[i].cpNamespace}</td>
+								<td class="left">${data.items[i].userType}</td>
+								<td class="left">${data.items[i].roleSetCode}</td>
+								<td class="left">${data.items[i].secrets.saSecret}</td>
+								<td class="ellips"><span>${JSON.stringify(data.items[i].secrets.secretLabels)}</span><div class="scroll02">${JSON.stringify(data.items[i].secrets.secretLabels)}</div></td>
+								<td class="left">${data.items[i].secrets.secretType}</td>
+							</tr>`;
 
 							func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
 						};
@@ -250,15 +270,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.loading();
-						
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', userDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
-						document.location.href = 'userUpdate.html';
+						document.location.href = `${func.ui}managements/userUpdate.html`;
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 

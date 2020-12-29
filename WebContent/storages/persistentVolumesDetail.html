@@ -12,21 +12,24 @@
 			<div>
 				<!-- logo -->
 				<h1>
-					<a href="javascript:;"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
+					<a href="../index.html"><img src="../resources/img/logo.png" alt="PaaS-TA 로고" /></a>
 				</h1>
 				<!-- menu -->
 				<div>
 					<!-- title -->
 					<h3>
-						<a href="javascript:;" class="nameTop">ALL</a>
-						<ul class="nameSpace scroll02">
-						</ul>
+						ALL
+						<div style="display:none;">
+							<a href="javascript:;" class="nameTop">ALL</a>
+							<ul class="nameSpace">
+							</ul>
+						</div>
 					</h3>
 					<!-- member-menu -->
 					<div>
 						<a href="javascript:;" id="logout">로그아웃</a>
-						<div>
-							<a href="javascript:;">환경설정</a>
+						<div id="setInfo">
+							<a href="javascript:;" id="userSetting">환경설정</a>
 						</div>
 					</div>
 				</div>
@@ -42,7 +45,7 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
+								<li><a href="../clusters/nameSpace.html">nameSpace</a></li>
 								<li><a href="../clusters/nodes.html">Nodes</a></li>
 							</ul>
 						</li>
@@ -55,13 +58,13 @@
 							</ul>
 						</li>
 						<li>
-							<a href="../services/persistentDetail.html" class="dep01">Services</a>
+							<a href="../services/services.html" class="dep01">Services</a>
 						</li>
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Storages</a>
 							<ul class="sub">
-								<li><a href="persistentVolumes.html">Persistsnt Volumes</a></li>
-								<li><a href="persistentVolumeClaims.html">Persistsnt Volume Claims</a></li>
+								<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
+								<li><a href="persistentVolumeClaims.html">Persistent Volume Claims</a></li>
 								<li><a href="storageClasses.html">Storage Classes</a></li>
 							</ul>
 						</li>
@@ -84,7 +87,7 @@
 					<ul>
 						<li><a href="../index.html">Overview</a></li>
 						<li><a href="persistentVolumes.html">Storages</a></li>
-						<li><a href="persistentVolumes.html">persistent Volumes</a></li>
+						<li><a href="persistentVolumes.html">Persistent Volumes</a></li>
 					</ul>
 				</article>
 				<article class="base detail">
@@ -213,7 +216,7 @@
 	<script type="text/javascript">
 		window.onload = () => {
 
-			func.init(2, -1);
+			func.init(3, 0);
 
 			const persistentDetail = {
 				init(){
@@ -247,8 +250,29 @@
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('labels').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
-					document.getElementById('annot').innerText = JSON.stringify(data.annotations);
 					document.getElementById('time').innerText = data.creationTimestamp;
+
+					if(data.annotations.length > 0){
+						for(i=0; i<=data.annotations.length-1; i++){
+							if(data.annotations[i].checkYn == 'Y'){
+								var html = `<dl class="fly">
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else if(data.annotations[i].checkYn == 'N'){
+								var html = `<dl>
+												<dt>${data.annotations[i].key}</dt>
+												<dd> ${data.annotations[i].value}</dd>
+											</dl>`;
+							} else {
+								var html = `<dl>
+												<dt>-</dt>
+											</dl>`;
+							};
+
+							func.appendHtml(document.getElementById('annot'), html, 'dl');
+						};
+					};
 
 					// Resource Info
 					document.getElementById('status').innerText = data.persistentVolumeStatus;
@@ -271,13 +295,17 @@
 
 				event(){
 					document.getElementById('delete').addEventListener('click', (e) => {
-						func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
+						func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', persistentDetail.delete);
 					}, false);
 
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
 					}, false);
+				},
+
+				delete(){
+					func.saveData('DELETE', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes/${sessionStorage.getItem('commonName')}`, '', true, 'application/json', func.historyBack);
 				},
 			}
 
