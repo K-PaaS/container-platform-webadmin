@@ -106,13 +106,13 @@
 							<dl>
 								<dt><label for="pass">Password</label></dt>
 								<dd>
-									<input id="pass" type="password" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작"/>
+									<input id="pass" type="password" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작 (비밀번호 미입력 시, 비밀번호 변경은 적용되지 않습니다.)"/>
 								</dd>
 							</dl>
 							<dl>
 								<dt><label for="passConfirm">Password Confirm</label></dt>
 								<dd>
-									<input id="passConfirm" type="password" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작"/>
+									<input id="passConfirm" type="password" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작 (비밀번호 미입력 시, 비밀번호 변경은 적용되지 않습니다.)"/>
 								</dd>
 							</dl>
 							<dl>
@@ -158,8 +158,6 @@
 		</div>
 		<!-- // container -->
 	</div>
-	<script type="text/javascript" src="../resources/js/d3-5.4.0.min.js"></script>
-	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
@@ -202,7 +200,7 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td><input type="checkbox" data-name="${data.items[i].cpNamespace}" data-comp="${data.items[i].cpNamespace}${data.items[i].roleSetCode}"></td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
+							var html = `<tr><td><input type="checkbox" data-name="${data.items[i].cpNamespace}" data-comp="${data.items[i].cpNamespace}${data.items[i].roleSetCode}" data-stat="${data.items[i].roleSetCode}"></td><td class="left">${data.items[i].cpNamespace}</td><td class="left">${data.items[i].roleSetCode}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 						};
@@ -228,8 +226,6 @@
 						for(var i=0; i<=resourceName.length-1; i++){
 							resourceQuotasList.push({"namespace":resourceName[i].getAttribute('data-name'),"role":resourceName[i].getAttribute('data-stat')});
 						};
-
-						console.log(resourceQuotasList);
 
 						var createName = {
 							"userId": document.getElementById('userId').value,

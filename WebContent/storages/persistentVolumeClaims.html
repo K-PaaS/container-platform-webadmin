@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-	<link href="../resources/css/c3.min.css" rel="stylesheet" type="text/css" />
     <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -19,12 +18,9 @@
 				<div>
 					<!-- title -->
 					<h3>
-						ALL
-						<div style="display:none;">
-							<a href="javascript:;" class="nameTop">ALL</a>
-							<ul class="nameSpace">
-							</ul>
-						</div>
+						<a href="javascript:;" class="nameTop">ALL</a>
+						<ul class="nameSpace">
+						</ul>
 					</h3>
 					<!-- member-menu -->
 					<div>
@@ -137,8 +133,6 @@
 		</div>
 		<!-- // container -->
 	</div>
-	<script type="text/javascript" src="../resources/js/d3-5.4.0.min.js"></script>
-	<script type="text/javascript" src="../resources/js/c3.min.js"></script>
 	<script type="text/javascript" src="../resources/js/common.js"></script>
 	<script type="text/javascript">
 		window.onload = () => {
@@ -152,9 +146,6 @@
 
 				init(){
 					func.nameLoad = volumeClaims.reset;
-
-					// nameSpace session 초기화
-					sessionStorage.setItem('nameSpace', 'ALL');
 					
 					volumeClaims.load();
 
