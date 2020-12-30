@@ -134,7 +134,7 @@
 								</table>
 							</div>
 							<div class="check-quotas">
-								<p>Limit Quotas</p>
+								<p>Limit Ranges</p>
 								<a href="javascript:;" class="limAdd">선택</a>
 							</div>
 							<div class="table_style01 limitTable">
@@ -226,6 +226,8 @@
 
 					var select = '';
 
+					func.appendHtml(document.getElementById('user'), `<option value="none">지정된 Namespace 관리자 없습니다</option>`, 'select');
+
 					for(var i=0; i<=data.usersInfo.length-1; i++){
 						if(data.usersInfo[i].isNsAdmin == 'Y'){
 							select = data.usersInfo[i].userId;
@@ -236,7 +238,11 @@
 						func.appendHtml(document.getElementById('user'), html, 'select');
 					};
 
-					document.getElementById('user').value = select;
+					if(select){
+						document.getElementById('user').value = select;
+					} else {
+						document.getElementById('user').value = 'none';
+					}
 
 					modifyNamespaces.event();
 				},
@@ -289,7 +295,6 @@
 				},
 
 				resource(data){
-					console.log(data)
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -513,7 +518,6 @@
 
 							for(var j=0; j<=select.length-1; j++){
 								if(select[j].getAttribute('data-comp') == data.items[i].name+data.items[i].type+data.items[i].resource){
-								console.log((select[j].getAttribute('data-comp') +' = '+ (data.items[i].name+data.items[i].type+data.items[i].resource)))
 									chk = 'checked';
 								};
 							};

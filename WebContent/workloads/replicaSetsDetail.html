@@ -273,7 +273,7 @@
 					};
 					
 					// Resource Info
-					document.getElementById('selector').innerText = data.selector;
+					document.getElementById('selector').innerText = JSON.stringify(data.selector);
 					document.getElementById('image').innerText = data.image;
 					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
 

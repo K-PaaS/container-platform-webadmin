@@ -45,7 +45,7 @@
 						<li class="plus">
 							<a href="javascript:;" class="dep01">Clusters</a>
 							<ul class="sub">
-								<li><a href="../clusters/nameSpace.html">nameSpace</a></li>
+								<li><a href="../clusters/namespaces.html">Namespaces</a></li>
 								<li><a href="../clusters/nodes.html">Nodes</a></li>
 							</ul>
 						</li>
@@ -286,8 +286,8 @@
 					document.getElementById('path').innerText = data.source.path;
 
 					// Capacity Info
-					//document.getElementById('resource').innerText = data.persistentVolumeStatus;
-					document.getElementById('capacity').innerText = JSON.stringify(data.capacity);
+					document.getElementById('resource').innerText = Object.getOwnPropertyNames(data.capacity)[0];
+					document.getElementById('capacity').innerText = data.capacity[Object.keys(data.capacity)[0]];
 
 					persistentDetail.event();
 				},
