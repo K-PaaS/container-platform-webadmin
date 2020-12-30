@@ -226,7 +226,7 @@
 
 					var select = '';
 
-					func.appendHtml(document.getElementById('user'), `<option value="none">지정된 Namespace 관리자 없습니다</option>`, 'select');
+					func.appendHtml(document.getElementById('user'), `<option value="" disabled="disabled">지정된 Namespace 관리자가 없습니다.</option>`, 'select');
 
 					for(var i=0; i<=data.usersInfo.length-1; i++){
 						if(data.usersInfo[i].isNsAdmin == 'Y'){
@@ -241,7 +241,7 @@
 					if(select){
 						document.getElementById('user').value = select;
 					} else {
-						document.getElementById('user').value = 'none';
+						document.getElementById('user').value = '';
 					}
 
 					modifyNamespaces.event();
