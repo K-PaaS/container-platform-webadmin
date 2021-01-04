@@ -200,13 +200,25 @@
 
 					for(var i=0; i<=data.items.length-1; i++){
 						var html = `<tr>
-										<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>
-										<td>${JSON.stringify(data.items[i].capacity)}</td>
-										<td>${data.items[i].accessMode}</td>
-										<td class="${data.items[i].persistentVolumeStatus}">${data.items[i].persistentVolumeStatus}</td>
-										<td class="ellips"><span>${data.items[i].claim.namespace} / ${data.items[i].claim.name}</span><div class="scroll02">${data.items[i].claim.namespace} / ${data.items[i].claim.name}</div></td>
-										<td>${data.items[i].creationTimestamp}</td>
-									</tr>`;
+							<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>`;
+
+						var label = '';
+						
+						if(data.items[i].capacity != '-'){
+							for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].capacity).length-1; j++){
+								label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].capacity)[j]}</dt><dd>${data.items[i].capacity[Object.keys(data.items[i].capacity)[j]]}</dd></dl>`;
+							};
+						} else {
+							label = `<dl><dt>-</dt></dl>`;
+						}
+
+						html += `<td class="left box">${label}</td>`;
+
+						html += `<td>${data.items[i].accessMode}</td>
+							<td class="${data.items[i].persistentVolumeStatus}">${data.items[i].persistentVolumeStatus}</td>
+							<td class="ellips"><span>${data.items[i].claim.namespace} / ${data.items[i].claim.name}</span><div class="scroll02">${data.items[i].claim.namespace} / ${data.items[i].claim.name}</div></td>
+							<td>${data.items[i].creationTimestamp}</td>
+						</tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};

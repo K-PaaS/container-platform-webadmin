@@ -210,7 +210,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -327,9 +326,16 @@
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 						};
 					};
+
+					if(document.querySelector('.resourceQuotas').querySelectorAll('tbody tr').length == 0){
+						var html = `<tr><td></td><td colspan="2">No Data.</td></tr>`;
+
+						func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
+					};
 				},
 
 				limit(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -370,6 +376,12 @@
 							func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
 						};
 					}
+					
+					if(document.querySelector('.limitQuotas').querySelectorAll('tbody tr').length == 0){
+						var html = `<tr><td></td><td colspan="7">No Data.</td></tr>`;
+						
+						func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
+					};
 
 				},
 

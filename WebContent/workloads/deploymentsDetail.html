@@ -148,7 +148,7 @@
 									</tr>
 									<tr>
 										<th scope="row" class="left">Selector</th>
-										<td class="left" id="selector"></td>
+										<td class="left box" id="selector"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -253,6 +253,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -309,8 +310,18 @@
 					document.getElementById('strategy').innerText = data.strategy.type;
 					document.getElementById('min').innerText = data.minReadySeconds;
 					document.getElementById('limit').innerText = data.revisionHistoryLimit;
-					document.getElementById('selector').innerText = JSON.stringify(data.selector.matchLabels).replace(/\{/gi, "").replace(/\}/gi, "");
-					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
+					
+					if(data.selector.matchLabels != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.selector.matchLabels).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.selector.matchLabels)[i]}</dt><dd>${data.selector.matchLabels[Object.keys(data.selector.matchLabels)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('selector'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('selector'), html, 'dl');
+					};
 					
 					// Rolling update strategy
 					document.getElementById('surge').innerText = data.strategy.rollingUpdate.maxSurge;

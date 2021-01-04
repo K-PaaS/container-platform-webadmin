@@ -144,7 +144,7 @@
 									</tr>
 									<tr>
 										<th scope="row" class="left">Capacity</th>
-										<td class="left" id="capacity"></td>
+										<td class="left box" id="capacity"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Access Mode</th>
@@ -244,7 +244,18 @@
 					// Resource Info
 					document.getElementById('status').innerText = data.persistentVolumeClaimStatus;
 					document.getElementById('storage').innerText = data.storageClasses;
-					document.getElementById('capacity').innerText = JSON.stringify(data.capacity);
+					
+					if(data.capacity != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.capacity).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.capacity)[i]}</dt><dd>${data.capacity[Object.keys(data.capacity)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('capacity'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('capacity'), html, 'dl');
+					};
 					document.getElementById('access').innerText = data.accessMode;
 
 					volumeClaimsDetail.event();

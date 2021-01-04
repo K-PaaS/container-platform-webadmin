@@ -191,7 +191,22 @@
 					if(storageClass.offset == 0) storageClass.allItemCount = data.itemMetaData.allItemCount;
 
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td class="left">${data.items[i].provisioner}</td><td class="left">${JSON.stringify(data.items[i].parameters)}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+						var html = `<tr>
+							<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>
+							<td class="left">${data.items[i].provisioner}</td>`;
+							
+						var label = '';
+						
+						if(data.items[i].parameters != '-'){
+							for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].parameters).length-1; j++){
+								label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].parameters)[j]}</dt><dd>${data.items[i].parameters[Object.keys(data.items[i].parameters)[j]]}</dd></dl>`;
+							};
+						} else {
+							label = `<dl><dt>-</dt></dl>`;
+						}
+
+						html += `<td class="left box">${label}</td>`;
+						html += `<td>${data.items[i].creationTimestamp}</td></tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};

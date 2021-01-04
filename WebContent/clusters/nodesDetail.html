@@ -198,9 +198,9 @@
 							<table>
 								<caption>Pods</caption>
 								<colgroup >
-									<col width="25%" />
-									<col width="25%" />
-									<col width="16%" />
+									<col width="20%" />
+									<col width="20%" />
+									<col width="26%" />
 									<col width="8%" />
 									<col width="8%" />
 									<col width="18%" />
@@ -396,6 +396,7 @@
 				},
 
 				podsList(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -418,9 +419,21 @@
 						for(var i=0; i<=data.items.length-1; i++){
 							var html = `<tr>
 								<td class="left">${data.items[i].name}</td>
-								<td class="left">${data.items[i].namespace}</td>
-								<td class="ellips left"><span>${JSON.stringify(data.items[i].labels)}</span><div class="scroll02">${JSON.stringify(data.items[i].labels)}</div></td>
-								<td class="${data.items[i].podStatus.toLowerCase()}">${data.items[i].podStatus}</td>
+								<td class="left">${data.items[i].namespace}</td>`;
+
+							var label = '';
+							
+							if(data.items[i].labels != '-'){
+								for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].labels).length-1; j++){
+									label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].labels)[j]}</dt><dd>${data.items[i].labels[Object.keys(data.items[i].labels)[j]]}</dd></dl>`;
+								};
+							} else {
+								label = `<dl><dt>-</dt></dl>`;
+							}
+
+							html += `<td class="left box">${label}</td>`;
+
+							html += `<td class="${data.items[i].podStatus.toLowerCase()}">${data.items[i].podStatus}</td>
 								<td>${data.items[i].restarts}</td>
 								<td>${data.items[i].creationTimestamp}</td>
 							</tr>`;

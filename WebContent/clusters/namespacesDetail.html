@@ -266,7 +266,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					annotations: null
 					creationTimestamp: "2020-11-17 15:48:24"
@@ -371,6 +370,12 @@
 
 						func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
 					}
+					
+					if(document.querySelector('.resourceList').querySelectorAll('tbody tr').length == 0){
+						var html = `<tr><td colspan="4">No Data.</td></tr>`;
+
+						func.appendHtml(document.querySelector('.limitresourceListList'), html, 'tbody');
+					};
 				},
 
 				limit(data){
@@ -393,7 +398,7 @@
 					metadata: null
 					resultCode: "SUCCESS"
 					*/
-					console.log(data.items.length);
+
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
 							if(data.items[i].checkYn == 'Y'){
@@ -410,8 +415,14 @@
 					} else {
 						var html = `<tr><td colspan="4">No Data.</td></tr>`;
 
-						func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
-					}
+						func.appendHtml(document.querySelector('.limitList'), html, 'tbody');
+					};
+
+					if(document.querySelector('.limitList').querySelectorAll('tbody tr').length == 0){
+						var html = `<tr><td colspan="4">No Data.</td></tr>`;
+
+						func.appendHtml(document.querySelector('.limitList'), html, 'tbody');
+					};
 
 				},
 

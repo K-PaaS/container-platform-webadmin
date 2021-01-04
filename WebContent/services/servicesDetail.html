@@ -148,7 +148,7 @@
 									</tr>
 									<tr>
 										<th scope="row" class="left">Selector</th>
-										<td class="left" id="selector"></td>
+										<td class="left box" id="selector"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -319,8 +319,18 @@
 					document.getElementById('type').innerText = data.type;
 					document.getElementById('ip').innerText = data.clusterIP;
 					document.getElementById('affinity').innerText = data.sessionAffinity;
-					document.getElementById('selector').innerText = JSON.stringify(data.selector);
-					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
+
+					if(data.selector != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.selector).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.selector)[i]}</dt><dd>${data.selector[Object.keys(data.selector)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('selector'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('selector'), html, 'dl');
+					};
 
 
 					var matchLabel = JSON.stringify(data.selector).replace(/\"/gi, "").replace(/\{/gi, "").replace(/\}/gi, "").split(',');
@@ -374,7 +384,6 @@
 						}, 
 					]
 					*/
-					console.log(data);
 
 					if(data.endpoints.length > 0){
 						func.removeHtml(document.querySelector('.endList'));
@@ -439,7 +448,25 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].namespace}</td><td class="ellips"><span>${JSON.stringify(data.items[i].labels)}</span><div class="scroll02">${JSON.stringify(data.items[i].labels)}</div></td><td>${data.items[i].podStatus}</td><td>${data.items[i].restarts}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+							var html = `<tr><td class="left">${data.items[i].name}</td>
+								<td class="left">${data.items[i].namespace}</td>`;
+
+							var label = '';
+							
+							if(data.labels != '-'){
+								for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].labels).length-1; j++){
+									label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].labels)[j]}</dt><dd>${data.items[i].labels[Object.keys(data.items[i].labels)[j]]}</dd></dl>`;
+								};
+							} else {
+								label = `<dl><dt>-</dt></dl>`;
+							}
+
+							html += `<td class="left box">${label}</td>`;
+
+							html += `<td>${data.items[i].podStatus}</td>
+								<td>${data.items[i].restarts}</td>
+								<td>${data.items[i].creationTimestamp}</td>
+							</tr>`;
 
 							func.appendHtml(document.querySelector('.podsList'), html, 'tbody');
 						};
