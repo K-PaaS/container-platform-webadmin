@@ -115,11 +115,11 @@
 									</tr>
 									<tr>
 										<th scope="row" class="left">Labels</th>
-										<td class="ellips left" id="labels"></td>
+										<td class="box left" id="label"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Annotations</th>
-										<td class="left" id="annot"></td>
+										<td class="left box" id="annot"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Created time</th>
@@ -206,8 +206,20 @@
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
-					document.getElementById('namespaces').innerText = sessionStorage.getItem('nameSpace')
-					document.getElementById('labels').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
+					document.getElementById('namespaces').innerText = sessionStorage.getItem('nameSpace');
+					
+					if(data.labels != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.labels).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.labels)[i]}</dt><dd>${data.labels[Object.keys(data.labels)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('label'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('label'), html, 'dl');
+					};
+
 					document.getElementById('time').innerText = data.creationTimestamp;
 
 					if(data.annotations.length > 0){

@@ -339,14 +339,14 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 .detail .notice > div:last-child {margin-bottom:30px;}
 .detail .notice .table_style01 table tr th {padding:13px 15px 11px 15px;}
 .detail .notice .table_style01 table tr td {padding:13px 15px 11px 15px;}
-.detail .notice .table_style01 table tr td#annot dl {position:relative; float:left; margin-right:5px; margin-bottom:5px; padding:0 8px; line-height:28px; background:#eee; border-radius:5px;}
-.detail .notice .table_style01 table tr td#annot dl dt {float:left; padding-right:4px; color:#666;}
-.detail .notice .table_style01 table tr td#annot dl dd {float:left;}
-.detail .notice .table_style01 table tr td#annot dl dd:before {content:' : ';}
-.detail .notice .table_style01 table tr td#annot dl.fly {background:#b6d6ff;}
-.detail .notice .table_style01 table tr td#annot dl.fly dd {display:none; position:absolute; top:28px; left:0px; width:100%; min-width:500px; height:100px; padding:10px 15px; overflow-y:scroll; overflow-x:hidden; background-color:#333333; color:#ffffff; white-space:normal; border:1px solid #ebebeb; z-index:3; text-align:left; font-size:13px;}
-.detail .notice .table_style01 table tr td#annot dl.fly:hover dd {display:block;}
-.detail .notice .table_style01 table tr td#annot dl.fly dd:before {content:'';}
+.detail .notice .table_style01 table tr td.box dl {position:relative; float:left; margin-right:5px; margin-bottom:5px; padding:0 8px; line-height:28px; background:#eee; border-radius:5px;}
+.detail .notice .table_style01 table tr td.box dl dt {float:left; padding-right:4px; color:#666;}
+.detail .notice .table_style01 table tr td.box dl dd {float:left;}
+.detail .notice .table_style01 table tr td.box dl dd:before {content:' : ';}
+.detail .notice .table_style01 table tr td.box dl.fly {background:#b6d6ff;}
+.detail .notice .table_style01 table tr td.box dl.fly dd {display:none; position:absolute; top:28px; left:0px; width:100%; min-width:500px; height:100px; padding:10px 15px; overflow-y:scroll; overflow-x:hidden; background-color:#333333; color:#ffffff; white-space:normal; border:1px solid #ebebeb; z-index:3; text-align:left; font-size:13px;}
+.detail .notice .table_style01 table tr td.box dl.fly:hover dd {display:block;}
+.detail .notice .table_style01 table tr td.box dl.fly dd:before {content:'';}
 
 /*------------------------ Users -------------------------*/
 /* tab-menu */

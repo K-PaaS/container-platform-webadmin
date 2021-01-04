@@ -197,7 +197,14 @@
 					if(persistentVolumes.offset == 0) persistentVolumes.allItemCount = data.itemMetaData.allItemCount;
 
 					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td><td>${JSON.stringify(data.items[i].capacity)}</td><td>${data.items[i].accessMode}</td><td class="${data.items[i].persistentVolumeStatus}">${data.items[i].persistentVolumeStatus}</td><td class="ellips"><span>${JSON.stringify(data.items[i].claim)}</span><div class="scroll02">${JSON.stringify(data.items[i].claim)}</div></td><td>${data.items[i].creationTimestamp}</td></tr>`;
+						var html = `<tr>
+										<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>
+										<td>${JSON.stringify(data.items[i].capacity)}</td>
+										<td>${data.items[i].accessMode}</td>
+										<td class="${data.items[i].persistentVolumeStatus}">${data.items[i].persistentVolumeStatus}</td>
+										<td class="ellips"><span>${data.items[i].claim.namespace} / ${data.items[i].claim.name}</span><div class="scroll02">${data.items[i].claim.namespace} / ${data.items[i].claim.name}</div></td>
+										<td>${data.items[i].creationTimestamp}</td>
+									</tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};

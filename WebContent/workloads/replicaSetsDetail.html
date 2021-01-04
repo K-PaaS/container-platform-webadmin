@@ -112,12 +112,12 @@
 									</tr>
 									<tr>
 										<th scope="row" class="left">Labels</th>
-										<td class="ellips left" id="label"></div>
+										<td class="left box" id="label"></div>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Annotations</th>
-										<td class="left" id="annot"></td>
+										<td class="left box" id="annot"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Created time</th>
@@ -137,7 +137,7 @@
 								<tbody class="listTable">
 									<tr>
 										<th scope="row" class="left">Selector</th>
-										<td class="left" id="selector"></td>
+										<td class="left box" id="selector"></td>
 									</tr>
 									<tr>
 										<th scope="row" class="left">Image</th>
@@ -228,6 +228,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					annotations: "-"
 					creationTimestamp: "2020-11-20 15:02:57"
@@ -247,7 +248,19 @@
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
 					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
-					document.getElementById('label').innerHTML = `<span>${JSON.stringify(data.labels)}</span><div class="scroll02">${JSON.stringify(data.labels)}</div>`;
+					
+					if(data.labels != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.labels).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.labels)[i]}</dt><dd>${data.labels[Object.keys(data.labels)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('label'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('label'), html, 'dl');
+					};
+
 					document.getElementById('time').innerText = data.creationTimestamp;
 
 					if(data.annotations.length > 0){
@@ -273,7 +286,18 @@
 					};
 					
 					// Resource Info
-					document.getElementById('selector').innerText = JSON.stringify(data.selector);
+					if(data.selector.matchLabels != '-'){
+						for(var i=0; i<=Object.getOwnPropertyNames(data.selector.matchLabels).length-1; i++){
+							var html = `<dl><dt>${Object.getOwnPropertyNames(data.selector.matchLabels)[i]}</dt><dd>${data.selector.matchLabels[Object.keys(data.selector.matchLabels)[i]]}</dd></dl>`;
+
+							func.appendHtml(document.getElementById('selector'), html, 'dl');
+						};
+					} else {
+						var html = `<dl><dt>-</dt></dl>`;
+
+						func.appendHtml(document.getElementById('selector'), html, 'dl');
+					};
+
 					document.getElementById('image').innerText = data.image;
 					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
 
