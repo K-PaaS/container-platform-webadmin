@@ -188,7 +188,7 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].runningPods} / ${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
