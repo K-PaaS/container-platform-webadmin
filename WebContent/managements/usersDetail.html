@@ -249,10 +249,21 @@
 								<td class="left">${data.items[i].cpNamespace}</td>
 								<td class="left">${data.items[i].userType}</td>
 								<td class="left">${data.items[i].roleSetCode}</td>
-								<td class="left">${data.items[i].secrets.saSecret}</td>
-								<td class="ellips"><span>${JSON.stringify(data.items[i].secrets.secretLabels)}</span><div class="scroll02">${JSON.stringify(data.items[i].secrets.secretLabels)}</div></td>
-								<td class="left">${data.items[i].secrets.secretType}</td>
-							</tr>`;
+								<td class="left">${data.items[i].secrets.saSecret}</td>`;
+								
+							var label = '';
+							
+							if(data.items[i].secrets.secretLabels != '-'){
+								for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].secrets.secretLabels).length-1; j++){
+									label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].secrets.secretLabels)[j]}</dt><dd>${data.items[i].secrets.secretLabels[Object.keys(data.items[i].secrets.secretLabels)[j]]}</dd></dl>`;
+								};
+							} else {
+								label = `<dl><dt>-</dt></dl>`;
+							}
+
+							html += `<td class="left box">${label}</td>`;
+
+							html += `<td class="left">${data.items[i].secrets.secretType}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
 						};

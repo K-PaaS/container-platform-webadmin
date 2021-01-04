@@ -248,11 +248,11 @@
 
 				event(){
 					document.querySelector('.resAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/resourceQuotas/template`, 'application/json', modifyNamespaces.resourceSelect);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template`, 'application/json', modifyNamespaces.resourceSelect);
 					}, false);
 					
 					document.querySelector('.limAdd').addEventListener('click', (e) => {
-						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/popup/limitRanges/template`, 'application/json', modifyNamespaces.limitSelect);
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template`, 'application/json', modifyNamespaces.limitSelect);
 					}, false);
 					
 					document.getElementById('delete').addEventListener('click', (e) => {
@@ -494,7 +494,7 @@
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 					if(data.items.length > 0){
-						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Limit Quotas</h5>`;
+						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Limit Ranges</h5>`;
 						
 						html += `<div class="table_style01">
 									<table>
