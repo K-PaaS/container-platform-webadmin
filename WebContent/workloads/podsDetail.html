@@ -274,7 +274,7 @@
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
-					document.getElementById('space').innerText = sessionStorage.getItem('nameSpace');
+					document.getElementById('space').innerHTML = `<a href="javascript:;" class="nameLink">${sessionStorage.getItem('nameSpace')}</a>`;
 					
 					if(data.labels != '-'){
 						for(var i=0; i<=Object.getOwnPropertyNames(data.labels).length-1; i++){
@@ -313,7 +313,7 @@
 					};
 					
 					// Resource Info
-					document.getElementById('nodes').innerText = data.nodes;
+					document.getElementById('nodes').innerHTML = `<a href="javascript:;" class="nodeLink">${data.nodes}</a>`;
 					document.getElementById('status').innerText = data.podStatus;
 					document.getElementById('ip').innerText = data.ip;
 					document.getElementById('qos').innerText = data.qosClass;
@@ -351,7 +351,14 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left">${data.items[i].message}</td><td class="left">${JSON.stringify(data.items[i].source)}</td><td>${data.items[i].filePath}</td><td>${data.items[i].count}</td><td>${data.items[i].firstTimestamp}</td><td>${data.items[i].lastTimestamp}</td></tr>`;
+							var html = `<tr>
+								<td class="left">${data.items[i].message}</td>
+								<td class="left">${data.items[i].source.component} ${data.items[i].source.host}</td>
+								<td>${data.items[i].filePath}</td>
+								<td>${data.items[i].count}</td>
+								<td>${data.items[i].firstTimestamp}</td>
+								<td>${data.items[i].lastTimestamp}</td>
+							</tr>`;
 
 							func.appendHtml(document.querySelector('.eventList'), html, 'tbody');
 						};
@@ -372,6 +379,17 @@
 					document.getElementById('modify').addEventListener('click', (e) => {
 						// Resource yaml 정보 조회
 						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/pods/${sessionStorage.getItem('commonName')}/yaml`, 'application/json', func.modify);
+					}, false);
+
+					document.querySelector('.nameLink').addEventListener('click', (e) => {
+						document.location.href = `${func.ui}clusters/namespacesDetail.html`;
+					}, false);
+
+					document.querySelector('.nodeLink').addEventListener('click', (e) => {
+						sessionStorage.setItem('nameSpace', 'ALL');
+						sessionStorage.setItem('nodeName', e.target.innerText);
+
+						document.location.href = `${func.ui}clusters/nodesDetail.html`;
 					}, false);
 				},
 

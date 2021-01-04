@@ -374,35 +374,43 @@
 						}, 
 					]
 					*/
+					console.log(data);
 
-					if(data.httpStatusCode == 404){
-							var html = '<tr><td colspan="4">No Data.</td></tr>';
-
-							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
-					} else {
+					if(data.endpoints.length > 0){
 						func.removeHtml(document.querySelector('.endList'));
 
-						if(data.endpoints.length > 0){
-							for(var i=0; i<=data.endpoints.length-1; i++){
-								var html = `<tr><td class="left">${data.endpoints[i].host}</td><td class="ellips"><span>${JSON.stringify(data.endpoints[i].ports)}</span><div class="scroll02">${JSON.stringify(data.endpoints[i].ports)}</div></td><td><a href="javascript:;">${data.endpoints[i].nodes}</a></td><td>${data.endpoints[i].ready}</td></tr>`;
-
-								func.appendHtml(document.querySelector('.endList'), html, 'tbody');
+						for(var i=0; i<=data.endpoints.length-1; i++){
+							var html = `<tr><td class="left">${data.endpoints[i].host}</td>
+								<td class="left">`;
+							
+							
+							for(var j=0; j<=data.endpoints[i].ports.length-1; j++){
+								if(j == 0){
+									html += `${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
+								} else {
+									html += `\n${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
+								}
 							};
-
-							var nodeLink = document.querySelector('.endList').querySelectorAll('a');
-
-							for(var i=0; i<=nodeLink.length-1; i++){
-								nodeLink[i].addEventListener('click', (e) => {
-									sessionStorage.setItem('nodeName', e.target.innerText);
-
-									document.location.href = `${func.ui}clusters/nodesDetail.html`;
-								}, false);
-							}
-						} else {
-							var html = '<tr><td colspan="4">No Data.</td></tr>';
+							html += `</td><td><a href="javascript:;">${data.endpoints[i].nodes}</a></td>
+									<td>${data.endpoints[i].ready}</td>
+								</tr>`;
 
 							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
 						};
+
+						var nodeLink = document.querySelector('.endList').querySelectorAll('a');
+
+						for(var i=0; i<=nodeLink.length-1; i++){
+							nodeLink[i].addEventListener('click', (e) => {
+								sessionStorage.setItem('nodeName', e.target.innerText);
+
+								document.location.href = `${func.ui}clusters/nodesDetail.html`;
+							}, false);
+						}
+					} else {
+						var html = '<tr><td colspan="4">No Data.</td></tr>';
+
+						func.appendHtml(document.querySelector('.endList'), html, 'tbody');
 					};
 				},
 				
@@ -463,7 +471,14 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left">${data.items[i].message}</td><td class="left">${JSON.stringify(data.items[i].source)}</td><td>${data.items[i].filePath}</td><td>${data.items[i].count}</td><td>${data.items[i].firstTimestamp}</td><td>${data.items[i].lastTimestamp}</td></tr>`;
+							var html = `<tr>
+								<td class="left">${data.items[i].message}</td>
+								<td class="left">${data.items[i].source.component} ${data.items[i].source.host}</td>
+								<td>${data.items[i].filePath}</td>
+								<td>${data.items[i].count}</td>
+								<td>${data.items[i].firstTimestamp}</td>
+								<td>${data.items[i].lastTimestamp}</td>
+							</tr>`;
 
 							func.appendHtml(document.querySelector('.eventList'), html, 'tbody');
 						};

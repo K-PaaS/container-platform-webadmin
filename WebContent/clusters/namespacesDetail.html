@@ -396,6 +396,7 @@
 				},
 
 				events(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -414,7 +415,14 @@
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left">${data.items[i].message}</td><td class="left">${JSON.stringify(data.items[i].source)}</td><td class="left">${data.items[i].filePath}</td><td>${data.items[i].count}</td><td>${data.items[i].firstTimestamp}</td><td>${data.items[i].lastTimestamp}</td></tr>`;
+							var html = `<tr>
+								<td class="left">${data.items[i].message}</td>
+								<td class="left">${data.items[i].source.component} ${data.items[i].source.host}</td>
+								<td class="left">${data.items[i].filePath}</td>
+								<td>${data.items[i].count}</td>
+								<td>${data.items[i].firstTimestamp}</td>
+								<td>${data.items[i].lastTimestamp}</td>
+							</tr>`;
 
 							func.appendHtml(document.querySelector('.eventsList'), html, 'tbody');
 						};
