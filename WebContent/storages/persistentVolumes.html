@@ -161,6 +161,8 @@
 				reset(){
 					func.removeHtml(document.querySelector('.listTable'));
 
+					persistentVolumes.offset = 0;
+
 					persistentVolumes.load();
 				},
 

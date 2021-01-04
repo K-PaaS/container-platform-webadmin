@@ -358,45 +358,64 @@
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
-					for(var i=0; i<=data.items.length-1; i++){
-						if(data.items[i].checkYn == 'Y'){
-							var html = `<tr><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							if(data.items[i].checkYn == 'Y'){
+								var html = `<tr><td class="left">${data.items[i].name}</td><td class="left">${data.items[i].status}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
-							func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
+								func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
+							};
 						};
-					};
+					} else {
+						var html = `<tr><td colspan="3">No Data.</td></tr>`;
+
+						func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
+					}
 				},
 
 				limit(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
-					itemMetaData: null
-					items: Array(8)
-						0: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "cpu", min: "0", max: "0", …}
-						1: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "memory", min: "0", max: "0", …}
+					itemMetaData: {allItemCount: 6, remainingItemCount: 0}
+					items: Array(6)
+						0:
+						checkYn: "N"
+						creationTimestamp: "2020-11-05 13:27:59"
+						defaultLimit: "300m"
+						defaultRequest: "-"
+						max: "-"
+						min: "-"
+						name: "paas-ta-container-platform-medium-limit-range"
+						resource: "cpu"
+						type: "Container"
 					metadata: null
 					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
 					*/
-					
-					for(var i=0; i<=data.items.length-1; i++){
-						if(data.items[i].checkYn == 'Y'){
-							var html = `<tr>
-											<td class="left">${data.items[i].resource}</td>
-											<td>${data.items[i].type}</td>
-											<td>${data.items[i].defaultLimit}</td>
-											<td>${data.items[i].defaultRequest}</td>
-										</tr>`;
+					console.log(data.items.length);
+					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							if(data.items[i].checkYn == 'Y'){
+								var html = `<tr>
+												<td class="left">${data.items[i].resource}</td>
+												<td>${data.items[i].type}</td>
+												<td>${data.items[i].defaultLimit}</td>
+												<td>${data.items[i].defaultRequest}</td>
+											</tr>`;
 
-							func.appendHtml(document.querySelector('.limitList'), html, 'tbody');
-						};
+								func.appendHtml(document.querySelector('.limitList'), html, 'tbody');
+							};
+						}
+					} else {
+						var html = `<tr><td colspan="4">No Data.</td></tr>`;
+
+						func.appendHtml(document.querySelector('.resourceList'), html, 'tbody');
 					}
 
 				},
 
 				events(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200

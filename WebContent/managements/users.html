@@ -168,6 +168,8 @@
 				reset(){
 					func.removeHtml(document.querySelector('.adminList'));
 
+					user.offset = 0;
+
 					user.load();
 				},
 

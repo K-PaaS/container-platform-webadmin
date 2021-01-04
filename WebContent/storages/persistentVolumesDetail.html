@@ -290,8 +290,17 @@
 					document.getElementById('claim').innerText = `${data.claim.namespace} / ${data.claim.name}`;
 					document.getElementById('policy').innerText = data.returnPolicy;
 					document.getElementById('storage').innerText = data.storageClasses;
-					document.getElementById('access').innerText = JSON.stringify(data.accessMode);
-					//document.getElementById('address').innerText = JSON.stringify(data.addresses).replace(/\[{/gi, "").replace(/\}]/gi, "").replace(/\},{/gi, "\n");
+
+					var amVar = '';
+					for(var j=0; j<=data.accessMode.length-1; j++){
+						if(j == 0){
+							amVar += data.accessMode[j];
+						} else {
+							amVar += `, ${data.accessMode[j]}`;
+						}
+					};
+					
+					document.getElementById('access').innerText = amVar;
 
 					// Source Info
 					document.getElementById('type').innerText = data.source.type;

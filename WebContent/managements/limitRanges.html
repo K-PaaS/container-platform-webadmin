@@ -150,6 +150,8 @@
 				reset(){
 					func.removeHtml(document.querySelector('.listTable'));
 
+					limit.offset = 0;
+
 					limit.load();
 				},
 

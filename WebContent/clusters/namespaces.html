@@ -156,17 +156,20 @@
 				reset(){
 					func.removeHtml(document.querySelector('.listTable'));
 
+					nameSpace.offset = 0;
+					
 					nameSpace.load();
 				},
 
 				load(){
 					func.loading();
-
+					
 					// nameSpace 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces?searchName=${document.getElementById('searchText').value}&limit=${nameSpace.limit}&offset=${nameSpace.offset}`, 'application/json', nameSpace.draw);
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
