@@ -244,7 +244,7 @@
 
 					if(data.rules.length > 0){
 						for(var i=0; i<=data.rules.length-1; i++){
-							var html = `<tr><td class="left ellips"><span>${JSON.stringify(data.rules[i].resources)}</span><div class="scroll02">${JSON.stringify(data.rules[i].resources)}</div></td><td class="left">${data.rules[i].nonResourceURLs}</td><td class="left">${data.rules[i].resourceNames}</td><td class="left ellips"><span>${JSON.stringify(data.rules[i].verbs)}</span><div class="scroll02">${JSON.stringify(data.rules[i].verbs)}</div></td><td class="left">${data.rules[i].apiGroups}</td></tr>`;
+							var html = `<tr><td class="left ellips"><span>${data.rules[i].resources.join("<br>")}</span></td><td class="left">${data.rules[i].nonResourceURLs}</td><td class="left">${data.rules[i].resourceNames}</td><td class="left"><span>${data.rules[i].verbs.join(", ")}</span></td><td class="left">${data.rules[i].apiGroups}</td></tr>`;
 
 							func.appendHtml(document.querySelector('.ruleList'), html, 'tbody');
 						};

@@ -105,7 +105,7 @@
 								<caption>PersistentVolumes List</caption>
 								<colgroup >
 									<col width="18%" />
-									<col width="18%" />
+									<col width="14%" />
 									<col width="18%" />
 									<col width="10%" />
 									<col width="18%" />
@@ -214,9 +214,9 @@
 
 						html += `<td class="left box">${label}</td>`;
 
-						html += `<td>${data.items[i].accessMode}</td>
+						html += `<td>${data.items[i].accessMode.join("<br>")}</td>
 							<td class="${data.items[i].persistentVolumeStatus}">${data.items[i].persistentVolumeStatus}</td>
-							<td class="ellips"><span>${data.items[i].claim.namespace} / ${data.items[i].claim.name}</span><div class="scroll02">${data.items[i].claim.namespace} / ${data.items[i].claim.name}</div></td>
+							<td class="left"><span>${data.items[i].claim.namespace} / ${data.items[i].claim.name}</span></td>
 							<td>${data.items[i].creationTimestamp}</td>
 						</tr>`;
 

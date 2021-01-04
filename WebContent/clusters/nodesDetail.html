@@ -376,7 +376,7 @@
 					var address = '';
 
 					for(j=0; j<=data.addresses.length-1; j++){
-						address += `${data.addresses[j].type} / ${data.addresses[j].address}\n`
+						address += `${data.addresses[j].type} : ${data.addresses[j].address}\n`
 					};
 					
 					document.getElementById('address').innerText = address;
