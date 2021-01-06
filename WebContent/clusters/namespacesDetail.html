@@ -379,7 +379,6 @@
 				},
 
 				limit(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -473,11 +472,17 @@
 					resultMessage: "정상적으로 처리 되었습니다."
 					*/
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<td>${data.items[i].isAdmin}</td>
-						<td><a href="javascript:;" data-name="${data.items[i].userId}">${data.items[i].userId}</a></td>
-						<td>${data.items[i].serviceAccountName}</td>
-						<td>${data.items[i].created}</td>`;
+					if(data.items.length > 0){
+						for(var i=0; i<=data.items.length-1; i++){
+							var html = `<td>${data.items[i].isAdmin}</td>
+							<td><a href="javascript:;" data-name="${data.items[i].userId}">${data.items[i].userId}</a></td>
+							<td>${data.items[i].serviceAccountName}</td>
+							<td>${data.items[i].created}</td>`;
+
+							func.appendHtml(document.querySelector('.usersList'), html, 'tbody');
+						};
+					} else {
+						var html = `<tr><td colspan="4">No Data.<td></tr>`;
 
 						func.appendHtml(document.querySelector('.usersList'), html, 'tbody');
 					};

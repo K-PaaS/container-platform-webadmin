@@ -186,31 +186,37 @@
 					// 초기 게시물 갯수 저장
 					if(node.offset == 0) node.allItemCount = data.itemMetaData.allItemCount;
 
-					if(node.allItemCount > 0){
-						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr>
-								<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>`;
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr>
+									<td class="left"><a href="javascript:;" data-name="${data.items[i].name}">${data.items[i].name}</a></td>`;
 
-							var label = '';
-							
-							if(data.labels != '-'){
-								for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].labels).length-1; j++){
-									label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].labels)[j]}</dt><dd>${data.items[i].labels[Object.keys(data.items[i].labels)[j]]}</dd></dl>`;
-								};
-							} else {
-								label = `<dl><dt>-</dt></dl>`;
-							}
+								var label = '';
+								
+								if(data.labels != '-'){
+									for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].labels).length-1; j++){
+										label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].labels)[j]}</dt><dd>${data.items[i].labels[Object.keys(data.items[i].labels)[j]]}</dd></dl>`;
+									};
+								} else {
+									label = `<dl><dt>-</dt></dl>`;
+								}
 
-							html += `<td class="left box">${label}</td>`;
+								html += `<td class="left box">${label}</td>`;
 
-							html += `<td class="${data.items[i].ready.toLowerCase()}">${data.items[i].ready}</td>
-								<td>${data.items[i].creationTimestamp}</td>
-							</tr>`;
+								html += `<td class="${data.items[i].ready.toLowerCase()}">${data.items[i].ready}</td>
+									<td>${data.items[i].creationTimestamp}</td>
+								</tr>`;
+
+								func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+							};
+						} else {
+							var html = '<tr><td colspan="4">No Data.</td></tr>';
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
 					} else {
-						var html = '<tr><td colspan="4">No Data.</td></tr>';
+						var html = `<tr><td colspan="4">No Data.</td></tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};

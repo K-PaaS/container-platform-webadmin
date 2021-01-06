@@ -186,9 +186,15 @@
 					// 초기 게시물 갯수 저장
 					if(depoly.offset == 0) depoly.allItemCount = data.itemMetaData.allItemCount;
 
-					if(data.items.length > 0){
-						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].runningPods} / ${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].runningPods} / ${data.items[i].totalPods}</td><td class="left">${data.items[i].images}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+								func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+							};
+						} else {
+							var html = '<tr><td colspan="5">No Data.</td></tr>';
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
@@ -196,7 +202,7 @@
 						var html = '<tr><td colspan="5">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
-					};
+					}
 
 					// more 버튼 활성, 비활성
 					if(document.querySelector('.listTable').querySelectorAll('tr').length < depoly.allItemCount){

@@ -69,7 +69,9 @@ const func = {
 				if(e.target.parentNode.classList != 'on'){
 					e.target.parentNode.classList.toggle('on');
 				} else {
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+					if(document.getElementById('searchText').value != ''){
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+					};
 				}
 			}, false);
 

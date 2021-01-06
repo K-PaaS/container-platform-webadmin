@@ -189,25 +189,37 @@
 					// 초기 게시물 갯수 저장
 					if(volumeClaims.offset == 0) volumeClaims.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr>
-							<td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spc="${data.items[i].namespace}">${data.items[i].name}</a></td>
-							<td class="left">${data.items[i].namespace}</td>
-							<td class="${data.items[i].persistentVolumeClaimStatus}">${data.items[i].persistentVolumeClaimStatus}</td>
-							<td class="left">${data.items[i].volume}</td>`;
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr>
+									<td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spc="${data.items[i].namespace}">${data.items[i].name}</a></td>
+									<td class="left">${data.items[i].namespace}</td>
+									<td class="${data.items[i].persistentVolumeClaimStatus}">${data.items[i].persistentVolumeClaimStatus}</td>
+									<td class="left">${data.items[i].volume}</td>`;
 
-						var label = '';
-						
-						if(data.items[i].capacity != '-'){
-							for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].capacity).length-1; j++){
-								label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].capacity)[j]}</dt><dd>${data.items[i].capacity[Object.keys(data.items[i].capacity)[j]]}</dd></dl>`;
+								var label = '';
+								
+								if(data.items[i].capacity != '-'){
+									for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].capacity).length-1; j++){
+										label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].capacity)[j]}</dt><dd>${data.items[i].capacity[Object.keys(data.items[i].capacity)[j]]}</dd></dl>`;
+									};
+								} else {
+									label = `<dl><dt>-</dt></dl>`;
+								}
+
+								html += `<td class="left box">${label}</td>`;
+								html += `<td>${data.items[i].creationTimestamp}</td></tr>`;
+
+								func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 							};
 						} else {
-							label = `<dl><dt>-</dt></dl>`;
-						}
+							var html = `<tr><td colspan="6">No Data.</td></tr>`;
 
-						html += `<td class="left box">${label}</td>`;
-						html += `<td>${data.items[i].creationTimestamp}</td></tr>`;
+							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+						};
+					} else {
+						var html = `<tr><td colspan="6">No Data.</td></tr>`;
 
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 					};

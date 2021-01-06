@@ -186,8 +186,20 @@
 					// 초기 게시물 갯수 저장
 					if(services.offset == 0) services.allItemCount = data.itemMetaData.allItemCount;
 
-					for(var i=0; i<=data.items.length-1; i++){
-						var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].type}</td><td>${data.items[i].clusterIP}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].type}</td><td>${data.items[i].clusterIP}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+								func.appendHtml(document.querySelector('.seviceList'), html, 'tbody');
+							};
+						} else {
+							var html = `<tr><td colspan="5">No Data.</td></tr>`;
+
+							func.appendHtml(document.querySelector('.seviceList'), html, 'tbody');
+						};
+					} else {
+						var html = `<tr><td colspan="5">No Data.</td></tr>`;
 
 						func.appendHtml(document.querySelector('.seviceList'), html, 'tbody');
 					};
@@ -202,7 +214,7 @@
 					if(document.getElementById('loading')){
 						document.getElementById('wrap').removeChild(document.getElementById('loading'));
 					};
-					
+						
 					services.listEvent();
 				},
 

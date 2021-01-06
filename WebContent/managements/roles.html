@@ -163,7 +163,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -181,20 +180,23 @@
 					// 초기 게시물 갯수 저장
 					if(role.offset == 0) role.allItemCount = data.itemMetaData.allItemCount;
 
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spac="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
 
-					if(role.allItemCount > 0){
-						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-spac="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+								func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+							};
+						} else {
+							var html = `<tr><td colspan="3">No Data.</td></tr>`;
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
 					} else {
 						var html = `<tr><td colspan="3">No Data.</td></tr>`;
 
-						func.removeHtml(document.querySelector('.listTable'));
-
 						func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
-					}
+					};
 
 					// more 버튼 활성, 비활성
 					if(document.querySelector('.listTable').querySelectorAll('tr').length < role.allItemCount){
