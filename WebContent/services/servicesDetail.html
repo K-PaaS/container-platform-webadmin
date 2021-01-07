@@ -347,7 +347,6 @@
 						replicaKey += '='+matchLabel[j][1];
 					};
 
-
 					// endpoints 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/endpoints/${data.name}`, 'application/json', services.endpoints);
 					
@@ -359,6 +358,7 @@
 				},
 
 				endpoints(data){
+					console.log(data);
 					/*
 					 "resultCode": "SUCCESS",
 					"resultMessage": "정상적으로 처리 되었습니다.",
@@ -385,41 +385,47 @@
 					]
 					*/
 
-					if(data.endpoints.length > 0){
-						func.removeHtml(document.querySelector('.endList'));
-
-						for(var i=0; i<=data.endpoints.length-1; i++){
-							var html = `<tr><td class="left">${data.endpoints[i].host}</td>
-								<td class="left">`;
-							
-							
-							for(var j=0; j<=data.endpoints[i].ports.length-1; j++){
-								if(j == 0){
-									html += `${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
-								} else {
-									html += `\n${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
-								}
-							};
-							html += `</td><td><a href="javascript:;">${data.endpoints[i].nodes}</a></td>
-									<td>${data.endpoints[i].ready}</td>
-								</tr>`;
-
-							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
-						};
-
-						var nodeLink = document.querySelector('.endList').querySelectorAll('a');
-
-						for(var i=0; i<=nodeLink.length-1; i++){
-							nodeLink[i].addEventListener('click', (e) => {
-								sessionStorage.setItem('nodeName', e.target.innerText);
-
-								document.location.href = `${func.ui}clusters/nodesDetail.html`;
-							}, false);
-						}
-					} else {
+					if(data.httpStatusCode == 404){
 						var html = '<tr><td colspan="4">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.endList'), html, 'tbody');
+					} else {
+						if(data.endpoints.length > 0){
+							func.removeHtml(document.querySelector('.endList'));
+
+							for(var i=0; i<=data.endpoints.length-1; i++){
+								var html = `<tr><td class="left">${data.endpoints[i].host}</td>
+									<td class="left">`;
+								
+								
+								for(var j=0; j<=data.endpoints[i].ports.length-1; j++){
+									if(j == 0){
+										html += `${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
+									} else {
+										html += `\n${data.endpoints[i].ports[j].name}, ${data.endpoints[i].ports[j].port}, ${data.endpoints[i].ports[j].protocol}`;
+									}
+								};
+								html += `</td><td><a href="javascript:;">${data.endpoints[i].nodes}</a></td>
+										<td>${data.endpoints[i].ready}</td>
+									</tr>`;
+
+								func.appendHtml(document.querySelector('.endList'), html, 'tbody');
+							};
+
+							var nodeLink = document.querySelector('.endList').querySelectorAll('a');
+
+							for(var i=0; i<=nodeLink.length-1; i++){
+								nodeLink[i].addEventListener('click', (e) => {
+									sessionStorage.setItem('nodeName', e.target.innerText);
+
+									document.location.href = `${func.ui}clusters/nodesDetail.html`;
+								}, false);
+							}
+						} else {
+							var html = '<tr><td colspan="4">No Data.</td></tr>';
+
+							func.appendHtml(document.querySelector('.endList'), html, 'tbody');
+						};
 					};
 				},
 				

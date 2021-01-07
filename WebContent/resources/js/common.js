@@ -69,7 +69,9 @@ const func = {
 				if(e.target.parentNode.classList != 'on'){
 					e.target.parentNode.classList.toggle('on');
 				} else {
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+					if(document.getElementById('searchText').value != ''){
+						func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', func.nameLoad);
+					};
 				}
 			}, false);
 
@@ -246,12 +248,14 @@ const func = {
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
 
 		for(var i=0; i<=func.nameData.items.length-1; i++){
-			var html = `<option value="${func.nameData.items[i]}">${func.nameData.items[i]}</option>`
-			
-			func.appendHtml(document.getElementById('createName'), html, 'select');
+			if(func.nameData.items[i] != 'all'){
+				var html = `<option value="${func.nameData.items[i]}">${func.nameData.items[i]}</option>`
+				
+				func.appendHtml(document.getElementById('createName'), html, 'select');
+			};
 		};
 
-		document.getElementById('createName').value = func.nameData.items[0];
+		document.getElementById('createName').value = func.nameData.items[1];
 
 		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));

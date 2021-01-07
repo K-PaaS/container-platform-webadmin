@@ -165,14 +165,6 @@
 									<col width="80%" />
 								</colgroup>
 								<tbody class="csourceList">
-									<tr>
-										<th scope="row" class="left">Type</th>
-										<td class="left" id="type"></td>
-									</tr>
-									<tr>
-										<th scope="row" class="left">Path</th>
-										<td class="left" id="path"></td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
@@ -303,8 +295,18 @@
 					document.getElementById('access').innerText = amVar;
 
 					// Source Info
-					document.getElementById('type').innerText = data.source.type;
-					document.getElementById('path').innerText = data.source.path;
+					if(data.source.length > 0){
+						for(var x=0; x<=Object.getOwnPropertyNames(data.source[0]).length-1; x++){
+							var html = `<tr>
+								<th class="left">${Object.getOwnPropertyNames(data.source[0])[x]}</th>
+								<td class="left">${data.source[0][Object.keys(data.source[0])[x]]}</td>
+							</tr>`;
+
+							func.appendHtml(document.querySelector('.csourceList'), html, 'tbody');
+						};
+					} else {
+
+					};
 
 					// Capacity Info
 					document.getElementById('resource').innerText = Object.getOwnPropertyNames(data.capacity)[0];

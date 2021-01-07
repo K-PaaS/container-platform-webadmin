@@ -172,7 +172,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					clusterApiUrl: "https://15.164.214.190:6443"
 					clusterName: "cp-cluster"
@@ -230,6 +229,7 @@
 						var createName = {
 							"userId": document.getElementById('userId').value,
 							"password": document.getElementById('pass').value,
+							"passwordConfirm" : document.getElementById('passConfirm').value,
 							"email": document.getElementById('email').value,
 							"serviceAccountName": document.getElementById('userId').value,
 							"selectValues": resourceQuotasList,
@@ -242,7 +242,6 @@
 				},
 
 				resource(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -333,7 +332,11 @@
 								};
 							};
 
-							var html = document.getElementById('modal').querySelector('.resourceList').innerHTML;
+							if(document.getElementById('modal').querySelectorAll('.resourceList tr').length > 0){
+								var html = document.getElementById('modal').querySelector('.resourceList').innerHTML;
+							} else {
+								var html = '<tr><td></td><td colspan="2">No Data.</td></tr>';
+							};
 
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 

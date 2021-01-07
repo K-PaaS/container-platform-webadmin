@@ -278,6 +278,7 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 /* 생성btn */
 .notice {position:relative;}
 .notice > a {position:absolute; top:50px; right:40px; color:#ffffff; padding:11px 13px 7px 13px; background-color:#0556c0; border-radius:2px;}
+.notice > a.off {display:none;}
 
 /* btn */
 .btn {margin-top:60px; overflow:hidden; text-align:center; font-family:'Apple SD Gothic Neo L', sans-serif;}

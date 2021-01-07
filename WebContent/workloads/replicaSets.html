@@ -166,7 +166,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					detailMessage: "정상적으로 처리 되었습니다."
 					httpStatusCode: 200
@@ -188,9 +187,15 @@
 					// 초기 게시물 갯수 저장
 					if(replica.offset == 0) replica.allItemCount = data.itemMetaData.allItemCount;
 
-					if(data.items.length > 0){
-						for(var i=0; i<=data.items.length-1; i++){
-							var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].runningPods} / ${data.items[i].totalPods}</td><td class="left">${data.items[i].image}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+					if(data.httpStatusCode == 200){
+						if(data.items.length > 0){
+							for(var i=0; i<=data.items.length-1; i++){
+								var html = `<tr><td class="left"><a href="javascript:;" data-name="${data.items[i].name}" data-id="${data.items[i].namespace}">${data.items[i].name}</a></td><td class="left">${data.items[i].namespace}</td><td>${data.items[i].runningPods} / ${data.items[i].totalPods}</td><td class="left">${data.items[i].image}</td><td>${data.items[i].creationTimestamp}</td></tr>`;
+
+								func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
+							};
+						} else {
+							var html = '<tr><td colspan="6">No Data.</td></tr>';
 
 							func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 						};
