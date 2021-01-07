@@ -148,18 +148,21 @@
 
 			const overview = {
 				init(){
+					func.nameLoad = overview.load;
+					
+					sessionStorage.setItem('nameSpace', 'ALL');
+
+					overview.load();
+				},
+
+				load(){
 					func.loading();
-
-					func.nameLoad = overview.draw;
-
-					// overview 정보 조회
-					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/overview`, 'application/json', overview.draw);
-
-					//overview.namespaces();
+					
+					// nameSpace 정보 조회
+					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/overview`, 'application/json', overview.draw);
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 						deploymentsCount: 50
 						deploymentsUsage: {running: "96%", failed: "4%"}

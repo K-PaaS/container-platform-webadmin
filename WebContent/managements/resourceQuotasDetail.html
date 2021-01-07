@@ -166,7 +166,6 @@
 				},
 
 				draw(data){
-					console.log(data);
 					/*
 					creationTimestamp: "2020-12-03 16:03:02"
 					detailMessage: "정상적으로 처리 되었습니다."
@@ -187,7 +186,7 @@
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('space').innerText = data.namespace;
-					document.getElementById('scopes').innerHTML = `<span>${JSON.stringify(data.scopes)}</span><div class="scroll02">${JSON.stringify(data.scopes)}</div>`;
+					document.getElementById('scopes').innerHTML = data.scopes;
 					document.getElementById('time').innerText = data.creationTimestamp;
 					
 					func.removeHtml(document.querySelector('.detailList'));
