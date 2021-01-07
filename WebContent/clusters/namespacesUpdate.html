@@ -461,7 +461,11 @@
 								};
 							};
 
-							var html = document.getElementById('modal').querySelector('.resourceList').innerHTML;
+							if(document.getElementById('modal').querySelectorAll('.resourceList tr').length > 0){
+								var html = document.getElementById('modal').querySelector('.resourceList').innerHTML;
+							} else {
+								var html = '<tr><td></td><td colspan="2">No Data.</td></tr>';
+							};
 
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 
@@ -569,7 +573,11 @@
 								};
 							};
 
-							var html = document.getElementById('modal').querySelector('.limitList').innerHTML;
+							if(document.getElementById('modal').querySelectorAll('.limitList tr').length > 0){
+								var html = document.getElementById('modal').querySelector('.limitList').innerHTML;
+							} else {
+								var html = '<tr><td></td><td colspan="7">No Data.</td></tr>';
+							};
 
 							func.appendHtml(document.querySelector('.limitQuotas'), html, 'tbody');
 

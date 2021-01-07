@@ -135,7 +135,7 @@
 							<a class="more" href="javascript:;">more</a>
 						</div>
 						<!-- btn -->
-						<a href="userCreat.html" class="create">생성</a>
+						<a href="userCreat.html" class="create off">생성</a>
 					</div>
 				</article>
 			</div>
@@ -235,7 +235,7 @@
 							func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
 						};
 					} else {
-						var html = `<tr><td colspan="5">No Data.</td></tr>`;
+						var html = `<tr><td colspan="6">No Data.</td></tr>`;
 
 						func.removeHtml(document.querySelector('.adminList'));
 
@@ -288,6 +288,12 @@
 								user.type = e.target.innerText.toLowerCase();
 
 								func.removeHtml(document.querySelector('.adminList'));
+
+								if(e.target.innerText == 'User'){
+									document.querySelector('.create').classList.toggle('off', false);
+								} else {
+									document.querySelector('.create').classList.toggle('off', true);
+								}
 								
 								user.load();
 							};
