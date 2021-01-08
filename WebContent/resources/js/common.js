@@ -371,10 +371,6 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
 					callbackFunction(JSON.parse(request.responseText), list);
-
-					if(document.getElementById('searchText')){
-						document.getElementById('searchText').value = '';
-					};
 				} else if(JSON.parse(request.responseText).httpStatusCode === 500){
 					sessionStorage.clear();
 					document.location.href = `${func.ui}member/login.html`;

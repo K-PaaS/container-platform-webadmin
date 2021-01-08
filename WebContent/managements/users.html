@@ -273,6 +273,8 @@
 					
 					for(var i=0; i<=tabBtn.length-1; i++){
 						tabBtn[i].addEventListener('click', (e) => {
+							document.getElementById('searchText').value = '';
+							
 							if(e.target.parentNode.classList != 'on'){
 								var tab = document.getElementById('tabParent').children;
 								
@@ -292,7 +294,7 @@
 									document.querySelector('.create').classList.toggle('off', false);
 								} else {
 									document.querySelector('.create').classList.toggle('off', true);
-								}
+								};
 								
 								user.load();
 							};
