@@ -8,7 +8,6 @@ const func = {
 	createIm : '',
 
 	init(depth1, depth2){
-		console.log(sessionStorage);
 
 		// Namespaces 목록조회
 		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, 'application/json', func.namespaces);
