@@ -172,6 +172,7 @@
 				},
 
 				draw(data){
+					console.log(data);
 					/*
 					clusterApiUrl: "https://15.164.214.190:6443"
 					clusterName: "cp-cluster"
@@ -204,7 +205,7 @@
 							func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 						};
 					} else {
-						var html = '<tr><td colspan="2">No Data.</td></tr>';
+						var html = '<tr><td></td><td colspan="2">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.resourceQuotas'), html, 'tbody');
 					};
