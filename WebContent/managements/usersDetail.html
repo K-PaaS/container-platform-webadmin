@@ -255,7 +255,10 @@
 							
 							if(data.items[i].secrets.secretLabels != '-'){
 								for(var j=0; j<=Object.getOwnPropertyNames(data.items[i].secrets.secretLabels).length-1; j++){
-									label += `<dl><dt>${Object.getOwnPropertyNames(data.items[i].secrets.secretLabels)[j]}</dt><dd>${data.items[i].secrets.secretLabels[Object.keys(data.items[i].secrets.secretLabels)[j]]}</dd></dl>`;
+									label += `<dl>
+										<dt>${Object.getOwnPropertyNames(data.items[i].secrets.secretLabels)[j]}</dt>
+										<dd>${data.items[i].secrets.secretLabels[Object.keys(data.items[i].secrets.secretLabels)[j]]}</dd>
+									</dl>`;
 								};
 							} else {
 								label = `<dl><dt>-</dt></dl>`;
@@ -268,7 +271,7 @@
 							func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
 						};
 					} else {
-						var html = '<tr><td colspan="6">No Data.</td></tr>';
+						var html = '<tr><td colspan="7">No Data.</td></tr>';
 
 						func.appendHtml(document.querySelector('.detailList'), html, 'tbody');
 					};

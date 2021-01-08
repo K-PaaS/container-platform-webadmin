@@ -137,11 +137,11 @@ const func = {
 								</dl>
 								<dl>
 									<dt>Password</dt>
-									<dd><input type="password" class="ps" /></dd>
+									<dd><input type="password" class="ps" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작" /></dd>
 								</dl>
 								<dl>
 									<dt>Password Confirm</dt>
-									<dd><input type="password" class="psc" /></dd>
+									<dd><input type="password" class="psc" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작" /></dd>
 								</dl>
 								<dl>
 									<dt>E-mail</dt>
@@ -172,6 +172,7 @@ const func = {
 			var updata = {
 							"userId": data.userId,
 							"password": document.getElementById('myInfo').querySelector('.ps').value,
+							"passwordConfirm" : document.getElementById('myInfo').querySelector('.psc').value,
 							"email": document.getElementById('myInfo').querySelector('.mail').value
 						}
 			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`, JSON.stringify(updata), true, 'application/json', func.refresh);
@@ -370,6 +371,10 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
 					callbackFunction(JSON.parse(request.responseText), list);
+
+					if(document.getElementById('searchText')){
+						document.getElementById('searchText').value = '';
+					};
 				} else if(JSON.parse(request.responseText).httpStatusCode === 500){
 					sessionStorage.clear();
 					document.location.href = `${func.ui}member/login.html`;
