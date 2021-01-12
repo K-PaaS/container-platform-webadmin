@@ -63,7 +63,7 @@
 								"cpNamespace": document.getElementById('space').value
 							};
 
-							func.saveData('POST', `${func.url}signUp`, JSON.stringify(joinInfo), true, 'application/json', join.success);
+							func.saveData('POST', `${func.url}signUp?isAdmin=true`, JSON.stringify(joinInfo), true, 'application/json', join.success);
 						} else {
 							func.alertPopup('ERROR', '비밀번호가 일치하지 않습니다.', true, '닫기', 'closed');
 						};
