@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -168,24 +169,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 23, remainingItemCount: 13}
-					items: Array(10)
-					0:
-						capacity: {storage: "-"}
-						creationTimestamp: "2020-11-17 20:23:13"
-						name: "test-persistentvolumeclaim"
-						namespace: "cp-namespace"
-						persistentVolumeClaimStatus: "Pending"
-						volume: "-"
-						1: {name: "kjh-persistentvolumeclaim", namespace: "cp-namespace", persistentVolumeClaimStatus: "Pending", volume: "test-volume", capacity: {…}, …}
-					metadata: {selfLink: "/api/v1/persistentvolumeclaims", resourceVersion: "29231792"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+					
 					// 초기 게시물 갯수 저장
 					if(volumeClaims.offset == 0) volumeClaims.allItemCount = data.itemMetaData.allItemCount;
 

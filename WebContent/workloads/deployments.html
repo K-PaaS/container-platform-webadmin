@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -166,23 +167,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 52, remainingItemCount: 42}
-					items: Array(10)
-						0:
-						creationTimestamp: "2020-11-18 18:18:24"
-						images: "nginx:1.14.2"
-						name: "nginx-deployment-kmskmskms"
-						namespace: "cp-namespace"
-						runningPods: 0
-						totalPods: 0
-						1: {name: "nginx-deployment-kmskmskms", namespace: "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas", runningPods: 1, totalPods: 1, images: "nginx:1.14.2", …}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+					
 					// 초기 게시물 갯수 저장
 					if(depoly.offset == 0) depoly.allItemCount = data.itemMetaData.allItemCount;
 

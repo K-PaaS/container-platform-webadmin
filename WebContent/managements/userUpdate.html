@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -172,28 +173,8 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					clusterApiUrl: "https://15.164.214.190:6443"
-					clusterName: "cp-cluster"
-					clusterToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6IktNWmgxVXB3ajgwS0NxZjFWaVZJVGVvTXJoWnZ5dG0tMGExdzNG"
-					created: "2020-11-05 14:23:29"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 2, remainingItemCount: 0}
-					items: Array(2)
-						0:
-						cpNamespace: "twkim-ns"
-						roleSetCode: "ns-admin-role"
-						secrets: {saSecret: "twkim-token-fqc8m", secretLabels: "-", secretType: "kubernetes.io/service-account-token"}
-						serviceAccountUid: "dbeb68ac-8cc3-46cc-bc58-1b8da1b3ae92"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					serviceAccountName: "twkim"
-					userId: "twkim"
-					*/
-					
-					// Details data
+			
+				// Details data
 					document.getElementById('userId').value = data.userId;
 					document.getElementById('account').value = data.serviceAccountName;
 					document.getElementById('email').value = data.email;
@@ -236,27 +217,13 @@
 							"selectValues": resourceQuotasList,
 						};
 
-						console.log(createName);
-
+					
 						func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/users/${sessionStorage.getItem('commonName')}`, JSON.stringify(createName), true, 'application/json', func.historyBack);
 					}, false);
 				},
 
 				resource(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 74, remainingItemCount: 0}
-					items: Array(74)
-						0:
-						checkYn: "N"
-						name: "paas-ta-container-platform-admin-role"
-						namespace: "hrjin-1127-ns"
-						userType: "NOT_ASSIGNED_ROLE"
-					metadata: {selfLink: "/apis/rbac.authorization.k8s.io/v1/roles", resourceVersion: "30926854"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 					if(data.items.length > 0){
 						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Namespaces ⁄ Roles</h5>`;
 						

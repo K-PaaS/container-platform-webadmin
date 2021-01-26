@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -217,26 +218,7 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					accessMode: ["ReadWriteOnce"]
-					annotations: "-"
-					capacity: {storage: "2Gi"}
-					claim: {name: "-", namespace: "-"}
-					creationTimestamp: "2020-11-23 14:18:30"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					labels: "-"
-					name: "cp-persistentvolume"
-					persistentVolumeStatus: "Available"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					returnPolicy: "Delete"
-					source: {path: "/tmp/k8s-pv", type: "Hostpath"}
-					storageClasses: "manual"
-					uid: "28539bf8-7558-43f0-90b4-c814db57b209"
-					*/
-
+								
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -171,22 +172,7 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 7, remainingItemCount: 0}
-					items: Array(7)
-						0:
-						creationTimestamp: "2020-11-17 20:24:35"
-						name: "test-storageclass"
-						parameters: {type: "gp2"}
-						provisioner: "kubernetes.io/aws-ebs"
-						1: {name: "cp-storageclass-standard", provisioner: "kubernetes.io/gce-pd", parameters: {…}, creationTimestamp: "2020-11-11 08:45:10"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+					
 					// 초기 게시물 갯수 저장
 					if(storageClass.offset == 0) storageClass.allItemCount = data.itemMetaData.allItemCount;
 

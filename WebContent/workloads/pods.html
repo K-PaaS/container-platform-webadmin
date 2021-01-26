@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -168,25 +169,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 207, remainingItemCount: 197}
-					items: Array(10)
-						0:
-						creationTimestamp: "2020-11-20 12:30:05"
-						labels: {controller-uid: "eaf18a8f-2250-4dcd-9607-68b56e65a575", job-name: "cronjob-suslmk-1605843000"}
-						name: "cronjob-suslmk-1605843000-cjsjz"
-						namespace: "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas"
-						nodes: "paasta-cp-k8s-worker-001"
-						podStatus: "Succeeded"
-						restarts: 0
-						1: {name: "jjy-pod-resourcequota", namespace: "cp-namespace", labels: "-", nodes: null, podStatus: "Pending", …}
-					metadata: {selfLink: "/api/v1/pods", resourceVersion: "28499547"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+					
 					// 초기 게시물 갯수 저장
 					if(pods.offset == 0) pods.allItemCount = data.itemMetaData.allItemCount;
 

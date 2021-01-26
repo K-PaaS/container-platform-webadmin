@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -199,31 +200,7 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					clusterApiUrl: "https://15.164.214.190:6443"
-					clusterName: "cp-cluster"
-					clusterToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6"
-					created: "2020-11-05 14:23:29"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 2, remainingItemCount: 0}
-					items: Array(2)
-						0:
-						cpNamespace: "cp-namespace"
-						roleSetCode: "paas-ta-container-platform-admin-role"
-						secrets:
-							saSecret: "testuser-token-dm46r"
-							secretLabels: "-"
-							secretType: "kubernetes.io/service-account-token"
-						serviceAccountUid: "a8bc318d-0a49-41b9-8815-b9cf60ff0266"
-						userType: "User"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					serviceAccountName: "twkim"
-					userId: "twkim"
-					*/
-
+				
 					// Details data
 					document.getElementById('uid').innerText = data.userId;
 					document.getElementById('account').innerText = data.serviceAccountName;

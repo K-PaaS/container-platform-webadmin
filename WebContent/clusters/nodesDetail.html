@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -288,48 +289,7 @@
 				},
 
 				draw(data){
-					/*
-					addresses: Array(2)
-						0:
-						address: "10.0.0.83"
-						type: "InternalIP"
-						1: {address: "paasta-cp-k8s-worker-003", type: "Hostname"}
-					length: 2
-					annotations:
-						flannel.alpha.coreos.com/backend-data: "{"VtepMAC":"86:c2:9b:6d:f1:95"}"
-						flannel.alpha.coreos.com/backend-type: "vxlan"
-						flannel.alpha.coreos.com/kube-subnet-manager: "true"
-						flannel.alpha.coreos.com/public-ip: "10.0.0.83"
-						kubeadm.alpha.kubernetes.io/cri-socket: "/var/run/dockershim.sock"
-						node.alpha.kubernetes.io/ttl: "0"
-						volumes.kubernetes.io/controller-managed-attach-detach: "true"
-					creationTimestamp: "2020-07-24 13:29:59"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					info:
-						architecture: "amd64"
-						bootID: "523eaf71-72c2-4e98-941b-50738d54cf8d"
-						containerRuntimeVersion: "docker://19.3.6"
-						kernelVersion: "5.4.0-1025-aws"
-						kubeProxyVersion: "v1.17.1"
-						kubeletVersion: "v1.17.1"
-						machineID: "ec2d299760ea2429e07c1dd3f92d4cba"
-						operatingSystem: "linux"
-						osImage: "Ubuntu 18.04.5 LTS"
-						systemUUID: "ec2d2997-60ea-2429-e07c-1dd3f92d4cba"
-					labels:
-						beta.kubernetes.io/arch: "amd64"
-						beta.kubernetes.io/os: "linux"
-						kubernetes.io/arch: "amd64"
-						kubernetes.io/hostname: "paasta-cp-k8s-worker-003"
-						kubernetes.io/os: "linux"
-					name: "paasta-cp-k8s-worker-003"
-					podsCIDR: "10.244.3.0/24"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					uid: "9253b47d-1acd-4c00-9df1-b1863af89753"
-					*/
-
+		
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
@@ -396,25 +356,7 @@
 				},
 
 				podsList(data){
-					console.log(data);
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
-					items: Array(8)
-						0:
-						creationTimestamp: "2020-12-08 11:18:08"
-						labels: {app: "nginx", pod-template-hash: "56689dc4b8"}
-						name: "nginx-test-56689dc4b8-z92cb"
-						namespace: "jenkins-namespace"
-						nodes: "paasta-cp-k8s-worker-003"
-						podStatus: "Running"
-						restarts: 0
-					metadata: {selfLink: "/api/v1/pods", resourceVersion: "32949941"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+			
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
 							var html = `<tr>
@@ -448,21 +390,7 @@
 				},
 				
 				eventsList(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					items: Array(5)
-						0:
-						count: 1
-						filePath: ""
-						firstTimestamp: "2020-11-19T02:20:18Z"
-						lastTimestamp: "2020-11-19T02:20:18Z"
-						message: "System OOM encountered, victim process: java, pid: 1001"
-						source: {component: "kubelet", host: "paasta-cp-k8s-worker-003"}
-						1: {message: "System OOM encountered, victim process: java, pid: 20399", source: {…}, filePath: "", count: 1, firstTimestamp: "2020-11-19T02:21:11Z", …}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+				
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){

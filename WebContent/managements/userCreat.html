@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -180,26 +181,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					namespace: "all"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					usersInfo: Array(66)
-						0: {userId: "opdcminsu", isNsAdmin: "N"}
-						1: {userId: "hrjin4", isNsAdmin: "N"}
-					*/
-
-					/*
-					for(var i=0; i<=data.usersInfo.length-1; i++){
-						var html = `<option value="${data.usersInfo[i].userId}">${data.usersInfo[i].userId}</option>`;
-						
-						func.appendHtml(document.getElementById('user'), html, 'select');
-					};
 					
-					document.getElementById('user').querySelector('option').setAttribute('selected', 'selected');
-*/
 					createUser.event();
 				},
 
@@ -230,20 +212,7 @@
 				},
 
 				resource(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 74, remainingItemCount: 0}
-					items: Array(74)
-						0:
-						checkYn: "N"
-						name: "paas-ta-container-platform-admin-role"
-						namespace: "hrjin-1127-ns"
-						userType: "NOT_ASSIGNED_ROLE"
-					metadata: {selfLink: "/apis/rbac.authorization.k8s.io/v1/roles", resourceVersion: "30926854"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 					if(data.items.length > 0){
 						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Namespaces ⁄ Roles</h5>`;
 						

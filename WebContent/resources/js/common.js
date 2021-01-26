@@ -87,8 +87,7 @@ const func = {
 		
 		// setting
 		document.getElementById('userSetting').addEventListener('click', (e) => {
-			console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`);
-			
+						
 			func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`, 'application/json', func.setting);
 		}, false);
 
@@ -105,7 +104,6 @@ const func = {
 	},
 
 	setting(data){
-		console.log(data);
 
 		var html = `<div id="myInfo">
 						<h4>My Info</h4>
@@ -181,15 +179,7 @@ const func = {
 
 	namespaces(data){
 		func.nameData = data;
-		/*
-			detailMessage: "정상적으로 처리 되었습니다."
-			httpStatusCode: 200
-			items: Array(34)
-				0: "1020-namespace"
-				1: "1029-2-namespace"
-			resultCode: "SUCCESS"
-			resultMessage: "정상적으로 처리 되었습니다."
-		*/
+	
 		if(document.querySelector('.nameSpace')){
 			for(var i=0; i<=data.items.length-1; i++){
 				if(i == 0){
@@ -334,7 +324,7 @@ const func = {
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200){
-					console.log(request.status)
+				
 					if(JSON.parse(request.responseText).httpStatusCode != 401){
 						sessionStorage.setItem('user' , user);
 						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
@@ -399,10 +389,10 @@ const func = {
 					
 					document.getElementById('wrap').removeChild(document.getElementById('loading'));
 
-					console.log(JSON.parse(request.responseText));
+				
 
 					if(method == 'POST'){
-						console.log(JSON.parse(request.responseText));
+						
 						if(JSON.parse(request.responseText).httpStatusCode == 200){
 							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
 						} else {
@@ -448,7 +438,7 @@ const func = {
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
 
 		document.getElementById('modal').querySelector('.close').addEventListener('click', (e) => {
-			console.log('c');
+			
 			document.getElementById('wrap').removeChild(document.getElementById('modal'));
 		}, false);
 

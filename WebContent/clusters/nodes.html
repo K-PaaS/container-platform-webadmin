@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -167,21 +168,6 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 4, remainingItemCount: 0}
-					items: Array(4)
-						0:
-						creationTimestamp: "2020-07-24 13:29:59"
-						labels: {beta.kubernetes.io/arch: "amd64", beta.kubernetes.io/os: "linux", kubernetes.io/arch: "amd64", kubernetes.io/hostname: "paasta-cp-k8s-worker-003", kubernetes.io/os: "linux"}
-						name: "paasta-cp-k8s-worker-003"
-						ready: "True"
-						__proto__: Object
-						1: {name: "paasta-cp-k8s-worker-002", labels: {…}, ready: "True", creationTimestamp: "2020-07-24 13:25:59"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
 					
 					// 초기 게시물 갯수 저장
 					if(node.offset == 0) node.allItemCount = data.itemMetaData.allItemCount;

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -266,19 +267,7 @@
 				},
 
 				draw(data){
-					/*
-					annotations: null
-					creationTimestamp: "2020-11-17 15:48:24"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					labels: null
-					name: "tttttttt"
-					namespaceStatus: "Active"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					uid: "b5805078-9e3a-4335-9936-e41addd91fa0"
-					*/
-
+				
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
 					
@@ -335,27 +324,7 @@
 				},
 
 				resource(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData:
-						allItemCount: 3
-						remainingItemCount: 0
-					items: Array(3)
-						0:
-							checkYn: "Y"
-							creationTimestamp: "2020-11-05 13:26:24"
-							limitCpu: "2"
-							limitMemory: "2Gi"
-							name: "paas-ta-container-platform-low-rq"
-							requestCpu: "0"
-							requestMemory: "0"
-							status: "{"hard":{"limits.cpu":"2","limits.memory":"2Gi"},"used":{"limits.cpu":"200m","limits.memory":"1800Mi"}}"
-						1: {name: "paas-ta-container-platform-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
@@ -379,25 +348,7 @@
 				},
 
 				limit(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 6, remainingItemCount: 0}
-					items: Array(6)
-						0:
-						checkYn: "N"
-						creationTimestamp: "2020-11-05 13:27:59"
-						defaultLimit: "300m"
-						defaultRequest: "-"
-						max: "-"
-						min: "-"
-						name: "paas-ta-container-platform-medium-limit-range"
-						resource: "cpu"
-						type: "Container"
-					metadata: null
-					resultCode: "SUCCESS"
-					*/
-
+					
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
 							if(data.items[i].checkYn == 'Y'){
@@ -426,21 +377,6 @@
 				},
 
 				events(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					items: Array(5)
-						0:
-						count: 1624
-						filePath: "spec.containers{kjh-pod-20201112}"
-						firstTimestamp: "2020-11-12T06:56:05Z"
-						lastTimestamp: "2020-11-18T02:03:16Z"
-						message: "Pulling image "slokang/hello-kubernetes:v3""
-						source: {component: "kubelet", host: "paasta-cp-k8s-worker-003"}
-						1: {message: "Back-off pulling image "slokang/hello-kubernetes:v3"", source: {…}, filePath: "spec.containers{kjh-pod-20201112}", count: 36751, firstTimestamp: "2020-11-12T06:56:07Z", …}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
 
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
@@ -463,15 +399,7 @@
 				},
 
 				users(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					items: Array(1)
-						0: {isAdmin: "Y", userId: "super", serviceAccountName: "super", created: "2020-11-17 15:47:25", userType: "NAMESPACE_ADMIN"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+		
 					if(data.items.length > 0){
 						for(var i=0; i<=data.items.length-1; i++){
 							var html = `<td>${data.items[i].isAdmin}</td>

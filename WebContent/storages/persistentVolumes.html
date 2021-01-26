@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -169,32 +170,12 @@
 				load(){
 					func.loading();
 
-					console.log(`${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?searchName=${document.getElementById('searchText').value}&limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`);
-
 					// persistentVolumes 정보 조회
 					func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/persistentVolumes?searchName=${document.getElementById('searchText').value}&limit=${persistentVolumes.limit}&offset=${persistentVolumes.offset}`, 'application/json', persistentVolumes.draw);
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 19, remainingItemCount: 9}
-					items: Array(10)
-					0:
-						accessMode: ["ReadWriteOnce"]
-						capacity: {storage: "11Gi"}
-						claim: {name: "test-pvc5", persistentVolumes: "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas"}
-						creationTimestamp: "2020-11-12 13:23:50"
-						name: "kjh-pv-20201112"
-						persistentVolumeStatus: "Bound"
-						1: {name: "jjy-persistenevolume", capacity: {…}, accessMode: Array(1), persistentVolumeStatus: "Bound", claim: {…}, …}
-					metadata: {selfLink: "/api/v1/persistentvolumes", resourceVersion: "29219671"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+				
 					// 초기 게시물 갯수 저장
 					if(persistentVolumes.offset == 0) persistentVolumes.allItemCount = data.itemMetaData.allItemCount;
 

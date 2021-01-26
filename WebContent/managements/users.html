@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -182,22 +183,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
-					items: Array(8)
-						0:
-						cpNamespace: "testuser-namespace"
-						created: "2020-12-01 16:46:41"
-						roleSetCode: "cluster-admin"
-						serviceAccountName: "testuser"
-						userId: "testuser"
-						userType: "Cluster Admin"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+		
 					// 초기 게시물 갯수 저장
 					if(user.offset == 0) user.allItemCount = data.itemMetaData.allItemCount;
 

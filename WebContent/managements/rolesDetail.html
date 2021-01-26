@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -179,26 +180,7 @@
 				},
 
 				draw(data){
-					/*
-					annotations: "-"
-					creationTimestamp: "2020-11-26 17:49:20"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					labels: "-"
-					name: "paas-ta-container-platform-admin-role"
-					namespace: "cp-namespace"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					rules: Array(12)
-						0:
-						apiGroups: [""]
-						nonResourceURLs: ["-"]
-						resourceNames: ["-"]
-						resources: (5) ["pods", "pods/attach", "pods/exec", "pods/portforward", "pods/proxy"]
-						verbs: (8) ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
-					uid: "1c9af956-22e7-490e-825c-c70bf578398a"
-					*/
-
+					
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;

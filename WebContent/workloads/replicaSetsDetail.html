@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -228,21 +229,8 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					annotations: "-"
-					creationTimestamp: "2020-11-20 15:02:57"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					image: "gcr.io/google_samples/gb-frontend:v3"
-					labels: {app: "guestbook", tier: "frontend"}
-					name: "cp-frontend-replicasets"
-					namespace: "cp-namespace"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					selector: {matchLabels: {…}}
-					uid: "570830d8-cad2-456d-a644-44dd8c7647a0"
-					*/
+				
+					
 
 					// Details data
 					document.getElementById('name').innerText = data.name;
@@ -323,25 +311,7 @@
 				},
 
 				podsList(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 1, remainingItemCount: 0}
-					items: Array(1)
-						0:
-						creationTimestamp: "2020-11-17 19:22:19"
-						labels: {app: "kjh-deployment", pod-template-hash: "5fd79d6475"}
-						name: "kjh-deployment-test-wowo-5fd79d6475-stnpl"
-						namespace: "cp-namespace"
-						nodes: "paasta-cp-k8s-worker-001"
-						podStatus: "Running"
-						restarts: 0
-						__proto__: Object
-					metadata: {selfLink: "/api/v1/namespaces/cp-namespace/pods", resourceVersion: "28520166"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-					
+			
 					func.removeHtml(document.querySelector('.podsList'));
 
 					if(data.items.length > 0){
@@ -380,22 +350,7 @@
 				},
 
 				eventList(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					items: Array(3)
-						0:
-						count: 1
-						filePath: ""
-						firstTimestamp: "2020-11-20T06:02:57Z"
-						lastTimestamp: "2020-11-20T06:02:57Z"
-						message: "Created pod: cp-frontend-replicasets-t25k6"
-						source: {component: "replicaset-controller", host: ""}
-						1: {message: "Created pod: cp-frontend-replicasets-bq6k4", source: {…}, filePath: "", count: 1, firstTimestamp: "2020-11-20T06:02:57Z", …}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-					
+						
 					func.removeHtml(document.querySelector('.eventList'));
 
 					if(data.items.length > 0){

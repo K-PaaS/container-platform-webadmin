@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -210,17 +211,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					namespace: "limit-ns"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					usersInfo: Array(66)
-						0: {userId: "opdcminsu", isNsAdmin: "N"}
-						1: {userId: "hrjin4", isNsAdmin: "N"}
-					*/
-
+				
 					document.getElementById('name').value = data.namespace;
 
 					var select = '';
@@ -294,27 +285,7 @@
 				},
 
 				resource(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData:
-						allItemCount: 3
-						remainingItemCount: 0
-					items: Array(3)
-						0:
-							checkYn: "Y"
-							creationTimestamp: "2020-11-05 13:26:24"
-							limitCpu: "2"
-							limitMemory: "2Gi"
-							name: "paas-ta-container-platform-low-rq"
-							requestCpu: "0"
-							requestMemory: "0"
-							status: "{"hard":{"limits.cpu":"2","limits.memory":"2Gi"},"used":{"limits.cpu":"200m","limits.memory":"1800Mi"}}"
-						1: {name: "paas-ta-container-platform-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 					
 					func.removeHtml(document.querySelector('.resourceQuotas'));
 
@@ -335,28 +306,7 @@
 				},
 
 				limit(data){
-					console.log(data);
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: null
-					items: Array(8)
-						0:
-						checkYn: "N"
-						creationTimestamp: "2020-11-05 13:26:24"
-						defaultLimit: "100m"
-						defaultRequest: "0"
-						max: "0"
-						min: "0"
-						name: "paas-ta-container-platform-low-limit-range"
-						resource: "cpu"
-						type: "Container"
-						1: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "memory", min: "0", max: "0", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+				
 					func.removeHtml(document.querySelector('.limitQuotas'));
 
 					
@@ -386,17 +336,7 @@
 				},
 
 				resourceSelect(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 3, remainingItemCount: 0}
-					items: Array(3)
-						0: {name: "cp-low-rq", requestCpu: "0", requestMemory: "0", limitCpu: "2", limitMemory: "2Gi", …}
-						1: {name: "cp-medium-rq", requestCpu: "0", requestMemory: "0", limitCpu: "4", limitMemory: "6Gi", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 					if(data.items.length > 0){
 						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Resource Quotas</h5>`;
 						
@@ -477,26 +417,7 @@
 				},
 
 				limitSelect(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: null
-					items: Array(6)
-						0:
-							checkYn: "N"
-							creationTimestamp: "2020-11-05 13:26:24"
-							defaultLimit: "100m"
-							defaultRequest: "0"
-							max: "0"
-							min: "0"
-							name: "paas-ta-container-platform-low-limit-range"
-							resource: "cpu"
-							type: "Container"
-						1: {name: "paas-ta-container-platform-low-limit-range", type: "Container", resource: "memory", min: "0", max: "0", …}
-					metadata: null
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
+					
 					if(data.items.length > 0){
 						var html = `<div class='modal-wrap' id='modal'><div class='modal wide'><h5>Limit Ranges</h5>`;
 						

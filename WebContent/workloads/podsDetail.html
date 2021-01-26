@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -250,27 +251,7 @@
 				},
 
 				draw(data){
-					/*
-					annotations: {kubernetes.io/limit-ranger: "LimitRanger plugin set: memory request for container nginx; memory limit for container nginx"}
-					containersImage: "nginx:1.10"
-					containersName: "nginx"
-					controllers: [{…}]
-					creationTimestamp: "2020-11-20 14:19:08"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					ip: "10.244.1.27"
-					labels: {app: "nginx"}
-					name: "test-replicaset12-45d4m"
-					namespace: "cp-namespace"
-					nodes: "paasta-cp-k8s-worker-001"
-					podStatus: "Running"
-					qosClass: "Burstable"
-					restarts: 0
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					uid: "8216602c-de41-420a-8a04-aac9edad9a5a"
-					*/
-
+	
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
@@ -331,21 +312,6 @@
 				},
 
 				list(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					items: Array(4)
-						0:
-						count: 1
-						filePath: ""
-						firstTimestamp: "2020-11-20T05:19:08Z"
-						lastTimestamp: "2020-11-20T05:19:08Z"
-						message: "Successfully assigned cp-namespace/test-replicaset12-45d4m to paasta-cp-k8s-worker-001"
-						source: {component: "default-scheduler", host: ""}
-						1: {message: "Container image "nginx:1.10" already present on machine", source: {…}, filePath: "spec.containers{nginx}", count: 1, firstTimestamp: "2020-11-20T05:19:11Z", …}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
 					
 					func.removeHtml(document.querySelector('.eventList'));
 

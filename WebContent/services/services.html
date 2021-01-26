@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -166,23 +167,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 44, remainingItemCount: 34}
-					items: Array(10)
-						0:
-						clusterIP: "10.109.220.223"
-						creationTimestamp: "2020-11-19 10:34:46"
-						name: "nginx-service5"
-						namespace: "cp-namespace"
-						type: "NodePort"
-						1: {name: "busybox-service", namespace: "cp-namespace", type: "ClusterIP", clusterIP: "10.98.66.45", creationTimestamp: "2020-11-18 10:20:54"}
-					metadata: {selfLink: "/api/v1/services", resourceVersion: "28525867"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+				
 					// 초기 게시물 갯수 저장
 					if(services.offset == 0) services.allItemCount = data.itemMetaData.allItemCount;
 

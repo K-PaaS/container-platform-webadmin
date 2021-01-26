@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -163,20 +164,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 8, remainingItemCount: 0}
-					items: Array(8)
-						0:
-						creationTimestamp: "2020-11-26 17:49:20"
-						name: "paas-ta-container-platform-admin-role"
-						namespace: "cp-namespace"
-					metadata: {selfLink: "/apis/rbac.authorization.k8s.io/v1/roles", resourceVersion: "31590071"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+		
 					// 초기 게시물 갯수 저장
 					if(role.offset == 0) role.allItemCount = data.itemMetaData.allItemCount;
 

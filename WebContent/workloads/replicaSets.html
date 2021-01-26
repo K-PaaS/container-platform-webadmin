@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -166,24 +167,7 @@
 				},
 
 				draw(data){
-					/*
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					itemMetaData: {allItemCount: 92, remainingItemCount: 82}
-					items: Array(10)
-						0:
-						creationTimestamp: "2020-11-20 14:18:18"
-						image: "nginx:1.10"
-						name: "cp-deployment-857df58577"
-						namespace: "1112-ns"
-						runningPods: 0
-						totalPods: 0
-						1: {name: "cp-deployment-rex-857df58577", namespace: "cp-namespace", runningPods: 1, totalPods: 1, image: "nginx:1.10", …}0
-					metadata: {selfLink: "/apis/apps/v1/replicasets", resourceVersion: "28511555"}
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					*/
-
+			
 					// 초기 게시물 갯수 저장
 					if(replica.offset == 0) replica.allItemCount = data.itemMetaData.allItemCount;
 

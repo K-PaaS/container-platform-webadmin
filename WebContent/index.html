@@ -4,7 +4,8 @@
 	<meta charset="UTF-8" />
 	<title>PaaS-TA Container</title>
 	<link href="resources/css/c3.min.css" rel="stylesheet" type="text/css" />
-    <link href="resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -163,21 +164,7 @@
 				},
 
 				draw(data){
-					/*
-						deploymentsCount: 50
-						deploymentsUsage: {running: "96%", failed: "4%"}
-						detailMessage: null
-						httpStatusCode: null
-						namespacesCount: 34
-						nextActionUrl: "EMPTY"
-						podsCount: 215
-						podsUsage: {running: "87%", failed: "13%"}
-						replicaSetsUsage: {running: "97%", failed: "3%"}
-						resultCode: "SUCCESS"
-						resultMessage: null
-						usersCount: 32
-					*/
-
+				
 					if(data.httpStatusCode == 500){
 						//sessionStorage.clear();
 						//document.location.href = `${func.ui}member/login.html`;

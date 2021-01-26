@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>PaaS-TA Container</title>
-    <link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../resources/css/layout.css" rel="stylesheet" type="text/css" />
+	<link rel='shortcut icon' type='image/x-icon' href='../resources/img/favicon.ico'/>
 </head>
 <body>
 	<div id="wrap">
@@ -170,21 +171,7 @@
 				},
 
 				draw(data){
-					console.log(data);
-					/*
-					annotations: "-"
-					creationTimestamp: "2020-11-24 10:18:42"
-					detailMessage: "정상적으로 처리 되었습니다."
-					httpStatusCode: 200
-					labels: "-"
-					name: "cp-storage"
-					parameters: {type: "gp2"}
-					provisioner: "kubernetes.io/aws-ebs"
-					resultCode: "SUCCESS"
-					resultMessage: "정상적으로 처리 되었습니다."
-					uid: "bcde0c6e-5b92-423b-98eb-80e40fee516f"
-					*/
-
+				
 					// Details data
 					document.getElementById('name').innerText = data.name;
 					document.getElementById('uid').innerText = data.uid;
@@ -229,8 +216,7 @@
 					document.getElementById('provider').innerText = data.provisioner;
 
 					for(var i=0; i<=Object.getOwnPropertyNames(data.parameters).length-1; i++){
-						console.log(Object.getOwnPropertyNames(data.parameters)[i]);
-
+						
 						var html = `<tr><th class="left">${Object.getOwnPropertyNames(data.parameters)[i]}</th><td class="left">${data.parameters[Object.keys(data.parameters)[i]]}</td></tr>`;
 
 						func.appendHtml(document.querySelector('.resourceTable'), html, 'tbody');
