@@ -5,7 +5,7 @@ PaaS-TA에서 제공하는 컨테이너 플랫폼 사용을 쉽게 하기 위하
 - [시작하기](#시작하기)
   - [컨테이너 플랫폼 WEB ADMIN 빌드 방법](#컨테이너-플랫폼-WEB-ADMIN-빌드-방법)
 - [문서](#문서)
-- [Technologies used](#Technologies-used)
+- [사용 기술](#사용-기술)
 - [라이선스](#라이선스)
 
 ## 시작하기
@@ -24,8 +24,7 @@ $ gradle build
 
 
 ## 문서
-- 전체 컨테이너 플랫폼 관련 문서를 보려면 [http://www.paas-ta.co.kr](http://www.paas-ta.co.kr)을 참조하십시오.
-- 컨테이너 플랫폼 활용에 대한 정보는 [https://github.com/PaaS-TA/paas-ta-container-platform](https://github.com/PaaS-TA/paas-ta-container-platform)을 참조하십시오.
+- 컨테이너 플랫폼 활용에 대한 정보는 [PaaS-TA 컨테이너 플랫폼](https://github.com/PaaS-TA/paas-ta-container-platform)을 참조하십시오. 
 
 
 ## 사용 기술
