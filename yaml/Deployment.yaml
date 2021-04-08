@@ -21,6 +21,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+      imagePullSecrets:
+        - name: jenkins-secret
+      nodeSelector:
+        kubernetes.io/hostname: paasta-cp-dev-cluster-2
 ---
 apiVersion: v1
 kind: Service
