@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: webadmin
-        image: 172.16.10.253:8090/container-platform/container-platform-webadmin:$BUILD_NUMBER
+        image: $REGISTRY_HARBOR_URL/container-platform/container-platform-webadmin:$BUILD_NUMBER
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
