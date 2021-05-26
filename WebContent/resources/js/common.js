@@ -1,7 +1,7 @@
 
 const func = {
 
-	url : 'http://52.79.235.113:30333/',
+	url : 'http://10.100.2.41:30433/',
 	ui : 'file:///D:/_Work/PaaS-TA/svn/container/admin/',
 	nameLoad : new function(){},
 	nameData : new Object(),
