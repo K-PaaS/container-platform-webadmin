@@ -23,7 +23,7 @@ management:
 
 cpMaster:
   api:
-    url: https://15.164.214.190:6443
+    url: https://<K8S_IP>:6443
     list:
       services:
         list: "/api/v1/namespaces/{namespace}/services"
