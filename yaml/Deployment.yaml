@@ -17,12 +17,12 @@ spec:
     spec:
       containers:
       - name: webadmin
-        image: $REGISTRY_HARBOR_URL/container-platform/container-platform-webadmin:$BUILD_NUMBER
+        image: $REGISTRY_HARBOR_URL/$PROJECT_NAME/$IMAGE_NAME:$BUILD_NUMBER
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
       imagePullSecrets:
-        - name: paasta-cp-secret
+        - name: cp-secret
       nodeSelector:
         kubernetes.io/hostname: paasta-cp-cluster-2
 ---
