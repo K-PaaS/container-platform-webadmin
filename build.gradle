@@ -1,32 +1,99 @@
 buildscript {
-	repositories {
-		jcenter()
+	ext {
+		springBootVersion = '2.3.3.RELEASE'
+		springBootManagementPlugin = '1.0.10.RELEASE'
 	}
+	repositories {
+		mavenCentral()
+	}
+
 	dependencies {
-		classpath 'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE'
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.4.RELEASE")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "io.spring.gradle:dependency-management-plugin:${springBootManagementPlugin}"
 	}
 }
+
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'eclipse'
 apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-repositories {
-    mavenLocal()
-    maven {
-        url = 'http://repo.maven.apache.org/maven2'
-    }
-}
 
-project.webAppDirName = 'WebContent'  //Default값은 src/main/webapp임.
-
-group = 'paas-ta-container-platform-webadmin'
-version = '1.0'
+group = 'org.paasta.container.platform.web.admin'
 sourceCompatibility = '1.8'
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+ext {
+	springIoPlatformVersion = 'Cairo-SR8'
+	springSecurityTagLibsVersion = '5.3.3.RELEASE'
+	tomcatEmbedJasperVersion = '9.0.36'
+	jstlVersion = '1.2'
+	gsonVersion = '2.8.6'
+	lombokVersion = '1.18.12'
+	swaggerVersion = '2.9.2'
+	sitemeshVersion = '3.0.1'
+	httpclientVersion = '4.5.3'
+	httpcoreVersion = '4.4.6'
+	thymeleafVersion = '2.4.1'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "io.spring.platform:platform-bom:${springIoPlatformVersion}"
+	}
+}
+
 war {
-	archivesBaseName = 'paas-ta-container-platform-webadmin'
-	from 'webapp'
+	archivesBaseName = 'paas-ta-container-platform-webuser'
+}
+
+dependencies {
+	compile("org.springframework.security.oauth:spring-security-oauth2")
+	compile("org.sitemesh:sitemesh:${sitemeshVersion}")
+	compile("org.apache.httpcomponents:httpclient:${httpclientVersion}")
+	compile("org.apache.httpcomponents:httpcore:${httpcoreVersion}")
+
+	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile "org.springframework.boot:spring-boot-starter-web"
+	compile "org.springframework.boot:spring-boot-starter-aop"
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.boot:spring-boot-starter-data-redis"
+	compile "org.springframework.boot:spring-boot-starter-validation"
+	compile "org.springframework.boot:spring-boot-devtools"
+	compile group: 'org.json', name: 'json', version: '20210307'
+	
+	runtime "mysql:mysql-connector-java:8.0.11"
+	compile("io.springfox:springfox-swagger2:${swaggerVersion}") {
+		exclude module: 'swagger-annotations'
+		exclude module: 'swagger-models'
+	}
+	compile("io.swagger:swagger-annotations:1.5.21")
+	compile("io.swagger:swagger-models:1.5.21")
+	compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+	compile "org.springframework.security:spring-security-taglibs:${springSecurityTagLibsVersion}"
+	compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatEmbedJasperVersion}"
+	compile "javax.servlet:jstl:${jstlVersion}"
+	compile "com.google.code.gson:gson:${gsonVersion}"
+	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.5'
+	providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	testCompile "org.springframework.boot:spring-boot-starter-test"
+
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:${thymeleafVersion}"
 }

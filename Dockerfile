@@ -1,8 +1,4 @@
-FROM tomcat:9-jre8-alpine
-WORKDIR /usr/local/tomcat
-COPY server.xml ./conf
-RUN rm -rf ./webapps/*
+FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=build/libs/*.war
-COPY ${JAR_FILE} ./webapps/paas-ta-container-platform-webadmin.war
-
-EXPOSE 8080
+COPY ${JAR_FILE} paas-ta-container-platform-webuser.war
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=dev","/paas-ta-container-platform-webuser.war"]
