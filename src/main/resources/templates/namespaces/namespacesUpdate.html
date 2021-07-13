@@ -125,10 +125,10 @@
                     func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/users/adminCheck`, 'application/json', modifyNamespaces.draw);
 
                     // resource 정보 조회
-                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', modifyNamespaces.resource);
+                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=0`, 'application/json', modifyNamespaces.resource);
 
                     // limit 정보 조회
-                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, 'application/json', modifyNamespaces.limit);
+                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=0`, 'application/json', modifyNamespaces.limit);
                 },
 
                 draw(data) {

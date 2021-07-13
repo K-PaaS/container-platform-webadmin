@@ -179,10 +179,10 @@
                     func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}`, 'application/json', nameDetail.draw);
 
                     // resource 정보 조회
-                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=10`, 'application/json', nameDetail.resource);
+                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/resourceQuotas/template?offset=0&limit=0`, 'application/json', nameDetail.resource);
 
                     // limit 정보 조회
-                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=10`, 'application/json', nameDetail.limit);
+                    func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/popup/limitRanges/template?offset=0&limit=0`, 'application/json', nameDetail.limit);
 
                     // events 정보 조회
                     func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/${sessionStorage.getItem('nameSpace')}/events`, 'application/json', nameDetail.events);
@@ -343,7 +343,7 @@
                         for (var i = 0; i <= data.items.length - 1; i++) {
                             var html = `<td>${data.items[i].isAdmin}</td>
                             <td>${convertUserTypeString(data.items[i].userType)}</td>
-							<td><a href="javascript:;" data-name="${data.items[i].userId}">${data.items[i].userId}</a></td>
+							<td>${data.items[i].userId}</td>
 							<td>${data.items[i].serviceAccountName}</td>
 							<td>${data.items[i].created}</td>`;
 
