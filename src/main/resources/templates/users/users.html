@@ -136,7 +136,6 @@
 
                                 }
 
-                                console.log("html::::::" + html);
 
                                 func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
 
@@ -154,8 +153,6 @@
                         func.appendHtml(document.querySelector('.listTable'), html, 'tbody');
                     };
 
-                    console.log('user.limit *(user.offset + 1) :::::' + user.limit *(user.offset + 1) );
-                    console.log('user.allItemCount:::::'+ user.allItemCount);
 
                     // more 버튼 활성, 비활성
                     if(user.limit * (user.offset + 1) < user.allItemCount){
