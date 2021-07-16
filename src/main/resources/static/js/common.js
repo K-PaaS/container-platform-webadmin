@@ -52,7 +52,6 @@ const func = {
 		for(var i=0; i<=nav.length-1; i++){
 			nav[i].addEventListener('click', (e) => {
 				e.stopPropagation();
-			console.log(e.target);
 
 			for(var j=0; j<=nav.length-1; j++){
 				nav[j].parentNode.classList.toggle('on', false);
@@ -362,7 +361,7 @@ const func = {
 		};
 
 		var request = new XMLHttpRequest();
-        console.log(url);
+
 		setTimeout(function() {
 		request.open(method, url, false);
 		request.setRequestHeader('Content-type', header);
@@ -403,9 +402,7 @@ const func = {
 
 
 		var request = new XMLHttpRequest();
-		console.log(url);
-		console.log(data);
-		console.log(header);
+
 		setTimeout(function() {
 		request.open(method, url, false);
 		request.setRequestHeader('Content-type', header);
