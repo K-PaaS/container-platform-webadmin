@@ -50,8 +50,6 @@
                         <tbody class="adminList">
                         </tbody>
                     </table>
-                    <!-- more btn -->
-                    <a class="more" href="javascript:;">more</a>
                 </div>
                 <!-- btn -->
             </div>
@@ -127,12 +125,6 @@
                         func.appendHtml(document.querySelector('.adminList'), html, 'tbody');
                     }
 
-                    // more 버튼 활성, 비활성
-                    if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
-                        document.querySelector('.more').classList.toggle('on', true);
-                    } else {
-                        document.querySelector('.more').classList.toggle('on', false);
-                    };
 
                     if(document.getElementById('loading')){
                         document.getElementById('wrap').removeChild(document.getElementById('loading'));
@@ -142,15 +134,6 @@
                 },
 
                 event(){
-                    // more 버튼 event
-                    document.querySelector('.more').addEventListener('click', (e) => {
-                        if(document.querySelector('.adminList').querySelectorAll('tr').length < user.allItemCount){
-                        user.offset++;
-
-                        user.load();
-                    };
-                }, false);
-
 
                     var tabBtn = document.querySelectorAll('.tabBtn');
 
