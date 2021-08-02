@@ -1,7 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.3.RELEASE'
-		springBootManagementPlugin = '1.0.10.RELEASE'
+		springBootVersion = '2.3.10.RELEASE'
+		springBootManagementPlugin = '1.0.11.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -39,7 +39,7 @@ repositories {
 ext {
 	springIoPlatformVersion = 'Cairo-SR8'
 	springSecurityTagLibsVersion = '5.3.3.RELEASE'
-	tomcatEmbedJasperVersion = '9.0.36'
+	springSecurityOauthVersion = '2.2.4.RELEASE'
 	jstlVersion = '1.2'
 	gsonVersion = '2.8.6'
 	lombokVersion = '1.18.12'
@@ -50,22 +50,16 @@ ext {
 	thymeleafVersion = '2.4.1'
 }
 
-dependencyManagement {
-	imports {
-		mavenBom "io.spring.platform:platform-bom:${springIoPlatformVersion}"
-	}
-}
 
 war {
-	archivesBaseName = 'paas-ta-container-platform-webuser'
+	archivesBaseName = 'paas-ta-container-platform-webadmin'
 }
 
 dependencies {
-	compile("org.springframework.security.oauth:spring-security-oauth2")
+
 	compile("org.sitemesh:sitemesh:${sitemeshVersion}")
 	compile("org.apache.httpcomponents:httpclient:${httpclientVersion}")
 	compile("org.apache.httpcomponents:httpcore:${httpcoreVersion}")
-
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compile "org.springframework.boot:spring-boot-starter-web"
 	compile "org.springframework.boot:spring-boot-starter-aop"
@@ -74,9 +68,9 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-data-redis"
 	compile "org.springframework.boot:spring-boot-starter-validation"
 	compile "org.springframework.boot:spring-boot-devtools"
+	implementation("org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauthVersion}")
+	compile "org.springframework.security:spring-security-taglibs:${springSecurityTagLibsVersion}"
 	compile group: 'org.json', name: 'json', version: '20210307'
-	
-	runtime "mysql:mysql-connector-java:8.0.11"
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}") {
 		exclude module: 'swagger-annotations'
 		exclude module: 'swagger-models'
@@ -84,8 +78,6 @@ dependencies {
 	compile("io.swagger:swagger-annotations:1.5.21")
 	compile("io.swagger:swagger-models:1.5.21")
 	compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
-	compile "org.springframework.security:spring-security-taglibs:${springSecurityTagLibsVersion}"
-	compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatEmbedJasperVersion}"
 	compile "javax.servlet:jstl:${jstlVersion}"
 	compile "com.google.code.gson:gson:${gsonVersion}"
 	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.5'
