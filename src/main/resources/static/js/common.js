@@ -84,12 +84,16 @@ const func = {
 			};
 		};
 
+		// logout event
+		document.getElementById('logout').addEventListener('click', (e) => {
+			func.alertPopup('Sign Out', '로그아웃 하시겠습니까?<br><p id="logout-sub">SSO(Single Sign On) 통합 로그아웃이 진행됩니다.</p>', true, '확인', func.logout);
+	}, false);
+
 	},
 
 	logout(){
 		sessionStorage.clear();
-
-		document.location.href = `/`;
+		movePage(URI_CP_LOGOUT);
 	},
 
 	setting(data){

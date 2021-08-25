@@ -3,6 +3,7 @@ package org.paasta.container.platform.web.admin.login;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.admin.common.ConstantsUrl;
+import org.paasta.container.platform.web.admin.common.CustomIntercepterService;
 import org.paasta.container.platform.web.admin.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -26,12 +30,14 @@ public class LoginController {
 
     private final LoginService loginService;
     private final ProviderService providerService;
+    private final CustomIntercepterService customIntercepterService;
 
 
     @Autowired
-    public LoginController(LoginService loginService, ProviderService providerService) {
+    public LoginController(LoginService loginService, ProviderService providerService, CustomIntercepterService customIntercepterService) {
         this.loginService = loginService;
         this.providerService = providerService;
+        this.customIntercepterService = customIntercepterService;
     }
 
 
@@ -61,6 +67,25 @@ public class LoginController {
         providerService.getRefreshToken();
         UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
         return usersLoginMetaData;
+    }
+
+    /**
+     * User 로그아웃 (User Logout)
+     *
+     */
+    @ApiOperation(value = "User 로그아웃 (User Logout)", nickname = "logoutUsers")
+    @GetMapping(value = ConstantsUrl.URI_CP_LOGOUT)
+    public void logoutUsers(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            customIntercepterService.logout();
+            request.getSession().invalidate();
+
+            response.sendRedirect(ConstantsUrl.URI_CP_SESSION_OUT);
+            return ;
+        }
+        catch (Exception e) {
+        }
     }
 
 }

@@ -106,9 +106,35 @@ public class CustomIntercepterService {
          return bFlag;
          
     }
-    
-    
-    private Map send(String reqUrl, HttpMethod httpMethod, Object bodyObject) throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
+
+
+
+	/**
+	 * user logout.
+	 */
+	public void logout() {
+		LOGGER.info("#### USER KEYCLOAK LOGOUT");
+		try {
+			DashboardAuthenticationDetails user = ((DashboardAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails());
+			String accessToken = user.getTokenValue();
+			String refreshToken =  user.getAccessToken().getRefreshToken().getValue();
+
+			MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+			parameters.add("token", accessToken);
+			parameters.add("refresh_token", refreshToken);
+			parameters.add("client_id", clientId);
+			parameters.add("client_secret", clientSecret);
+
+			send(logoutUrl, HttpMethod.POST, parameters);
+
+		} catch (Exception e) {
+			LOGGER.info("keycloak logout send :: Response Type: {}", e.getMessage());
+		}
+	}
+
+
+
+	private Map send(String reqUrl, HttpMethod httpMethod, Object bodyObject) throws KeyManagementException, KeyStoreException, NoSuchAlgorithmException {
 
 
     	RestTemplate restTemplate = restTemplate();
@@ -121,7 +147,10 @@ public class CustomIntercepterService {
 
         LOGGER.debug("POST >> Request: {}, {baseUrl} : {}, Content-Type: {}", CommonUtils.loggerReplace(HttpMethod.POST.toString()), CommonUtils.loggerReplace(reqUrl));
         ResponseEntity<Map> resEntity = restTemplate.exchange(reqUrl, httpMethod, reqEntity, Map.class);
-        LOGGER.debug("Map send :: Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+
+		if(resEntity.getBody() != null) {
+			LOGGER.debug("Map send :: Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+		}
 
         return resEntity.getBody();
     }
