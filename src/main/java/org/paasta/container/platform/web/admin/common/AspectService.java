@@ -3,12 +3,8 @@ package org.paasta.container.platform.web.admin.common;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.paasta.container.platform.web.admin.login.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -31,15 +27,6 @@ import java.util.stream.Stream;
 public class AspectService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectService.class);
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private LoginService loginService;
-
-    @Value("${access.cp-token}")
-    private String cpToken;
 
     /**
      * On before log service access

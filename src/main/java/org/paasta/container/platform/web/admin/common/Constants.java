@@ -35,12 +35,17 @@ public class Constants {
     public static final String CHECK_Y = "Y";
     public static final String CHECK_N = "N";
 
+    public static final String CHECK_TRUE = "true";
+    public static final String CHECK_FALSE = "false";
+
     public static final String SELECTED_ADMINISTRATOR = "administrator";
     public static final String SELECTED_USER = "user";
 
 
     public static final String URI_API_REFRESH_TOKEN = "/refreshtoken";
     public static final String ALL_VAL = "ALL";
+
+    public static final String SERVICE_SESSION_REFRESH = "sessionRefresh";
 
     private Constants() {
         throw new IllegalStateException();

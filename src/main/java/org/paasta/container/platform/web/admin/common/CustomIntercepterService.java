@@ -128,7 +128,7 @@ public class CustomIntercepterService {
 			send(logoutUrl, HttpMethod.POST, parameters);
 
 		} catch (Exception e) {
-			LOGGER.info("keycloak logout send :: Response Type: {}", e.getMessage());
+			LOGGER.info("keycloak logout send :: Response Type: {}", CommonUtils.loggerReplace(e.getMessage()));
 		}
 	}
 
