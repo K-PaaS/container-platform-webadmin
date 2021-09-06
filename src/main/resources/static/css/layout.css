@@ -493,15 +493,6 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 	border-left: 1px solid #ebebeb !important;
 }
 
-.userActiveCheckTab {
-	margin-top: -20px;
-	margin-bottom: -10px !important;
-}
-
-.userActiveCheckTab li a{
-	font-size: 15px !important;
-}
-
 .customBorderTop{
 	border-top: none !important;
 }
@@ -511,40 +502,22 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 }
 
 .tablink {
-	background-color: #fff;
 	color: #afb5bb;
-	float: left;
-	border-top :1px solid #ebebeb;
-	border-left :1px solid #ebebeb;
-	border-right: 1px solid #ebebeb;
-	outline: none;
 	cursor: pointer;
-	padding: 11px 15px;
-	font-size: 15px;
-	width: 171px;
+	padding: 5px 20px;
+	line-height: 28px;
+	background: #F5F5F1;
+	border-radius: 10px;
+	margin-right: 3px;
 }
 
-.tablink-on,  .tablink:hover {
+.tablink-on, .tablink:hover {
 	color: #47494d;
 	font-weight: bold;
 }
 
-
 #tablinkParent{
-	margin-bottom: -2px;
-}
-
-.userListTableDiv {
-	border : none !important;
-}
-
-.userListTableDiv th {
-	border-top:2px solid #333333;
-}
-
-.tablink-on{
-	border: 2px solid #333333;
-	border-bottom: none;
+	margin-bottom: 10px;
 }
 
 #logout-sub{
