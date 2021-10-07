@@ -15,15 +15,6 @@ import org.springframework.stereotype.Service;
 @Data
 public class PropertyService {
 
-    @Value("${cp.cluster.url}")
-    private String cpUrl;
-
-    @Value("${cp.cluster.name}")
-    private String cpClusterName;
-
-    @Value("${cp.namespace.default}")
-    private String cpDefaultNamespace;
-
     @Value("${cpApi.url}")
     private String cpApiUrl;
 
