@@ -54,17 +54,16 @@ public class CustomErrorController implements ErrorController {
     }
 
 
-
     /**
-     * HTTP Code 500 Error 페이지 이동(Go to the http code 500 error 페이지)
+     * HTTP Code 400 Error 페이지 이동(Go to the http code 400 error 페이지)
      *
      * @return the view
      */
-    @ApiOperation(value = "HTTP Code 500 Error 페이지 이동(Go to the http code 500 error 페이지)", nickname = "handleError500")
+    @ApiOperation(value = "HTTP Code 400 Error 페이지 이동(Go to the http code 400 error 페이지)", nickname = "handleError400")
     @NoAuth
-    @GetMapping("/error/500")
-    public String handleError500() {
-        return BASE_URL + "500";
+    @GetMapping("/error/400")
+    public String handleError400() {
+        return BASE_URL + "400";
     }
 
 
@@ -79,6 +78,46 @@ public class CustomErrorController implements ErrorController {
     public String handleError401() {
         return BASE_URL + "401";
     }
+
+
+    /**
+     * HTTP Code 403 Error 페이지 이동(Go to the http code 403 error 페이지)
+     *
+     * @return the view
+     */
+    @ApiOperation(value = "HTTP Code 403 Error 페이지 이동(Go to the http code 403 error 페이지)", nickname = "handleError403")
+    @NoAuth
+    @GetMapping("/error/403")
+    public String handleError403() {
+        return BASE_URL + "403";
+    }
+
+
+    /**
+     * HTTP Code 404 Error 페이지 이동(Go to the http code 404 error 페이지)
+     *
+     * @return the view
+     */
+    @ApiOperation(value = "HTTP Code 404 Error 페이지 이동(Go to the http code 404 error 페이지)", nickname = "handleError404")
+    @NoAuth
+    @GetMapping("/error/404")
+    public String handleError404() {
+        return BASE_URL + "404";
+    }
+
+
+    /**
+     * HTTP Code 500 Error 페이지 이동(Go to the http code 500 error 페이지)
+     *
+     * @return the view
+     */
+    @ApiOperation(value = "HTTP Code 500 Error 페이지 이동(Go to the http code 500 error 페이지)", nickname = "handleError500")
+    @NoAuth
+    @GetMapping("/error/500")
+    public String handleError500() {
+        return BASE_URL + "500";
+    }
+
 
 
 }

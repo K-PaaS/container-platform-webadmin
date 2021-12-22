@@ -318,6 +318,12 @@ const func = {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200){
 					if(JSON.parse(request.responseText).httpStatusCode != 401){
+
+						if(JSON.parse(request.responseText).accessToken == '-') {
+							func.logout();
+							return false;
+						}
+
 						sessionStorage.setItem('user' , JSON.parse(request.responseText).userId);
 						sessionStorage.setItem('cluster' , JSON.parse(request.responseText).clusterName);
 						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).accessToken);
@@ -380,6 +386,10 @@ const func = {
 						func.refreshToken();
 						return func.loadData(method, url, header, callbackFunction, list);
 					}
+					else if(JSON.parse(request.responseText).resultMessage == 'TOKEN_FAILED') {
+						func.loginCheck();
+						return func.loadData(method, url, header, callbackFunction, list);
+					}
 					else {
 						callbackFunction(JSON.parse(request.responseText), list);
 					}
@@ -420,6 +430,10 @@ const func = {
 					if(JSON.parse(request.responseText).resultMessage == 'TOKEN_EXPIRED') {
 						func.refreshToken();
 						return func.saveData(method, url, data, bull, header, callFunc);
+					}
+					else if(JSON.parse(request.responseText).resultMessage == 'TOKEN_FAILED') {
+						func.loginCheck();
+						return func.loadData(method, url, header, callbackFunction, list);
 					}
                     else {
 						document.getElementById('wrap').removeChild(document.getElementById('loading'));
