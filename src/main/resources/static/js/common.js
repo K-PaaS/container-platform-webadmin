@@ -9,6 +9,9 @@ const func = {
 
 	init(depth1, depth2){
 
+		// Locale Language 조회
+		func.getLocaleLang();
+
 		// Namespaces 목록조회
 		func.loadData('GET', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/selectbox`, 'application/json', func.namespaces);
 
@@ -360,6 +363,41 @@ const func = {
 
 		request.send();
 	},
+
+	// Locale Language 조회 ////////////////////////////////////////////////////////////////
+	getLocaleLang(){
+		var request = new XMLHttpRequest();
+		request.open('GET', URL_API_LOCALE_LANGUAGE, false);
+		request.setRequestHeader('Content-type', 'application/json');
+
+		request.onreadystatechange = () => {
+			if (request.readyState === XMLHttpRequest.DONE){
+				if(request.status === 200){
+					setSelectValue('u_locale_lang',request.responseText);
+				} else {
+					setSelectValue('u_locale_lang',LANG_EN);
+				};
+			};
+		};
+		request.send();
+	},
+
+	// Locale Language 설정 ////////////////////////////////////////////////////////////////
+	setLocaleLang(reqUrl){
+		var request = new XMLHttpRequest();
+		request.open('PUT', reqUrl, false);
+		request.setRequestHeader('Content-type', 'application/json');
+
+		request.onreadystatechange = () => {
+			if (request.readyState === XMLHttpRequest.DONE){
+				if(request.status === 200){
+					reloadPage();
+				}
+			};
+		};
+		request.send();
+	},
+
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	// 데이터 로드 - loadData(method, url, callbackFunction)

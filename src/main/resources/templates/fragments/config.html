@@ -48,6 +48,10 @@
      var URI_CP_LOGOUT = [[${T(org.paasta.container.platform.web.admin.common.ConstantsUrl).URI_CP_LOGOUT}]];;
 
 
+     var URL_API_LOCALE_LANGUAGE = [[${T(org.paasta.container.platform.web.admin.common.ConstantsUrl).URL_API_LOCALE_LANGUAGE}]];;
+     var URL_API_CHANGE_LOCALE_PARAM = [[${T(org.paasta.container.platform.web.admin.common.ConstantsUrl).URL_API_CHANGE_LOCALE_PARAM}]];;
+     var LANG_KO = [[${T(org.paasta.container.platform.web.admin.common.ConstantsUrl).LANG_KO}]];;
+     var LANG_EN = [[${T(org.paasta.container.platform.web.admin.common.ConstantsUrl).LANG_EN}]];;
 
      // VALUE
      var NAMESPACE_ALL_VALUE ='ALL';
@@ -75,7 +79,6 @@ function historyBack() {
 
 }
 
-
 function convertUserTypeString(userType) {
     if(userType == AUTH_CLUSTER_ADMIN) {
         return AUTH_CLUSTER_ADMIN_CG;
@@ -88,6 +91,19 @@ function convertUserTypeString(userType) {
     }
 }
 
+function changeLocaleLanguage() {
+    var u_locale_lang = document.getElementById("u_locale_lang").value;
+    var reqUrl =  URL_API_LOCALE_LANGUAGE+"?"+ URL_API_CHANGE_LOCALE_PARAM + "=" + u_locale_lang;
+    func.setLocaleLang(reqUrl);
+}
+
+function setSelectValue(id, val) {
+    document.getElementById(id).value = val;
+}
+
+function reloadPage() {
+    location.reload();
+}
 </script>
 </span>
 

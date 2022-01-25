@@ -8,12 +8,13 @@ import org.paasta.container.platform.web.admin.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 
 /**
@@ -28,10 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
+
+    @Autowired
+    LocaleResolver localeResolver;
+
     private final LoginService loginService;
     private final ProviderService providerService;
     private final CustomIntercepterService customIntercepterService;
-
 
     @Autowired
     public LoginController(LoginService loginService, ProviderService providerService, CustomIntercepterService customIntercepterService) {
@@ -71,7 +75,6 @@ public class LoginController {
 
     /**
      * User 로그아웃 (User Logout)
-     *
      */
     @ApiOperation(value = "User 로그아웃 (User Logout)", nickname = "logoutUsers")
     @GetMapping(value = ConstantsUrl.URI_CP_LOGOUT)
@@ -82,10 +85,44 @@ public class LoginController {
             request.getSession().invalidate();
 
             response.sendRedirect(ConstantsUrl.URI_CP_SESSION_OUT);
-            return ;
+            return;
+        } catch (Exception e) {
         }
-        catch (Exception e) {
+    }
+
+
+    /**
+     * Locale 언어 변경 (Change Locale Language)
+     */
+    @ApiOperation(value = "Locale 언어 변경 (Change Locale Language)", nickname = "changeLocaleLang")
+    @PutMapping(value = ConstantsUrl.URL_API_LOCALE_LANGUAGE)
+    public void changeLocaleLang(@RequestParam(required = false, name = ConstantsUrl.URL_API_CHANGE_LOCALE_PARAM, defaultValue = ConstantsUrl.LANG_EN) String language,
+                                 HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Locale locale = new Locale(language);
+            localeResolver.setLocale(request, response, locale);
+        } catch (Exception e) {
+            LOGGER.info("EXCEPTION OCCURRED IN LOCALE LANGUAGE CHANGE..");
         }
+    }
+
+
+    /**
+     * Locale 언어 조회 (Get Locale Language)
+     */
+    @ApiOperation(value = "Locale 언어 조회 (Get Locale Language)", nickname = "getLocaleLang")
+    @GetMapping(value = ConstantsUrl.URL_API_LOCALE_LANGUAGE)
+    public String getLocaleLang() {
+        try {
+            Locale locale = LocaleContextHolder.getLocale();
+            if (locale.toString().equalsIgnoreCase(ConstantsUrl.LANG_EN)) {
+                return ConstantsUrl.LANG_EN;
+            }
+        } catch (Exception e) {
+            return ConstantsUrl.LANG_EN;
+        }
+
+        return ConstantsUrl.LANG_KO;
     }
 
 }

@@ -45,9 +45,13 @@ public class ConstantsUrl {
     public static final String URI_CP_LOGOUT ="/logout";
 
 
-
     //CP-API REQUEST URI
     public static final String URL_API_LOGIN = "/login?isAdmin=true";
     public static final String URL_API_SIGNUP = "/signUp?isAdmin=true&param=";
 
+    //LOCALE LANGUAGE
+    public static final String URL_API_LOCALE_LANGUAGE = "/localeLanguage";
+    public static final String URL_API_CHANGE_LOCALE_PARAM = "language";
+    public static final String LANG_KO = "ko";
+    public static final String LANG_EN = "en";
 }
