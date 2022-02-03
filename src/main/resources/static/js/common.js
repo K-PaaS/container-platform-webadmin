@@ -373,8 +373,10 @@ const func = {
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200){
+					CURRENT_LOCALE_LANGUAGE = request.responseText;
 					setSelectValue('u_locale_lang',request.responseText);
 				} else {
+					CURRENT_LOCALE_LANGUAGE = LANG_EN;
 					setSelectValue('u_locale_lang',LANG_EN);
 				};
 			};
@@ -414,7 +416,8 @@ const func = {
 		request.open(method, url, false);
 		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
-
+		request.setRequestHeader('uLang', CURRENT_LOCALE_LANGUAGE);
+		
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){
 				if(request.status === 200 && request.responseText != ''){
@@ -459,6 +462,7 @@ const func = {
 		request.open(method, url, false);
 		request.setRequestHeader('Content-type', header);
 		request.setRequestHeader('Authorization', sessionStorage.getItem('token'));
+		request.setRequestHeader('uLang', CURRENT_LOCALE_LANGUAGE);
 
 		request.onreadystatechange = () => {
 			if (request.readyState === XMLHttpRequest.DONE){

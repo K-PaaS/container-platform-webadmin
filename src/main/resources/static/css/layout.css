@@ -104,7 +104,7 @@ header > div > div h3 ul li a.on {background-color:#ff7a0f; color:#ffffff;}
 
 /*member-menu*/
 header > div > div > div {float:right; height:40px; padding-top:9px;}
-header > div > div > div > a {float:left; color:rgba(255, 255, 255, 0.568); padding-left:37px; background:url("../img/logout_icon.png") no-repeat 0 0; background-position:left 1px; transition:.3s; line-height:30px;}
+header > div > div > div > a {float:left; color:rgba(255, 255, 255, 0.568); padding-left:37px; background:url("../img/logout_icon.png") no-repeat 0 0; background-position:left 3px; transition:.3s; line-height:30px;}
 header > div > div > div > a:hover {color:#fff;}
 header > div > div > div > div {float:left; margin-left:26px;}
 header > div > div > div > div > a {text-indent:-9999px; display:inline-block; width:25px; height:30px; background:url("../img/set_icon.png") no-repeat 0 0;}
@@ -524,3 +524,9 @@ aside nav > ul > li.plus.on:before {content:""; background-color:#41454b;}
 	font-size: 14px !important;
 	color: #707477 !important;
 }
+
+#localeLangDiv{margin: -3px 30px 0 0 !important;}
+#localeLangDiv fieldset {position:relative; display:inline-block; margin-left:1px; width:100%;}
+#localeLangDiv fieldset:after {content:""; width:10px; height:10px; border-bottom:2px solid #666666; border-left:2px solid #666666; transform:rotate(-45deg); position:absolute; top:13px; right:17px;cursor:pointer;}
+#localeLangDiv fieldset select {height: 40px; line-height:40px; width:100%; padding-left:18px; font-size:18px; color:#47494d; cursor:pointer;}
+#u_locale_lang{width : 115px;height: 40px;}
