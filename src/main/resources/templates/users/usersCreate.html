@@ -14,7 +14,7 @@
             </article>
             <article class="base">
                 <div class="creat">
-                    <h3>Users <span>생성</span></h3>
+                    <h3>Users <span th:text="#{M0024}"></span></h3>
                     <div>
                         <dl>
                             <dt><label for="userId">User ID</label></dt>
@@ -43,7 +43,7 @@
                         </dl>
                         <div class="check-quotas">
                             <p>Namespaces &frasl; Roles</p>
-                            <a href="javascript:;" class="resAdd">선택</a>
+                            <a href="javascript:;" class="resAdd" th:text="#{M0027}"></a>
                         </div>
                         <div class="table_style01 limitTable">
                             <table>
@@ -71,9 +71,9 @@
                 </div>
                 <!-- btn -->
                 <div class="btn02">
-                    <button type="submit" id="save">저장</button>
+                    <button type="submit" id="save" th:text="#{M0030}"></button>
                     <div>
-                        <a onclick="movePage(URI_CP_MANAGEMENTS_USERS)">이전</a>
+                        <a onclick="movePage(URI_CP_MANAGEMENTS_USERS)" th:text="#{M0028}"></a>
                     </div>
                 </div>
             </article>
@@ -82,10 +82,10 @@
 <div layout:fragment="modal">
     <div class="modal-wrap" style="display: none;">
         <div class="modal">
-            <h5>저장확인</h5>
-            <p>리소스를 저장하시겠습니까?</p>
-            <button class="confirm" type="submit">저장</button>
-            <a class="close" href="javascript:;">닫기</a>
+            <h5 th:text="#{M0035}"></h5>
+            <p th:text="#{M0020}"></p>
+            <button class="confirm" type="submit" th:text="#{M0030}"></button>
+            <a class="close" href="javascript:;" th:text="#{M0023}"></a>
         </div>
     </div>
 </div>
@@ -176,8 +176,8 @@
                     html +=	`			</tbody>
 									</table>
 								</div>`;
-                    html += `<a class='confirm' href='javascript:;'>선택 완료</a>`;
-                    html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
+                    html += `<a class='confirm' href='javascript:;' th:text="#{M0033}"></a>`;
+                    html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
 
                     func.appendHtml(document.getElementById('wrap'), html, 'div');
 
@@ -218,7 +218,7 @@
                     document.getElementById('wrap').removeChild(document.getElementById('modal'));
                 }, false);
                 } else {
-                    func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
+                    func.alertPopup('ERROR', MSG_NO_LIST, false, MSG_CLOSE, true);
                 };
             },
 
@@ -232,7 +232,7 @@
                         if(cnt > 1){
                             obj.checked = false;
 
-                            window.alert('같은 Namespaces는 선택하실 수 없습니다.');
+                            window.alert(MSG_CANNOT_SELECT_SAME_NAMESPACE);
                         };
                     };
                 };

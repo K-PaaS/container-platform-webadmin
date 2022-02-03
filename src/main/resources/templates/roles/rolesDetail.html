@@ -77,10 +77,10 @@
             </div>
             <!-- btn -->
             <div class="btn02">
-                <button type="submit" id="delete">삭제</button>
+                <button type="submit" id="delete" th:text="#{M0026}"></button>
                 <div>
-                        <a href="javascript:;" id="modify" data-role="roles">수정</a>
-                        <a onclick="movePage(URI_CP_MANAGEMENTS_ROLES)">이전</a>
+                        <a href="javascript:;" id="modify" data-role="roles" th:text="#{M0025}"></a>
+                        <a onclick="movePage(URI_CP_MANAGEMENTS_ROLES)" th:text="#{M0028}"></a>
                     </div>
             </div>
         </article>
@@ -163,7 +163,7 @@
 
             event(){
                 document.getElementById('delete').addEventListener('click', (e) => {
-                    func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', roleDetail.delete);
+                    func.alertPopup('DELETE', MSG_CHECK_TO_DELETE, true, MSG_CONFIRM, roleDetail.delete);
             }, false);
 
                 document.getElementById('modify').addEventListener('click', (e) => {

@@ -14,7 +14,7 @@
         </article>
         <article class="base">
             <div class="creat">
-                <h3>Namespaces <span>수정</span></h3>
+                <h3>Namespaces <span th:text="#{M0025}"></span></h3>
                 <div>
                     <dl>
                         <dt><label for="name">Name</label></dt>
@@ -33,7 +33,7 @@
                     </dl>
                     <div class="check-quotas">
                         <p>Resource Quotas</p>
-                        <a href="javascript:;" class="resAdd">선택</a>
+                        <a href="javascript:;" class="resAdd" th:text="#{M0027}"></a>
                     </div>
                     <div class="table_style01 limitTable ">
                         <table>
@@ -60,7 +60,7 @@
                     </div>
                     <div class="check-quotas">
                         <p>Limit Ranges</p>
-                        <a href="javascript:;" class="limAdd">선택</a>
+                        <a href="javascript:;" class="limAdd" th:text="#{M0027}"></a>
                     </div>
                     <div class="table_style01 limitTable">
                         <table>
@@ -103,9 +103,9 @@
             </div>
             <!-- btn -->
             <div class="btn02">
-                <button onclick="movePage(URI_CP_CLUSTERS_NAMESPACES + URI_CP_DETAILS);">이전</button>
+                <button onclick="movePage(URI_CP_CLUSTERS_NAMESPACES + URI_CP_DETAILS);" th:text="#{M0028}"></button>
                 <div>
-                    <button type="submit" id="save">저장</button>
+                    <button type="submit" id="save" th:text="#{M0030}"></button>
                 </div>
             </div>
         </article>
@@ -137,7 +137,7 @@
 
                     var select = '';
 
-                    func.appendHtml(document.getElementById('user'), `<option value="" disabled="disabled">지정된 Namespace 관리자가 없습니다.</option>`, 'select');
+                    func.appendHtml(document.getElementById('user'), `<option value="" disabled="disabled">`+ MSG_NO_NAMESPACE_ADMINISTRATOR + `</option>`, 'select');
 
                     for (var i = 0; i <= data.items.length - 1; i++) {
 
@@ -172,7 +172,7 @@
                     }, false);
 
                     document.getElementById('save').addEventListener('click', (e) => {
-                        func.alertPopup('MODIFY', '저장하시겠습니까?', true, '확인', modifyNamespaces.modify);
+                        func.alertPopup('MODIFY', MSG_CHECK_TO_SAVE, true, MSG_CONFIRM , modifyNamespaces.modify);
                     }, false);
                 },
 
@@ -308,8 +308,8 @@
                         html += `			</tbody>
 									</table>
 								</div>`;
-                        html += `<a class='confirm' href='javascript:;'>선택 완료</a>`;
-                        html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
+                        html += `<a class='confirm' href='javascript:;' th:text="#{M0033}"></a>`;
+                        html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
 
                         func.appendHtml(document.getElementById('wrap'), html, 'div');
 
@@ -345,7 +345,7 @@
                             document.getElementById('wrap').removeChild(document.getElementById('modal'));
                         }, false);
                     } else {
-                        func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
+                        func.alertPopup('ERROR', MSG_NO_LIST , false, MSG_CLOSE, true);
                     }
                     ;
                 },
@@ -409,8 +409,8 @@
                         ;
 
                         html += `</tbody></table></div>`;
-                        html += `<a class='confirm' href='javascript:;'>선택 완료</a>`;
-                        html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
+                        html += `<a class='confirm' href='javascript:;' th:text="#{M0033}"></a>`;
+                        html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
 
                         func.appendHtml(document.getElementById('wrap'), html, 'div');
 
@@ -456,7 +456,7 @@
                             document.getElementById('wrap').removeChild(document.getElementById('modal'));
                         }, false);
                     } else {
-                        func.alertPopup('ERROR', '리스트가 없습니다.', false, '닫기', true);
+                        func.alertPopup('ERROR', MSG_NO_LIST, false, MSG_CLOSE, true);
                     }
                     ;
                 },

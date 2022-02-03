@@ -139,10 +139,10 @@
                 </div>
             <!-- btn -->
             <div class="btn02">
-                    <button type="submit" id="delete">삭제</button>
+                    <button type="submit" id="delete" th:text="#{M0026}"></button>
                     <div>
-                        <a href="javascript:;" id="modify" data-role="pods">수정</a>
-                        <a onclick="movePage(URI_CP_WORKLOADS_PODS)">이전</a>
+                        <a href="javascript:;" id="modify" data-role="pods" th:text="#{M0025}"></a>
+                        <a onclick="movePage(URI_CP_WORKLOADS_PODS)" th:text="#{M0028}"></a>
                     </div>
                 </div>
         </article>
@@ -151,10 +151,10 @@
 <div layout:fragment="modal">
     <div class="modal-wrap" style="display:none;">
         <div class="modal">
-            <h5>삭제확인</h5>
-            <p>리소스를 삭제하시겠습니까?</p>
-            <button class="confirm" type="submit">삭제</button>
-            <a class="close" href="javascript:;">닫기</a>
+            <h5 th:text="#{M0034}"></h5>
+            <p th:text="#{M0018}"></p>
+            <button class="confirm" type="submit" th:text="#{M0026}"></button>
+            <a class="close" href="javascript:;" th:text="#{M0023}"></a>
         </div>
     </div>
 </div>
@@ -261,7 +261,7 @@
 
             event(){
                 document.getElementById('delete').addEventListener('click', (e) => {
-                    func.alertPopup('DELETE', '삭제하시겠습니까?', true, '확인', podsDetail.delete);
+                    func.alertPopup('DELETE', MSG_CHECK_TO_DELETE, true, MSG_CONFIRM, podsDetail.delete);
             }, false);
 
                 document.getElementById('modify').addEventListener('click', (e) => {

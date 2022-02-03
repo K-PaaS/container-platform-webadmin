@@ -14,7 +14,7 @@
         </article>
         <article class="base">
             <div class="creat">
-                <h3>Namespaces <span>생성</span></h3>
+                <h3>Namespaces <span th:text="#{M0024}"></span></h3>
                 <div>
                     <dl>
                         <dt><label for="name">Name</label></dt>
@@ -25,7 +25,7 @@
                     <dl>
                         <dt><label for="user">Admin User</label></dt>
                         <dd class="selectbox">
-                            <a href="javascript:;">선택</a>
+                            <a href="javascript:;" th:text="#{M0027}"></a>
                             <ul>
                                 <li><a href="javascript:;">Test-User</a></li>
                                 <li><a href="javascript:;">Test-User</a></li>
@@ -62,7 +62,7 @@
                     <dl>
                         <dt><label for="limit">Limit Ranges</label></dt>
                         <dd class="selectbox">
-                            <a href="javascript:;">선택</a>
+                            <a href="javascript:;" th:text="#{M0027}"></a>
                             <ul>
                                 <li><a href="javascript:;">Test-User</a></li>
                                 <li><a href="javascript:;">Test-User</a></li>
@@ -76,10 +76,10 @@
             </div>
             <!-- btn -->
             <div class="btn02">
-                <button>삭제</button>
+                <button th:text="#{M0026}"></button>
                 <div>
-                    <a href="javascript:;">이전</a>
-                    <button type="submit">저장</button>
+                    <a href="javascript:;" th:text="#{M0028}"></a>
+                    <button type="submit" th:text="#{M0030}"></button>
                 </div>
             </div>
         </article>
@@ -89,10 +89,10 @@
 <div layout:fragment="modal">
     <div class="modal-wrap">
         <div class="modal">
-            <h5>저장확인</h5>
-            <p>리소스를 저장하시겠습니까?</p>
-            <a class="confirm" href="javascript:;">저장</a>
-            <a class="close" href="javascript:;">닫기</a>
+            <h5 th:text="#{M0035}"></h5>
+            <p th:text="#{M0020}"></p>
+            <a class="confirm" href="javascript:;" th:text="#{M0030}"></a>
+            <a class="close" href="javascript:;" th:text="#{M0023}"></a>
         </div>
     </div>
 </div>

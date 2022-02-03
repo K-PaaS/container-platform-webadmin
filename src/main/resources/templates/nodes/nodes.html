@@ -13,8 +13,8 @@
 			</ul>
 			<!-- Click event class="on" -->
 			<fieldset>
-				<input type="text" name="keyword" id="searchText" autocomplete="off" placeholder="검색어를 입력해주세요" />
-				<button type="submit" id="search">검색</button>
+				<input type="text" name="keyword" id="searchText" autocomplete="off" th:placeholder="#{M0017}" />
+				<button type="submit" id="search" th:text="#{M0031}"></button>
 			</fieldset>
 		</article>
 		<article class="base">
@@ -89,7 +89,6 @@
 
 				draw(data){
 					
-					// 초기 게시물 갯수 저장
 					if(node.offset == 0) node.allItemCount = data.itemMetaData.allItemCount;
 
 					if(data.httpStatusCode == 200){

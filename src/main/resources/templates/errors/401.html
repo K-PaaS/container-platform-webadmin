@@ -1,12 +1,13 @@
 <!--
-  Session Out Page
+  401 error page
 
   @author kjhoon
   @version 1.0
   @since 2021.06.15
 -->
 
-<html>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="/css/empty_layout.css" rel="stylesheet" type="text/css"/>
     <title>PaaS-TA Container Platform Admin Portal</title>
@@ -25,10 +26,10 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">클러스터 관리자 인증에 실패했습니다.</span>
+                    <span style="" th:text="#{M0002}"></span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/'">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='/'" th:text="#{M0008}"></button>
                     </div>
                 </div>
             </div>

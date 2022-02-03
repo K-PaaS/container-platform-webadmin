@@ -89,7 +89,7 @@ const func = {
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
-			func.alertPopup('Sign Out', '로그아웃 하시겠습니까?<br><p id="logout-sub">SSO(Single Sign On) 통합 로그아웃이 진행됩니다.</p>', true, '확인', func.logout);
+			func.alertPopup('Sign Out', MSG_WANT_TO_SIGN_OUT + '<br><p id="logout-sub">' + MSG_INTEGRATED_SIGN_OUT_TAKES_PLACE + '</p>', true, MSG_CONFIRM, func.logout);
 	}, false);
 
 	},
@@ -144,12 +144,12 @@ const func = {
 							</div>
 						</fieldset>
 						<div class="btn02">
-							<button class="close">취소</button>
+							<button class="close" th:text="#{M0029}"></button>
 							<div>
-								<a href="javascript:;" id="userUpdate">업데이트</a>
+								<a href="javascript:;" id="userUpdate" th:text="#{M0032}"></a>
 							</div>
 						</div>
-						<a href="javascript:;" class="close">닫기</a>
+						<a href="javascript:;" class="close" th:text="#{M0023}"></a>
 					</div>`;
 
 		func.appendHtml(document.getElementById('setInfo'), html, 'div');
@@ -227,7 +227,7 @@ const func = {
 					</dd>
 				</dl>
 				<a class="confirm" href="javascript:;">${name}</a>
-				<a class="close" href="javascript:;">닫기</a>
+				<a class="close" href="javascript:;" th:text="#{M0023}"></a>
 			</div>
 		</div>`;
 
@@ -279,8 +279,8 @@ const func = {
 						<textarea>${data.sourceTypeYaml}</textarea>
 					</dd>
 				</dl>
-				<a class="confirm" href="javascript:;">저장</a>
-				<a class="close" href="javascript:;">닫기</a>
+				<a class="confirm" href="javascript:;" th:text="#{M0030}"></a>
+				<a class="close" href="javascript:;" th:text="#{M0023}"></a>
 			</div>
 		</div>`;
 
@@ -332,10 +332,10 @@ const func = {
 						sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).accessToken);
 
 					} else {
-						func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기', func.refresh);
+						func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, MSG_CLOSE, func.refresh);
 					}
 				} else {
-					func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기');
+					func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, MSG_CLOSE);
 				};
 			};
 		};
@@ -356,7 +356,7 @@ const func = {
 					// 토큰 업데이트
 					sessionStorage.setItem('token' , 'Bearer ' + JSON.parse(request.responseText).accessToken);
 				} else {
-					func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '닫기');
+					func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, MSG_CLOSE);
 				};
 			};
 		};
@@ -442,7 +442,7 @@ const func = {
 	},
 
 	/////////////////////////////////////////////////////////////////////////////////////
-	// 데이터 저장 - saveData(method, url, data, bull, callFunc)
+	// 데이터 SAVE - saveData(method, url, data, bull, callFunc)
 	// (전송타입, url, 데이터, 분기, 콜백함수)
 	/////////////////////////////////////////////////////////////////////////////////////
 	saveData(method, url, data, bull, header, callFunc){
@@ -478,20 +478,20 @@ const func = {
 
 						if (method == 'POST') {
 							if (JSON.parse(request.responseText).httpStatusCode == 200) {
-								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, callFunc);
 							} else {
-								func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, '확인', 'closed');
+								func.alertPopup('ERROR', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, 'closed');
 							}
 						} else if (method == 'PATCH') {
-							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, callFunc);
 						} else if (method == 'PUT') {
 							if (JSON.parse(request.responseText).httpStatusCode != 400) {
-								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, callFunc);
 							} else {
-								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', func.refresh);
+								func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, func.refresh);
 							}
 						} else if (method == 'DELETE') {
-							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, '확인', callFunc);
+							func.alertPopup('SUCCESS', JSON.parse(request.responseText).detailMessage, true, MSG_CONFIRM, callFunc);
 						};
 					}
 				} else {
@@ -518,7 +518,7 @@ const func = {
 		if(bull){
 			html += `<a class='confirm' href='javascript:;'>${name}</a>`;
 		};
-		html += `<a class='close' href='javascript:;'>닫기</a></div></div>`;
+		html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
 
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
 

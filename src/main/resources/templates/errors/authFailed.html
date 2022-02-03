@@ -6,7 +6,8 @@
   @since 2021.06.15
 -->
 
-<html>
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="/css/empty_layout.css" rel="stylesheet" type="text/css"/>
     <title>PaaS-TA Container Platform Admin Portal</title>
@@ -25,7 +26,7 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">클러스터 관리자 계정 인증에 실패하였습니다.</span>
+                    <span style="" th:text="#{M0006}"></span>
                     <hr/>
                 </div>
             </div>
