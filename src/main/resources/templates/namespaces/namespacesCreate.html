@@ -220,8 +220,8 @@
                         html += `			</tbody>
 									</table>
 								</div>`;
-                        html += `<a class='confirm' href='javascript:;' th:text="#{M0033}"></a>`;
-                        html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
+                        html += `<a class='confirm' href='javascript:;'>`+ MSG_SELECTION_COMPLETE+ `</a>`;
+                        html += `<a class='close' href='javascript:;'>` + MSG_CLOSE + `</a></div></div>`;
 
                         func.appendHtml(document.getElementById('wrap'), html, 'div');
 
@@ -321,8 +321,8 @@
                         ;
 
                         html += `</tbody></table></div>`;
-                        html += `<a class='confirm' href='javascript:;' th:text="#{M0033}"></a>`;
-                        html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
+                        html += `<a class='confirm' href='javascript:;'>`+ MSG_SELECTION_COMPLETE+ `</a>`;
+                        html += `<a class='close' href='javascript:;'>` + MSG_CLOSE + `</a></div></div>`;
 
                         func.appendHtml(document.getElementById('wrap'), html, 'div');
 

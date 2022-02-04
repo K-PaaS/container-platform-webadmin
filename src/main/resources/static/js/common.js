@@ -89,7 +89,7 @@ const func = {
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
-			func.alertPopup('Sign Out', MSG_WANT_TO_SIGN_OUT + '<br><p id="logout-sub">' + MSG_INTEGRATED_SIGN_OUT_TAKES_PLACE + '</p>', true, MSG_CONFIRM, func.logout);
+			func.alertPopup(MSG_SIGN_OUT, MSG_WANT_TO_SIGN_OUT + '<br><p id="logout-sub">' + MSG_INTEGRATED_SIGN_OUT_TAKES_PLACE + '</p>', true, MSG_CONFIRM, func.logout);
 	}, false);
 
 	},
@@ -97,80 +97,6 @@ const func = {
 	logout(){
 		sessionStorage.clear();
 		movePage(URI_CP_LOGOUT);
-	},
-
-	setting(data){
-
-		var html = `<div id="myInfo">
-						<h4>My Info</h4>
-						<fieldset>
-							<div>
-								<h5>Kubernetes Cluster</h5>
-								<dl>
-									<dt>Name</dt>
-									<dd><input type="text" id="name" value="${data.clusterName}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>API URL</dt>
-									<dd><input type="text" id="url" value="${data.clusterApiUrl}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>Token</dt>
-									<dd><input type="text" id="token" value="${data.clusterToken}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt class="bold">Namespace</dt>
-									<dd><input type="text" id="space" value="${data.cpNamespace}" disabled /></dd>
-								</dl>
-							</div>
-							<div>
-								<h5>User</h5>
-								<dl>
-									<dt>User ID</dt>
-									<dd><input type="text" id="id" value="${data.userId}" disabled /></dd>
-								</dl>
-								<dl>
-									<dt>Password</dt>
-									<dd><input type="password" class="ps" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작" /></dd>
-								</dl>
-								<dl>
-									<dt>Password Confirm</dt>
-									<dd><input type="password" class="psc" placeholder="4~40자, 최소 하나 이상의 영문, 숫자, 특수 문자 혼합, 영문 시작" /></dd>
-								</dl>
-								<dl>
-									<dt>E-mail</dt>
-									<dd><input type="text" class="mail" value="${data.email}" /></dd>
-								</dl>
-							</div>
-						</fieldset>
-						<div class="btn02">
-							<button class="close" th:text="#{M0029}"></button>
-							<div>
-								<a href="javascript:;" id="userUpdate" th:text="#{M0032}"></a>
-							</div>
-						</div>
-						<a href="javascript:;" class="close" th:text="#{M0023}"></a>
-					</div>`;
-
-		func.appendHtml(document.getElementById('setInfo'), html, 'div');
-
-		var close = document.getElementById('myInfo').querySelectorAll('.close');
-
-		for(var i=0; i<=close.length-1; i++){
-			close[i].addEventListener('click', (e) => {
-				document.getElementById('setInfo').removeChild(document.getElementById('myInfo'));
-		}, false);
-		};
-
-		document.getElementById('userUpdate').addEventListener('click', (e) => {
-			var updata = {
-				"userId": data.userId,
-				"password": document.getElementById('myInfo').querySelector('.ps').value,
-				"passwordConfirm" : document.getElementById('myInfo').querySelector('.psc').value,
-				"email": document.getElementById('myInfo').querySelector('.mail').value
-			}
-			func.saveData('PUT', `${func.url}clusters/${sessionStorage.getItem('cluster')}/namespaces/all/users/${sessionStorage.getItem('user')}`, JSON.stringify(updata), true, 'application/json', func.refresh);
-	}, false);
 	},
 
 	namespaces(data){
@@ -227,7 +153,7 @@ const func = {
 					</dd>
 				</dl>
 				<a class="confirm" href="javascript:;">${name}</a>
-				<a class="close" href="javascript:;" th:text="#{M0023}"></a>
+				<a class="close" href="javascript:;">`+ MSG_CLOSE + `</a>
 			</div>
 		</div>`;
 
@@ -279,8 +205,8 @@ const func = {
 						<textarea>${data.sourceTypeYaml}</textarea>
 					</dd>
 				</dl>
-				<a class="confirm" href="javascript:;" th:text="#{M0030}"></a>
-				<a class="close" href="javascript:;" th:text="#{M0023}"></a>
+				<a class="confirm" href="javascript:;">`+ MSG_SAVE +`</a>
+				<a class="close" href="javascript:;">`+ MSG_CLOSE + `</a>
 			</div>
 		</div>`;
 
@@ -522,7 +448,7 @@ const func = {
 		if(bull){
 			html += `<a class='confirm' href='javascript:;'>${name}</a>`;
 		};
-		html += `<a class='close' href='javascript:;' th:text="#{M0023}"></a></div></div>`;
+		html += `<a class='close' href='javascript:;'>` + MSG_CLOSE + `</a></div></div>`;
 
 		func.appendHtml(document.getElementById('wrap'), html, 'div');
 
