@@ -89,7 +89,7 @@ const func = {
 
 		// logout event
 		document.getElementById('logout').addEventListener('click', (e) => {
-			func.alertPopup(MSG_SIGN_OUT, MSG_WANT_TO_SIGN_OUT + '<br><p id="logout-sub">' + MSG_INTEGRATED_SIGN_OUT_TAKES_PLACE + '</p>', true, MSG_CONFIRM, func.logout);
+			func.alertPopup('Sign Out', MSG_WANT_TO_SIGN_OUT + '<br><p id="logout-sub">' + MSG_INTEGRATED_SIGN_OUT_TAKES_PLACE + '</p>', true, MSG_CONFIRM, func.logout);
 	}, false);
 
 	},
