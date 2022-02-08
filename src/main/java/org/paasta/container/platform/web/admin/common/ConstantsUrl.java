@@ -53,5 +53,6 @@ public class ConstantsUrl {
     public static final String URL_API_LOCALE_LANGUAGE = "/localeLanguage";
     public static final String URL_API_CHANGE_LOCALE_PARAM = "language";
     public static final String LANG_KO = "ko";
+    public static final String LANG_KO_START_WITH = "ko_";
     public static final String LANG_EN = "en";
 }

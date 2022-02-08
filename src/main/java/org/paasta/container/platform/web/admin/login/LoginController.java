@@ -115,14 +115,20 @@ public class LoginController {
     public String getLocaleLang() {
         try {
             Locale locale = LocaleContextHolder.getLocale();
-            if (locale.toString().equalsIgnoreCase(ConstantsUrl.LANG_EN)) {
-                return ConstantsUrl.LANG_EN;
+
+            if (locale.toString().equalsIgnoreCase(ConstantsUrl.LANG_KO)) {
+                return ConstantsUrl.LANG_KO;
             }
+
+            if (locale.toString().toLowerCase().startsWith(ConstantsUrl.LANG_KO_START_WITH)) {
+                return ConstantsUrl.LANG_KO;
+            }
+
         } catch (Exception e) {
             return ConstantsUrl.LANG_EN;
         }
 
-        return ConstantsUrl.LANG_KO;
+        return ConstantsUrl.LANG_EN;
     }
 
 }
