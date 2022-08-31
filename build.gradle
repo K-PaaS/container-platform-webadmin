@@ -50,6 +50,7 @@ ext {
 	thymeleafVersion = '2.4.1'
 }
 
+ext['tomcat.version'] = '9.0.63'
 
 war {
 	archivesBaseName = 'paas-ta-container-platform-webadmin'
