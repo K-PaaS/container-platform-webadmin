@@ -1,6 +1,6 @@
 spring:
   application:
-    name: paas-ta-container-platform-webuser
+    name: container-platform-webuser
 
 management:
   security:

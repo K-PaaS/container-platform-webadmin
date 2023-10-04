@@ -1,1 +1,3 @@
-rootProject.name = 'paas-ta-container-platform-webadmin'
+rootProject.name = 'container-platform-webadmin'
+include 'container-platform-webadmin'
+
